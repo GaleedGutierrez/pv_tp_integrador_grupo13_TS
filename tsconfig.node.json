@@ -1,0 +1,71 @@
+{
+	"compilerOptions": {
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+		"target": "ES2022",
+		"lib": ["ESNext"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"erasableSyntaxOnly": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedSideEffectImports": true,
+		"forceConsistentCasingInFileNames": true
+	},
+
+	/* Paths */
+	"baseUrl": ".",
+	"paths": {
+		"/*": ["./public/*"],
+		"@public/*": ["./public/*"],
+		"@app/*": ["./app/*"],
+		"@tests/*": ["./tests/*"],
+		"@e2e/*": ["./e2e/*"],
+		"@/*": ["./src/*"],
+		"@application/*": ["./src/application/*"],
+		"@assets/*": ["./src/assets/*"],
+		"@components/*": ["./src/components/*"],
+		"@context/*": ["./src/context/*"],
+		"@data/*": ["./src/data/*"],
+		"@domain/*": ["./src/domain/*"],
+		"@guard/*": ["./src/guard/*"],
+		"@hooks/*": ["./src/hooks/*"],
+		"@icons/*": ["./src/assets/icons/*"],
+		"@images/*": ["./src/assets/images/*"],
+		"@infrastructure/*": ["./src/infrastructure/*"],
+		"@models/*": ["./src/models/*"],
+		"@pages/*": ["./src/pages/*"],
+		"@private/*": ["./src/private/*"],
+		"@redux/*": ["./src/redux/*"],
+		"@routes/*": ["./src/routes/*"],
+		"@services/*": ["./src/services/*"],
+		"@state/*": ["./src/state/*"],
+		"@store/*": ["./src/store/*"],
+		"@styles/*": ["./src/styles/*"],
+		"@templates/*": ["./src/templates/*"],
+		"@utils/*": ["./src/utils/*"],
+		"@views/*": ["./src/views/*"]
+	},
+	"include": ["vite.config.ts"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"dist-dev",
+		"build",
+		"coverage",
+		"playwright-reports",
+		"test-results",
+		"lighthouse-report"
+	]
+}
