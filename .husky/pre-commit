@@ -1,4 +1,2 @@
 npx lint-staged
-npm run lint-md
-npm run prettier
 npm run check-for-dupes
