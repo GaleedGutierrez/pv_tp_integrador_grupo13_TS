@@ -1,5 +1,5 @@
 // import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
+import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import vitest from '@vitest/eslint-plugin';
 import checkFile from 'eslint-plugin-check-file';
@@ -42,7 +42,7 @@ export default tseslint.config(
 	eslintPluginUnicorn.configs.recommended,
 	importX.flatConfigs.recommended,
 	importX.flatConfigs.typescript,
-
+	eslint.configs.recommended,
 	pluginSecurity.configs.recommended,
 	jsxA11y.flatConfigs.recommended,
 	eslintPluginPrettierRecommended,
@@ -50,7 +50,6 @@ export default tseslint.config(
 	...eslintPluginJsonc.configs['flat/prettier'],
 	// ...fixupConfigRules(compat.extends('plugin:editorconfig/noconflict')),
 	{
-		extends: [js.configs.recommended],
 		plugins: {
 			'simple-import-sort': simpleImportSort,
 			'unused-imports': unusedImports,
@@ -331,7 +330,7 @@ export default tseslint.config(
 				'error',
 				{
 					'./src/*/': 'KEBAB_CASE',
-					'./src/components/*/': 'PASCAL_CASE',
+					// './src/components/*/': 'PASCAL_CASE',
 					'./src/components/*/components/**': 'PASCAL_CASE',
 					'./cypress/**/': 'KEBAB_CASE',
 					'./puppeteer/**/': 'KEBAB_CASE',
@@ -349,7 +348,7 @@ export default tseslint.config(
 				{
 					ignore: [
 						String.raw`^/.*\.(svg|png|jpg|jpeg|gif|ico|webp)$`, // Public folder assets
-						// String.raw`\?react$`, // SVGR react imports
+						String.raw`\?react$`, // SVGR react imports
 						String.raw`\?url$`, // Vite URL imports
 					],
 				},
@@ -392,6 +391,14 @@ export default tseslint.config(
 		rules: {
 			'unused-imports/no-unused-vars': 'off',
 			'tsdoc/syntax': 'warn',
+			'@typescript-eslint/no-misused-promises': [
+				'error',
+				{
+					checksVoidReturn: {
+						attributes: false,
+					},
+				},
+			],
 			'@typescript-eslint/consistent-type-exports': 'error',
 			'@typescript-eslint/consistent-type-imports': 'error',
 			'@typescript-eslint/no-confusing-non-null-assertion': 'error',
@@ -614,14 +621,6 @@ export default tseslint.config(
 
 		rules: {
 			...reactHooks.configs.recommended.rules,
-			'@typescript-eslint/no-misused-promises': [
-				'error',
-				{
-					checksVoidReturn: {
-						attributes: false,
-					},
-				},
-			],
 			'@typescript-eslint/member-ordering': 'off',
 			'sort-class-members/sort-class-members': 'off',
 			'react/boolean-prop-naming': [
