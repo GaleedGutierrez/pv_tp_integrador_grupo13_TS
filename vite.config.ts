@@ -19,8 +19,10 @@ export default defineConfig(() => ({
 				ref: true,
 				svgo: false,
 				titleProp: true,
+				plugins: ['@svgr/plugin-jsx'],
 			},
-			include: '**/*.svg',
+			include: '**/*.svg?react',
+			exclude: '**/*.svg',
 		}),
 	],
 	server: {
