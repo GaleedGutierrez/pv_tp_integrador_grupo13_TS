@@ -22,10 +22,19 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^2.8.2",
+		"@tailwindcss/vite": "^4.1.10",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-react": "^0.515.0",
+		"motion": "^12.18.1",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-hook-form": "^7.57.0",
+		"react-redux": "^9.2.0",
 		"react-router": "^7.6.2",
+		"tailwind-merge": "^3.3.1",
+		"tailwindcss": "^4.1.10",
 		"zod": "^3.25.64"
 	},
 	"devDependencies": {
@@ -70,6 +79,7 @@
 		"stylelint-config-standard": "^38.0.0",
 		"stylelint-order": "^7.0.0",
 		"stylelint-prettier": "^5.0.3",
+		"tw-animate-css": "^1.3.4",
 		"typescript": "~5.8.3",
 		"typescript-eslint": "^8.30.1",
 		"vite": "^6.3.5",
@@ -78,8 +88,21 @@
 		"vitest": "^3.2.3"
 	},
 	"lint-staged": {
-		"*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json}": "npm run lint:fix",
-		"*{css,s(a|c)ss}": "npm run stylelint:fix"
+		"*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json}": [
+			"npm run lint:fix",
+			"npm run prettier:fix"
+		],
+		"*{css,s(a|c)ss}": [
+			"npm run stylelint:fix",
+			"npm run prettier:fix"
+		],
+		"*.{md,mdx}": [
+			"npm run lint-md:fix",
+			"npm run prettier:fix"
+		],
+		"*.{json,jsonc}": [
+			"npm run prettier:fix"
+		]
 	},
 	"jscpd": {
 		"threshold": 3.5,

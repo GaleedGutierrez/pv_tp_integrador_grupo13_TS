@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
-
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
@@ -11,6 +11,7 @@ export default defineConfig(() => ({
 	plugins: [
 		react(),
 		tsconfigPaths(),
+		tailwindcss(),
 		svgr({
 			// svgr options: https://react-svgr.com/docs/options/
 			svgrOptions: {
