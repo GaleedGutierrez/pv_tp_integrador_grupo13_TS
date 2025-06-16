@@ -1,9 +1,10 @@
 import type { IconAnimation } from '@models/domain/IconAnimation.model';
-import { AppRoutes } from '@models/routes/appRouters.model';
 import { MenuIcon } from '@ui/menu';
 import type { JSX } from 'react';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router';
+
+import { AppRoutes } from '@/routes/appRouters';
 
 import { Navbar } from './Navbar';
 
@@ -43,7 +44,7 @@ export const Header = (): JSX.Element => {
 				</button>
 				<Link
 					className="font-heading text-2xl"
-					to={AppRoutes.home}
+					to={AppRoutes.home.index}
 				>
 					Shop.co
 				</Link>
