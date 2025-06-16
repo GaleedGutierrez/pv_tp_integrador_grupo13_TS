@@ -1,9 +1,9 @@
-import StarIcon from '@assets/icons/star.svg';
-import CalvinKleinLogo from '@assets/logos/calvin-klein.svg';
-import GucciLogo from '@assets/logos/gucci.svg';
-import PradaLogo from '@assets/logos/prada.svg';
-import VersaceLogo from '@assets/logos/versace.svg';
-import ZaraLogo from '@assets/logos/zara.svg';
+import StarIcon from '@assets/icons/star-black.svg?react';
+import CalvinKleinLogo from '@assets/logos/calvin-klein.svg?react';
+import GucciLogo from '@assets/logos/gucci.svg?react';
+import PradaLogo from '@assets/logos/prada.svg?react';
+import VersaceLogo from '@assets/logos/versace.svg?react';
+import ZaraLogo from '@assets/logos/zara.svg?react';
 import type { JSX } from 'react';
 
 import { Button } from './Button';
@@ -14,8 +14,8 @@ import { Button } from './Button';
  */
 export const Hero = (): JSX.Element => (
 	<section className="bg-gray-100">
-		<div className="pt-10 lg:flex lg:grid lg:grid-cols-[60%_40%]">
-			<div className="px-4">
+		<div className="pt-10 lg:flex lg:grid lg:grid-cols-[60%_40%] lg:pt-0">
+			<div className="px-4 lg:place-content-center">
 				<h1 className="mb-5">
 					Encontrá ropa que se adapte a tu estilo
 				</h1>
