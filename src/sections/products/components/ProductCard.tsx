@@ -3,11 +3,11 @@ import { DeleteIcon } from '@components/ui/delete';
 import { SquareArrowUpIcon } from '@components/ui/square-arrow-up';
 import { SquarePenIcon } from '@components/ui/square-pen';
 import type { Product } from '@modules/products/domain/Product';
+import { appRoutes } from '@routes/appRouters';
 import type { JSX } from 'react';
 import { Link } from 'react-router';
 
-import { useProductActions } from '@/modules/products/infrastructure/useProductActions';
-import { appRoutes } from '@/routes/appRouters';
+import { useProductActions } from '../hooks/useProductActions';
 
 interface Properties {
 	/** The product object containing details to display. */
@@ -76,7 +76,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 				<p className="text-lg font-bold lg:text-xl">{price}</p>
 				<div className="flex items-center">
 					<Link
-						className="h-6 w-6"
+						className="flex h-6 w-6 items-center justify-center"
 						title="Ver producto"
 						to={appRoutes.products.details(id)}
 					>
@@ -90,7 +90,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 						title="Editar producto"
 					>
 						<SquarePenIcon
-							className="text-yellow-700"
+							className="flex items-center justify-center text-yellow-700"
 							size={22}
 						/>
 					</button>
@@ -100,7 +100,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 						onClick={() => deleteProduct(id)}
 					>
 						<DeleteIcon
-							className="text-red-700"
+							className="flex items-center justify-center text-red-700"
 							size={22}
 						/>
 					</button>
