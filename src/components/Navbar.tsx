@@ -1,4 +1,4 @@
-import { AppRoutes } from '@models/routes/appRouters.model';
+import { AppRoutes } from '@routes/appRouters';
 import type { JSX } from 'react';
 import { Link } from 'react-router';
 
@@ -20,7 +20,7 @@ export const Navbar = ({ isMenuOpen }: Properties): JSX.Element => (
 			<li>
 				<Link
 					className="rounded-lg p-2 text-2xl hover:bg-gray-100 active:bg-transparent active:underline lg:text-base"
-					to={AppRoutes.home}
+					to={AppRoutes.home.index}
 				>
 					Home
 				</Link>
@@ -28,7 +28,7 @@ export const Navbar = ({ isMenuOpen }: Properties): JSX.Element => (
 			<li>
 				<Link
 					className="rounded-lg p-2 text-2xl hover:bg-gray-100 active:bg-transparent active:underline lg:text-base"
-					to={AppRoutes.favorites}
+					to={AppRoutes.favorites.list}
 				>
 					Favoritos
 				</Link>
@@ -36,7 +36,7 @@ export const Navbar = ({ isMenuOpen }: Properties): JSX.Element => (
 			<li>
 				<Link
 					className="rounded-lg p-2 text-2xl hover:bg-gray-100 active:bg-transparent active:underline lg:text-base"
-					to={AppRoutes.products.addNewProduct}
+					to={AppRoutes.products.create}
 				>
 					+Añadir Producto
 				</Link>
