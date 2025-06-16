@@ -1,5 +1,4 @@
-import type { IconAnimation } from '@models/domain/IconAnimation.model';
-import { MenuIcon } from '@ui/menu';
+import { MenuIcon, type MenuIconHandle } from '@ui/menu';
 import type { JSX } from 'react';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router';
@@ -13,7 +12,7 @@ import { Navbar } from './Navbar';
  * @returns The rendered header component with the navigation bar.
  */
 export const Header = (): JSX.Element => {
-	const menuIconReference = useRef<IconAnimation | null>(null);
+	const menuIconReference = useRef<MenuIconHandle | null>(null);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	/**
