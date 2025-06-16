@@ -44,6 +44,7 @@
 			"@images/*": ["./src/assets/images/*"],
 			"@infrastructure/*": ["./src/infrastructure/*"],
 			"@models/*": ["./src/models/*"],
+			"@modules/*": ["./src/modules/*"],
 			"@pages/*": ["./src/pages/*"],
 			"@private/*": ["./src/private/*"],
 			"@ui/*": ["./src/components/ui/*"],
@@ -51,8 +52,10 @@
 			"@routes/*": ["./src/routes/*"],
 			"@services/*": ["./src/services/*"],
 			"@state/*": ["./src/state/*"],
+			"@shared": ["./src/shared/*"],
 			"@store/*": ["./src/store/*"],
 			"@styles/*": ["./src/styles/*"],
+			"@sections/*": ["./src/sections/*"],
 			"@templates/*": ["./src/templates/*"],
 			"@utils/*": ["./src/utils/*"],
 			"@views/*": ["./src/views/*"]
