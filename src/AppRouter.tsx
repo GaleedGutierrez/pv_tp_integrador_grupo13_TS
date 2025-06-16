@@ -1,8 +1,9 @@
-import { AppRoutes } from '@models/routes/appRouters.model';
 import { Home } from '@views/Home';
 import { RoutesWithNotFound } from '@views/NotFoundPage';
 import type { JSX } from 'react';
 import { BrowserRouter, Route } from 'react-router';
+
+import { AppRoutes } from '@/routes/appRouters';
 
 import { Layout } from './views/Layout';
 
@@ -17,11 +18,11 @@ function AppRouter(): JSX.Element {
 			<RoutesWithNotFound>
 				<Route
 					element={<Layout />}
-					path={AppRoutes.home}
+					path={AppRoutes.home.index}
 				>
 					<Route
 						element={<Home />}
-						path={AppRoutes.home}
+						path={AppRoutes.home.index}
 					/>
 					{/* <Route
 					element={<Favorites />}
