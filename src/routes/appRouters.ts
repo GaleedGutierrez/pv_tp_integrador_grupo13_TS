@@ -1,9 +1,12 @@
 import { FavoriteRoutes } from '@modules/favorites/infrastructure/FavoritesRoutes';
 import { HomeRoutes } from '@modules/home/infrastructure/HomeRoutes';
-import { ProductRoutes } from '@modules/products/infrastructure/ProductRoutes';
+import {
+	buildUrl as ProductRoutesBuildUrl,
+	ProductRoutes,
+} from '@modules/products/infrastructure/ProductRoutes';
 
 export const appRoutes = {
 	home: HomeRoutes,
-	products: ProductRoutes,
+	products: { routes: ProductRoutes, buildUrl: ProductRoutesBuildUrl },
 	favorites: FavoriteRoutes,
 } as const;
