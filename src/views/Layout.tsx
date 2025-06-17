@@ -8,11 +8,11 @@ import { Outlet } from 'react-router';
  * @returns The rendered layout component with a header and main content.
  */
 export const Layout = (): JSX.Element => (
-	<>
+	<div className="flex min-h-screen flex-col justify-between">
 		<Header />
 		<main>
 			<Outlet />
 		</main>
 		<Footer />
-	</>
+	</div>
 );
