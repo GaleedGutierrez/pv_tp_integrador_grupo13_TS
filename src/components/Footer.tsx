@@ -5,6 +5,7 @@ import MasterCardBadge from '@assets/icons/badge-mastercard.svg?react';
 import PayPalBadge from '@assets/icons/badge-paypal.svg?react';
 import VisaBadge from '@assets/icons/badge-visa.svg?react';
 import type { JSX } from 'react';
+import { Link } from 'react-router';
 
 import { FacebookIcon } from './ui/facebook';
 import { GithubIcon } from './ui/github';
@@ -26,10 +27,17 @@ export const Footer = (): JSX.Element => (
 					<TwitterIcon />
 					<FacebookIcon />
 					<InstagramIcon />
-					<GithubIcon />
+					<Link
+						rel="noopener noreferrer"
+						target="_blank"
+						title="Repositorio de GitHub"
+						to="https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13"
+					>
+						<GithubIcon />
+					</Link>
 				</div>
 			</div>
-			<div className="grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] justify-items-center gap-10">
+			<div className="grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-10 lg:justify-items-center">
 				<div>
 					<h3 className="font-primary text-lg font-bold">Compañía</h3>
 					<div className="flex flex-col gap-3">
