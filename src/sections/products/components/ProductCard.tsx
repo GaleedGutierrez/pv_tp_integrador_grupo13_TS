@@ -1,13 +1,15 @@
 import StarIcon from '@assets/icons/star-yellow.svg?react';
-import { DeleteIcon } from '@components/ui/delete';
 import { SquareArrowUpIcon } from '@components/ui/square-arrow-up';
-import { SquarePenIcon } from '@components/ui/square-pen';
 import type { Product } from '@modules/products/domain/Product';
 import { appRoutes } from '@routes/appRouters';
-import type { JSX } from 'react';
+import { type JSX, useState } from 'react';
 import { Link } from 'react-router';
 
-import { useProductActions } from '../hooks/useProductActions';
+import { HeartIcon } from '@/components/ui/heart';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { useFavoritesActions } from '@/sections/favorites/hooks/useFavoritesActions';
+
+// import { useProductActions } from '../hooks/useProductActions';
 
 interface Properties {
 	/** The product object containing details to display. */
@@ -54,10 +56,25 @@ const renderStars = (rating: number): JSX.Element[] => {
  * */
 export const ProductCard = ({ product }: Properties): JSX.Element => {
 	const { id, title, price, image, rating } = product;
-	const { deleteProduct } = useProductActions();
+	// const { deleteProduct } = useProductActions();
+	const { addToFavorite, deleteFavoriteById } = useFavoritesActions();
+	const FAVORITES_PRODUCTS = useAppSelector((state) => state.favorites);
+	const [isFavorite, setIsFavorite] = useState(
+		FAVORITES_PRODUCTS.some((product) => product.id === id),
+	);
+
+	const handleFavoriteToggle = (product: Product): void => {
+		if (isFavorite) {
+			setIsFavorite(false);
+			deleteFavoriteById(product.id);
+		} else {
+			setIsFavorite(true);
+			addToFavorite(product);
+		}
+	};
 
 	return (
-		<div>
+		<div className="relative">
 			<div className="rounded-sm rounded-xl bg-gray-100 p-7">
 				<img
 					alt={title}
@@ -85,7 +102,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 							size={22}
 						/>
 					</Link>
-					<button
+					{/* <button
 						className="h-6 w-6"
 						title="Editar producto"
 					>
@@ -93,8 +110,8 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 							className="flex items-center justify-center text-yellow-700"
 							size={22}
 						/>
-					</button>
-					<button
+					</button> */}
+					{/* <button
 						className="h-6 w-6"
 						title="Borrar producto"
 						onClick={() => deleteProduct(id)}
@@ -103,8 +120,23 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 							className="flex items-center justify-center text-red-700"
 							size={22}
 						/>
-					</button>
+					</button> */}
 				</div>
+				<button
+					className="absolute inset-y-2 end-2 h-6 w-6"
+					title={
+						isFavorite
+							? 'Quitar de favoritos'
+							: 'Agregar a favoritos'
+					}
+					onClick={() => handleFavoriteToggle(product)}
+				>
+					<HeartIcon
+						className="text-rose-400"
+						fill={isFavorite ? 'currentColor' : 'none'}
+						size={22}
+					/>
+				</button>
 			</div>
 		</div>
 	);
