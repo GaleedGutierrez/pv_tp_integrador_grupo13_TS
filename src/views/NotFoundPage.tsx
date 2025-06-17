@@ -1,3 +1,5 @@
+import { Footer } from '@components/Footer';
+import { Header } from '@components/Header';
 import type { JSX } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 
@@ -11,10 +13,14 @@ interface Properties {
  * @returns The rendered component with routes and a not found page.
  * */
 const NotFoundPage = (): JSX.Element => (
-	<main>
-		<h1 className="text-center">Ups! Página no encontrada</h1>
-		<h2 className="text-center">Error 404</h2>
-	</main>
+	<>
+		<Header />
+		<main>
+			<h1 className="text-center">Ups! Página no encontrada</h1>
+			<h2 className="text-center">Error 404</h2>
+		</main>
+		<Footer />
+	</>
 );
 
 /**
