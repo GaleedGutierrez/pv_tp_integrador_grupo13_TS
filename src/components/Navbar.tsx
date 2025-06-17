@@ -33,14 +33,14 @@ export const Navbar = ({ isMenuOpen }: Properties): JSX.Element => (
 					Favoritos
 				</Link>
 			</li>
-			<li>
+			{/* <li>
 				<Link
 					className="rounded-lg p-2 text-2xl hover:bg-gray-100 active:bg-transparent active:underline lg:text-base"
 					to={appRoutes.products.create}
 				>
 					+Añadir Producto
 				</Link>
-			</li>
+			</li> */}
 		</ul>
 	</nav>
 );
