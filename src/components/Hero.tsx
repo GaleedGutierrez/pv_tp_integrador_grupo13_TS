@@ -67,7 +67,7 @@ export const Hero = (): JSX.Element => (
 				<StarIcon className="absolute inset-x-3/4 inset-y-1/32 w-18 lg:inset-x-7/10 lg:w-26" />
 			</div>
 		</div>
-		<div className="flex flex-wrap items-center justify-center gap-8 bg-gray-950 px-4 py-10 md:gap-9">
+		<div className="flex flex-wrap items-center justify-center gap-8 bg-gray-950 px-4 py-10 md:justify-around">
 			<VersaceLogo className="max-w-29" />
 			<ZaraLogo className="max-w-16" />
 			<GucciLogo className="max-w-27" />
