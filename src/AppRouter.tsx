@@ -1,9 +1,9 @@
 import { appRoutes } from '@routes/appRouters';
-import { CreateProduct } from '@views/CreateProduct';
 import { Favorites } from '@views/Favorites';
 import { Home } from '@views/Home/index';
 import { Layout } from '@views/Layout';
 import { RoutesWithNotFound } from '@views/NotFoundPage';
+import { ProductsDetails } from '@views/ProductsDetails';
 import type { JSX } from 'react';
 import { BrowserRouter, Route } from 'react-router';
 
@@ -28,14 +28,14 @@ function AppRouter(): JSX.Element {
 						element={<Favorites />}
 						path={appRoutes.favorites.list}
 					/>
-					{/* <Route
-					element={<ProductsDetails />}
-					path={AppRoutes.products.productsDetails}
-				/> */}
 					<Route
+						element={<ProductsDetails />}
+						path={appRoutes.products.routes.details}
+					/>
+					{/* <Route
 						element={<CreateProduct />}
 						path={appRoutes.products.create}
-					/>
+					/> */}
 					{/* <Route
 					element={<UpdateProduct />}
 					path={AppRoutes.products.updateProduct}
