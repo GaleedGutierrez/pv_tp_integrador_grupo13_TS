@@ -3,32 +3,47 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client';
 
+import type { Variants } from 'motion/react';
 import { motion, useAnimation } from 'motion/react';
 import type { HTMLAttributes } from 'react';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-export interface HeartIconHandle {
+export interface FacebookIconHandle {
 	startAnimation: () => void;
 	stopAnimation: () => void;
 }
 
-interface HeartIconProperties extends HTMLAttributes<HTMLDivElement> {
+interface FacebookIconProperties extends HTMLAttributes<HTMLDivElement> {
 	size?: number;
-	fill?: string;
 }
 
-const HeartIcon = forwardRef<HeartIconHandle, HeartIconProperties>(
-	(
-		{
-			onMouseEnter,
-			onMouseLeave,
-			className,
-			size = 28,
-			fill,
-			...properties
+const facebookVariants: Variants = {
+	normal: {
+		opacity: 1,
+		pathLength: 1,
+		pathOffset: 0,
+		transition: {
+			duration: 0.4,
+			opacity: { duration: 0.1 },
 		},
+	},
+	animate: {
+		opacity: [0, 1],
+		pathLength: [0, 1],
+		pathOffset: [1, 0],
+		transition: {
+			duration: 0.6,
+			ease: 'linear',
+			opacity: { duration: 0.1 },
+		},
+	},
+};
+
+const FacebookIcon = forwardRef<FacebookIconHandle, FacebookIconProperties>(
+	(
+		{ onMouseEnter, onMouseLeave, className, size = 28, ...properties },
 		reference,
 	) => {
 		const controls = useAnimation();
@@ -72,33 +87,28 @@ const HeartIcon = forwardRef<HeartIconHandle, HeartIconProperties>(
 				onMouseLeave={handleMouseLeave}
 				{...properties}
 			>
-				<motion.svg
-					animate={controls}
-					fill={fill ?? 'none'}
+				<svg
+					fill="none"
 					height={size}
 					stroke="currentColor"
 					strokeLinecap="round"
 					strokeLinejoin="round"
 					strokeWidth="2"
-					viewBox="0 0 24 24"
 					width={size}
 					xmlns="http://www.w3.org/2000/svg"
-					transition={{
-						duration: 0.45,
-						repeat: 2,
-					}}
-					variants={{
-						normal: { scale: 1 },
-						animate: { scale: [1, 1.08, 1] },
-					}}
 				>
-					<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-				</motion.svg>
+					<motion.path
+						animate={controls}
+						d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+						initial="normal"
+						variants={facebookVariants}
+					/>
+				</svg>
 			</div>
 		);
 	},
 );
 
-HeartIcon.displayName = 'HeartIcon';
+FacebookIcon.displayName = 'FacebookIcon';
 
-export { HeartIcon };
+export { FacebookIcon };

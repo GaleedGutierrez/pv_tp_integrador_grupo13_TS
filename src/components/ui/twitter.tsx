@@ -3,32 +3,47 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client';
 
+import type { Variants } from 'motion/react';
 import { motion, useAnimation } from 'motion/react';
 import type { HTMLAttributes } from 'react';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-export interface HeartIconHandle {
+export interface TwitterIconHandle {
 	startAnimation: () => void;
 	stopAnimation: () => void;
 }
 
-interface HeartIconProperties extends HTMLAttributes<HTMLDivElement> {
+interface TwitterIconProperties extends HTMLAttributes<HTMLDivElement> {
 	size?: number;
-	fill?: string;
 }
 
-const HeartIcon = forwardRef<HeartIconHandle, HeartIconProperties>(
-	(
-		{
-			onMouseEnter,
-			onMouseLeave,
-			className,
-			size = 28,
-			fill,
-			...properties
+const pathVariants: Variants = {
+	normal: {
+		opacity: 1,
+		pathLength: 1,
+		pathOffset: 0,
+		transition: {
+			duration: 0.4,
+			opacity: { duration: 0.1 },
 		},
+	},
+	animate: {
+		opacity: [0, 1],
+		pathLength: [0, 1],
+		pathOffset: [1, 0],
+		transition: {
+			duration: 0.6,
+			ease: 'linear',
+			opacity: { duration: 0.1 },
+		},
+	},
+};
+
+const TwitterIcon = forwardRef<TwitterIconHandle, TwitterIconProperties>(
+	(
+		{ onMouseEnter, onMouseLeave, className, size = 28, ...properties },
 		reference,
 	) => {
 		const controls = useAnimation();
@@ -72,9 +87,8 @@ const HeartIcon = forwardRef<HeartIconHandle, HeartIconProperties>(
 				onMouseLeave={handleMouseLeave}
 				{...properties}
 			>
-				<motion.svg
-					animate={controls}
-					fill={fill ?? 'none'}
+				<svg
+					fill="none"
 					height={size}
 					stroke="currentColor"
 					strokeLinecap="round"
@@ -83,22 +97,19 @@ const HeartIcon = forwardRef<HeartIconHandle, HeartIconProperties>(
 					viewBox="0 0 24 24"
 					width={size}
 					xmlns="http://www.w3.org/2000/svg"
-					transition={{
-						duration: 0.45,
-						repeat: 2,
-					}}
-					variants={{
-						normal: { scale: 1 },
-						animate: { scale: [1, 1.08, 1] },
-					}}
 				>
-					<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-				</motion.svg>
+					<motion.path
+						animate={controls}
+						d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+						initial="normal"
+						variants={pathVariants}
+					/>
+				</svg>
 			</div>
 		);
 	},
 );
 
-HeartIcon.displayName = 'HeartIcon';
+TwitterIcon.displayName = 'TwitterIcon';
 
-export { HeartIcon };
+export { TwitterIcon };
