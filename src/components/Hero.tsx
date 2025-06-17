@@ -55,12 +55,12 @@ export const Hero = (): JSX.Element => (
 				<picture>
 					<source
 						media="(min-width: 768px)"
-						srcSet="/images/hero-large.jpg"
+						srcSet="/images/hero-large.webp"
 					/>
 					<img
 						alt="Una pareja con ropa cool"
 						className="h-(--vw-114) w-full object-cover object-top lg:h-(--vw-46)"
-						src="/images/hero-small.jpg"
+						src="/images/hero-small.webp"
 					/>
 				</picture>
 				<StarIcon className="absolute inset-x-1/32 inset-y-1/3 w-11 lg:w-14" />
