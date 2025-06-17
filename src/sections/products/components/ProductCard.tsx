@@ -1,13 +1,12 @@
 import StarIcon from '@assets/icons/star-yellow.svg?react';
+import { HeartIcon } from '@components/ui/heart';
 import { SquareArrowUpIcon } from '@components/ui/square-arrow-up';
+import { useAppSelector } from '@hooks/useAppSelector';
 import type { Product } from '@modules/products/domain/Product';
 import { appRoutes } from '@routes/appRouters';
+import { useFavoritesActions } from '@sections/favorites/hooks/useFavoritesActions';
 import { type JSX, useState } from 'react';
 import { Link } from 'react-router';
-
-import { HeartIcon } from '@/components/ui/heart';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { useFavoritesActions } from '@/sections/favorites/hooks/useFavoritesActions';
 
 // import { useProductActions } from '../hooks/useProductActions';
 
@@ -95,7 +94,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 					<Link
 						className="flex h-6 w-6 items-center justify-center"
 						title="Ver producto"
-						to={appRoutes.products.details(id)}
+						to={appRoutes.products.buildUrl.details(id)}
 					>
 						<SquareArrowUpIcon
 							className="text-green-700"
