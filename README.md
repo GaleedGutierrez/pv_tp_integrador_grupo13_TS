@@ -17,6 +17,24 @@ electrónicos, joyería). La aplicación está diseñada con principios de
 **arquitectura hexagonal**, **screaming architecture** y **vertical slicing**
 para garantizar escalabilidad, mantenibilidad y separación de responsabilidades.
 
+## 📷 Screenshots
+
+### 💻 Desktop
+
+<!-- markdownlint-disable MD013 -->
+
+[![Screenshot deskotp](./public/README/desktop.webp "Screenshot deskotp")](./public/README/desktop.webp "Screenshot deskotp")
+
+<!-- markdownlint-enable MD013 -->
+
+### 📱 Mobile
+
+<!-- markdownlint-disable MD013 -->
+
+[![Screenshot deskotp](./public/README/mobile.webp "Screenshot deskotp")](./public/README/mobile.webp "Screenshot deskotp")
+
+<!-- markdownlint-enable MD013 -->
+
 ### 🔭 Objetivos del Proyecto
 
 - **Académico**: Demostrar dominio de React y Redux
@@ -233,8 +251,9 @@ pv_tp_integrador_grupo13/
   descripción.
 - **Sistema de Favoritos**: Gestión de productos favoritos con persistencia.
 - **Responsive Design**: Experiencia optimizada en todos los dispositivos.
-  <!-- - **Búsqueda y Filtrado**: Búsqueda por categoría y filtros dinámicos. -->
-  <!-- - **Carrito de Compras**: Gestión básica de productos seleccionados. -->
+
+<!-- - **Búsqueda y Filtrado**: Búsqueda por categoría y filtros dinámicos. -->
+<!-- - **Carrito de Compras**: Gestión básica de productos seleccionados. -->
 
 ### 🏗️ Características Técnicas
 
