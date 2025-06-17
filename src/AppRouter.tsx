@@ -1,11 +1,11 @@
-import { Home } from '@views/Home';
+import { appRoutes } from '@routes/appRouters';
+import { CreateProduct } from '@views/CreateProduct';
+import { Favorites } from '@views/Favorites';
+import { Home } from '@views/Home/index';
+import { Layout } from '@views/Layout';
 import { RoutesWithNotFound } from '@views/NotFoundPage';
 import type { JSX } from 'react';
 import { BrowserRouter, Route } from 'react-router';
-
-import { appRoutes } from '@/routes/appRouters';
-
-import { Layout } from './views/Layout';
 
 /**
  * Main application router.
@@ -24,18 +24,18 @@ function AppRouter(): JSX.Element {
 						element={<Home />}
 						path={appRoutes.home.index}
 					/>
-					{/* <Route
-					element={<Favorites />}
-					path={AppRoutes.favorites}
-				/> */}
+					<Route
+						element={<Favorites />}
+						path={appRoutes.favorites.list}
+					/>
 					{/* <Route
 					element={<ProductsDetails />}
 					path={AppRoutes.products.productsDetails}
 				/> */}
-					{/* <Route
-						element={<AddNewProduct />}
-						path={AppRoutes.products.addNewProduct}
-					/> */}
+					<Route
+						element={<CreateProduct />}
+						path={appRoutes.products.create}
+					/>
 					{/* <Route
 					element={<UpdateProduct />}
 					path={AppRoutes.products.updateProduct}
