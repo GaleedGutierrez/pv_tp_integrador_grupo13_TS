@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-non-literal-fs-filename */
 /* eslint-disable unicorn/no-process-exit */
 /* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable no-console */
