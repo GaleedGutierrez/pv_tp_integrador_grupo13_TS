@@ -29,7 +29,7 @@ export const Header = (): JSX.Element => {
 	};
 
 	return (
-		<header className="sticky inset-0 z-1 flex items-center justify-between gap-4 border-b border-gray-200 bg-white p-5 lg:justify-between lg:gap-10 lg:p-7">
+		<header className="sticky inset-0 z-1 flex items-center justify-between gap-4 border-b border-gray-200 bg-white p-5 lg:justify-between lg:gap-10">
 			<div className="flex items-center gap-4 lg:justify-between lg:gap-10">
 				<button
 					aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
