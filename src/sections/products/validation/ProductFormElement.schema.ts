@@ -39,12 +39,12 @@ export const RatingSchema = z.object({
 		.min(1, { message: 'El conteo es requerido' })
 		.refine(
 			(value) => {
-				const numberValue = Number(value);
+				const NUMBER_VALUE = Number(value);
 
 				return (
-					!Number.isNaN(numberValue) &&
-					numberValue >= 0 &&
-					Number.isInteger(numberValue)
+					!Number.isNaN(NUMBER_VALUE) &&
+					NUMBER_VALUE >= 0 &&
+					Number.isInteger(NUMBER_VALUE)
 				);
 			},
 			{
