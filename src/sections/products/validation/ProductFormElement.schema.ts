@@ -8,17 +8,50 @@ import {
 export const RatingSchema = z.object({
 	rate: z
 		.string()
-		.min(0, { message: 'La calificación debe ser mayor o igual a 0' })
-		.max(5, {
-			message: 'La calificación debe ser menor o igual a 5',
-		})
-		.length(1, {
-			message: 'La calificación debe ser un número de un dígito',
-		}),
+		.min(1, { message: 'La calificación es requerida' })
+		.refine(
+			(value) => {
+				const NUMBER_VALUE = Number(value);
+
+				return (
+					!Number.isNaN(NUMBER_VALUE) &&
+					NUMBER_VALUE >= 0 &&
+					NUMBER_VALUE <= 5
+				);
+			},
+			{
+				message: 'La calificación debe ser un número entre 0 y 5',
+			},
+		)
+		.refine(
+			(value) => {
+				const NUMBER_VALUE = Number(value);
+
+				return Number.isInteger(NUMBER_VALUE * 10); // Permite decimales hasta 1 lugar
+			},
+			{
+				message: 'La calificación puede tener máximo 1 decimal',
+			},
+		),
 
 	count: z
 		.string()
-		.min(0, { message: 'El conteo debe ser mayor o igual a 0' }),
+		.min(1, { message: 'El conteo es requerido' })
+		.refine(
+			(value) => {
+				const numberValue = Number(value);
+
+				return (
+					!Number.isNaN(numberValue) &&
+					numberValue >= 0 &&
+					Number.isInteger(numberValue)
+				);
+			},
+			{
+				message:
+					'El conteo debe ser un número entero mayor o igual a 0',
+			},
+		),
 });
 export type Rating = z.infer<typeof RatingSchema>;
 
@@ -29,7 +62,17 @@ export const ProductFormSchema = z.object({
 
 	price: z
 		.string()
-		.min(1, { message: 'El precio debe ser mayor a $1 (uno)' }),
+		.min(1, { message: 'El precio es requerido' })
+		.refine(
+			(value) => {
+				const numberValue = Number(value);
+
+				return !Number.isNaN(numberValue) && numberValue > 0;
+			},
+			{
+				message: 'El precio debe ser un número mayor a 0',
+			},
+		),
 
 	description: z.string().min(1, {
 		message: 'La descripción no puede estar vacía',
