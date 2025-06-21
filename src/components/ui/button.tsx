@@ -1,6 +1,5 @@
-/* eslint-disable react/boolean-prop-naming */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable unicorn/prevent-abbreviations */
+/* eslint-disable react/boolean-prop-naming */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -43,7 +42,7 @@ function Button({
 	variant,
 	size,
 	asChild = false,
-	...props
+	...properties
 }: React.ComponentProps<'button'> &
 	VariantProps<typeof buttonVariants> & {
 		asChild?: boolean;
@@ -54,7 +53,7 @@ function Button({
 		<Comp
 			className={cn(buttonVariants({ variant, size, className }))}
 			data-slot="button"
-			{...props}
+			{...properties}
 		/>
 	);
 }
