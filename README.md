@@ -377,7 +377,7 @@ lg: 1024px   /* Desktop */
 ### Requisitos Previos
 
 - **Node.js**: v22.13.1 o superior
-- **npm**: v11.3.0 o superior
+- **npm**: v11.4.2 o superior
 - **Git**: Para clonado del repositorio
 
 ### Instalación paso a paso
