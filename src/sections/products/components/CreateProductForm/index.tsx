@@ -3,18 +3,6 @@ import { InputForm } from '@components/InputForm';
 import { TextAreaForm } from '@components/TextAreaForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductCategory } from '@modules/products/domain/ProductCategory';
-import {
-	AlertDialogAction,
-	AlertDialogCancel,
-} from '@radix-ui/react-alert-dialog';
-import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from '@ui/alert-dialog';
 import { Button } from '@ui/button';
 import { PlusIcon } from '@ui/plus';
 import { XIcon } from '@ui/x';
@@ -25,81 +13,13 @@ import { useNavigate } from 'react-router';
 import {
 	type ProductFormData,
 	ProductFormSchema,
-} from '../validation/ProductFormElement.schema';
-
-interface ConfirmDialogProperties {
-	isDialogOpen: boolean;
-	onDialogOpenChange: () => void;
-	onDialogCancel: () => void;
-	onConfirm: () => void;
-	pendingData?: ProductFormData;
-}
-
-/**  */
-const ConfirmDialog = ({
-	isDialogOpen,
-	onDialogOpenChange: handleDialogOpenChange,
-	onDialogCancel: handleDialogCancel,
-	onConfirm: handleConfirm,
-	pendingData,
-}: ConfirmDialogProperties): JSX.Element => (
-	<AlertDialog
-		open={isDialogOpen}
-		onOpenChange={handleDialogOpenChange}
-	>
-		<AlertDialogContent>
-			<AlertDialogHeader>
-				<AlertDialogTitle>Creación de nuevo producto</AlertDialogTitle>
-				<AlertDialogDescription>
-					Revisa los datos antes de confirmar
-				</AlertDialogDescription>
-			</AlertDialogHeader>
-			{pendingData && (
-				<div className="mt-4 space-y-2 text-left">
-					<div className="rounded-sm rounded-xl bg-gray-100 p-7">
-						<img
-							alt={pendingData.title}
-							className="max-m-36 max-h-36 justify-self-center mix-blend-multiply"
-							src={pendingData.image}
-						/>
-					</div>
-					<p>
-						<strong>Título:</strong> {pendingData.title}
-					</p>
-					<p>
-						<strong>Precio:</strong> ${pendingData.price}
-					</p>
-					<p className="capitalize">
-						<strong>Categoría:</strong> {pendingData.category}
-					</p>
-					<p>
-						<strong>Descripción:</strong> {pendingData.description}
-					</p>
-					<p>
-						<strong>Calificación:</strong> {pendingData.rating.rate}
-						/5 ({pendingData.rating.count} reseñas)
-					</p>
-				</div>
-			)}
-			<AlertDialogFooter>
-				<AlertDialogCancel asChild>
-					<Button
-						variant="secondary"
-						onClick={handleDialogCancel}
-					>
-						Cancelar
-					</Button>
-				</AlertDialogCancel>
-				<AlertDialogAction asChild>
-					<Button onClick={handleConfirm}>Confirmar</Button>
-				</AlertDialogAction>
-			</AlertDialogFooter>
-		</AlertDialogContent>
-	</AlertDialog>
-);
+} from '../../validation/ProductFormElement.schema';
+import { CancelDialog } from './components/CancelDialog';
+import { ConfirmDialog } from './components/ConfirmDialog';
 
 export const CreateProductForm = (): JSX.Element => {
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+	const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
 	const [pendingData, setPendingData] = useState<ProductFormData>();
 
 	const {
@@ -125,9 +45,10 @@ export const CreateProductForm = (): JSX.Element => {
 
 	const navigate = useNavigate();
 
+	// Function to handle form submission
 	const handleFormSubmit = (data: ProductFormData): void => {
 		setPendingData(data);
-		setIsDialogOpen(true);
+		setIsConfirmDialogOpen(true);
 	};
 
 	const handleConfirm = (): void => {
@@ -135,25 +56,41 @@ export const CreateProductForm = (): JSX.Element => {
 			return;
 		}
 
-		setIsDialogOpen(false);
+		setIsConfirmDialogOpen(false);
 		setPendingData(undefined);
 		reset();
 	};
 
 	const handleDialogCancel = (): void => {
-		setIsDialogOpen(false);
+		setIsConfirmDialogOpen(false);
 		setPendingData(undefined);
 	};
 
-	const handleDialogOpenChange = (open: boolean): void => {
+	const handleDialogConfirmOpenChange = (open: boolean): void => {
 		if (!open) {
 			handleDialogCancel();
 		}
 	};
 
-	const handleCancel = async (): Promise<void> => {
+	// Function to handle cancel button click
+	const handleCancel = (): void => {
+		setIsCancelDialogOpen(true);
+	};
+
+	const handleCancelConfirm = async (): Promise<void> => {
+		setIsCancelDialogOpen(false);
 		reset();
 		await navigate('/');
+	};
+
+	const handleCancelDialogCancel = (): void => {
+		setIsCancelDialogOpen(false);
+	};
+
+	const handleCancelDialogOpenChange = (open: boolean): void => {
+		if (!open) {
+			setIsCancelDialogOpen(false);
+		}
 	};
 
 	return (
@@ -281,11 +218,17 @@ export const CreateProductForm = (): JSX.Element => {
 				</div>
 			</form>
 			<ConfirmDialog
-				isDialogOpen={isDialogOpen}
+				isDialogOpen={isConfirmDialogOpen}
 				pendingData={pendingData}
 				onConfirm={handleConfirm}
 				onDialogCancel={handleDialogCancel}
-				onDialogOpenChange={() => handleDialogOpenChange(isDialogOpen)}
+				onDialogOpenChange={handleDialogConfirmOpenChange}
+			/>
+			<CancelDialog
+				isDialogOpen={isCancelDialogOpen}
+				onConfirm={handleCancelConfirm}
+				onDialogCancel={handleCancelDialogCancel}
+				onDialogOpenChange={handleCancelDialogOpenChange}
 			/>
 		</section>
 	);
