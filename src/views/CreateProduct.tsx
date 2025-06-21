@@ -1,4 +1,4 @@
-import { CreateProductForm } from '@sections/products/components/CreateProductForm';
+import { ProductForm } from '@sections/products/components/ProductForm';
 import type { JSX } from 'react';
 
 /**
@@ -7,6 +7,6 @@ import type { JSX } from 'react';
  * */
 export const CreateProduct = (): JSX.Element => (
 	<section className="mb-8">
-		<CreateProductForm />
+		<ProductForm />
 	</section>
 );
