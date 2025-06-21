@@ -7,6 +7,8 @@ import { ProductsDetails } from '@views/ProductsDetails';
 import type { JSX } from 'react';
 import { BrowserRouter, Route } from 'react-router';
 
+import { CreateProduct } from './views/CreateProduct';
+
 /**
  * Main application router.
  * This component sets up the routing for the application using React Router.
@@ -32,10 +34,10 @@ function AppRouter(): JSX.Element {
 						element={<ProductsDetails />}
 						path={appRoutes.products.routes.details}
 					/>
-					{/* <Route
+					<Route
 						element={<CreateProduct />}
-						path={appRoutes.products.create}
-					/> */}
+						path={appRoutes.products.routes.create}
+					/>
 					{/* <Route
 					element={<UpdateProduct />}
 					path={AppRoutes.products.updateProduct}
