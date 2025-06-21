@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable react/boolean-prop-naming */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/boolean-prop-naming */
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';

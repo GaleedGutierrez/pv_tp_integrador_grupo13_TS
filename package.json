@@ -27,6 +27,8 @@
 		"@hookform/resolvers": "^5.1.1",
 		"@radix-ui/react-alert-dialog": "^1.1.14",
 		"@radix-ui/react-dialog": "^1.1.14",
+		"@radix-ui/react-label": "^2.1.7",
+		"@radix-ui/react-select": "^2.2.5",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@reduxjs/toolkit": "^2.8.2",
 		"@tailwindcss/vite": "^4.1.10",
@@ -36,13 +38,13 @@
 		"motion": "^12.18.1",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
-		"react-hook-form": "^7.57.0",
+		"react-hook-form": "^7.58.1",
 		"react-loading-skeleton": "^3.5.0",
 		"react-redux": "^9.2.0",
 		"react-router": "^7.6.2",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss": "^4.1.10",
-		"zod": "^3.25.64"
+		"zod": "^3.25.67"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.8.1",
@@ -100,19 +102,20 @@
 	},
 	"lint-staged": {
 		"*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json}": [
-			"npm run lint:fix",
-			"npm run prettier:fix"
+			"eslint --fix",
+			"prettier --write"
 		],
 		"*{css,s(a|c)ss}": [
-			"npm run stylelint:fix",
-			"npm run prettier:fix"
+			"stylelint --fix",
+			"prettier --write"
 		],
 		"*.{md,mdx}": [
-			"npm run lint-md:fix",
-			"npm run prettier:fix"
+			"markdownlint-cli2 --config \".markdownlint-cli2.jsonc\" --fix",
+			"textlint --fix",
+			"prettier --write"
 		],
 		"*.{json,jsonc}": [
-			"npm run prettier:fix"
+			"prettier --write"
 		]
 	},
 	"jscpd": {
