@@ -81,7 +81,7 @@ export const ProductFormSchema = z.object({
 	category: z
 		.string()
 		.min(1, {
-			message: 'La categoría no puede estar vacía',
+			message: 'Por favor, selecciona una categoría',
 		})
 		.refine(
 			(category) => {
