@@ -101,14 +101,8 @@
 		"vitest": "^3.2.3"
 	},
 	"lint-staged": {
-		"*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json,astro}": [
-			"eslint --fix",
-			"prettier --write"
-		],
-		"*{css,s(a|c)ss}": [
-			"stylelint --fix",
-			"prettier --write"
-		],
+		"*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json,astro}": "eslint --fix",
+		"*{css,s(a|c)ss}": "stylelint --fix",
 		"*.{md,mdx}": [
 			"markdownlint-cli2 --config \".markdownlint-cli2.jsonc\" --fix",
 			"textlint --fix",
