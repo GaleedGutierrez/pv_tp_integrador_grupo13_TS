@@ -1,8 +1,27 @@
-import { InputForm } from '@components/InputForm';
-import { TextAreaForm } from '@components/TextAreaForm';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ProductCategory } from '@modules/products/domain/ProductCategory';
 import { Button } from '@ui/button';
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@ui/form';
+import { Input } from '@ui/input';
 import { PlusIcon } from '@ui/plus';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '@ui/select';
+import { Textarea } from '@ui/textarea';
 import { XIcon } from '@ui/x';
 import { type JSX, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,35 +33,49 @@ import {
 } from '../../validation/ProductFormElement.schema';
 import { CancelDialog } from './components/CancelDialog';
 import { ConfirmDialog } from './components/ConfirmDialog';
-import { SelectForm } from './components/SelectForm';
 
-export const ProductForm = (): JSX.Element => {
+interface Properties {
+	modeForm: 'edit' | 'create';
+	initialData?: ProductFormData;
+	productId?: string;
+}
+
+const Categories = Object.values(ProductCategory).map((category) => ({
+	label: category,
+	value: category,
+}));
+
+export const ProductForm = ({
+	modeForm,
+	initialData,
+	// productId,
+}: Properties): JSX.Element => {
 	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 	const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
 	const [pendingData, setPendingData] = useState<ProductFormData>();
 
-	const {
-		control,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<ProductFormData>({
+	const form = useForm<ProductFormData>({
 		resolver: zodResolver(ProductFormSchema),
 		mode: 'onBlur',
 		defaultValues: {
-			title: '',
-			description: '',
-			price: '',
-			category: '',
-			image: '',
+			title: initialData?.title ?? '',
+			description: initialData?.description ?? '',
+			price: initialData?.price ?? '',
+			category: initialData?.category ?? '',
+			image: initialData?.image ?? '',
 			rating: {
-				rate: '',
-				count: '',
+				rate: initialData?.rating.rate ?? '',
+				count: initialData?.rating.count ?? '',
 			},
 		},
 	});
 
 	const navigate = useNavigate();
+	// Títulos dinámicos según el modo
+	const TITLE =
+		modeForm === 'create' ? 'Crea un nuevo producto' : 'Editar producto';
+	const SUBMIT_TEXT =
+		modeForm === 'create' ? 'Agregar producto' : 'Editar producto';
 
 	// Function to handle form submission
 	const handleFormSubmit = (data: ProductFormData): void => {
@@ -57,7 +90,7 @@ export const ProductForm = (): JSX.Element => {
 
 		setIsConfirmDialogOpen(false);
 		setPendingData(undefined);
-		reset();
+		form.reset();
 	};
 
 	const handleDialogCancel = (): void => {
@@ -78,7 +111,7 @@ export const ProductForm = (): JSX.Element => {
 
 	const handleCancelConfirm = async (): Promise<void> => {
 		setIsCancelDialogOpen(false);
-		reset();
+		form.reset();
 		await navigate('/');
 	};
 
@@ -94,120 +127,222 @@ export const ProductForm = (): JSX.Element => {
 
 	return (
 		<section className="mt-8 flex w-full flex-col items-center justify-center gap-5 px-4">
-			<h1>Crea un nuevo producto</h1>
-			<form
-				className="flex w-full max-w-2xl flex-col gap-6 rounded-xl border bg-card p-6 text-card-foreground shadow-sm"
-				onSubmit={handleSubmit(handleFormSubmit)}
-			>
-				<h2 className="font-primary text-2xl font-bold">
-					Ingresa los datos
-				</h2>
-				<div className="flex flex-col gap-4">
-					<InputForm
-						required
-						classNameError="text-red-500 text-sm"
-						classNameInput="font-normal h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-						classNameLabel="flex flex-col gap-2 leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-						control={control}
-						error={errors.title}
-						label="Título"
+			<h1>{TITLE}</h1>
+			<Form {...form}>
+				<form
+					className="grid w-full max-w-2xl gap-6 rounded-xl border bg-card p-6 text-card-foreground shadow-sm"
+					onSubmit={form.handleSubmit(handleFormSubmit)}
+				>
+					<FormField
+						control={form.control}
 						name="title"
-						placeholder="Remera para hombre"
-						type="text"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="text-base">
+									Título
+								</FormLabel>
+								<FormControl>
+									<Input
+										required
+										className="text-base md:text-base"
+										placeholder="Remera"
+										type="text"
+										{...field}
+									/>
+								</FormControl>
+								<FormDescription className="text-base">
+									Ingresa el título del producto
+								</FormDescription>
+								<FormMessage className="text-base" />
+							</FormItem>
+						)}
 					/>
-					<InputForm
-						required
-						classNameError="text-red-500 text-sm"
-						classNameInput="font-normal h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-						classNameLabel="flex flex-col gap-2 leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-						control={control}
-						error={errors.price}
-						label="Precio"
+					<FormField
+						control={form.control}
 						name="price"
-						placeholder="$99.99"
-						type="number"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="text-base">
+									Precio
+								</FormLabel>
+								<FormControl>
+									<Input
+										required
+										className="text-base md:text-base"
+										placeholder="99.99"
+										type="number"
+										{...field}
+									/>
+								</FormControl>
+								<FormDescription className="text-base">
+									Ingresa el precio del producto
+								</FormDescription>
+								<FormMessage className="text-base" />
+							</FormItem>
+						)}
 					/>
-					<TextAreaForm
-						required
-						classNameError="text-red-500 text-sm"
-						classNameLabel="flex flex-col gap-2 leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-						classNameTextarea="font-normal field-sizing-content w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-						control={control}
-						error={errors.description}
-						label="Descripción"
+					<FormField
+						control={form.control}
 						name="description"
-						placeholder="Remera de algodón 100% con estampado moderno. Disponible en varias tallas y colores."
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="text-base">
+									Descripción
+								</FormLabel>
+								<FormControl>
+									<Textarea
+										required
+										className="text-base md:text-base"
+										placeholder="Remera de algodón 100% con estampado exclusivo."
+										{...field}
+									/>
+								</FormControl>
+								<FormDescription className="text-base">
+									Agrega una descripción del producto
+								</FormDescription>
+								<FormMessage className="text-base" />
+							</FormItem>
+						)}
 					/>
-					<SelectForm
-						classNameError="text-red-500 text-sm"
-						classNameLabel="flex flex-col gap-2"
-						classNameSpan="font-medium"
-						control={control}
-						error={errors.category}
-						label="Categoría"
+					<FormField
+						control={form.control}
 						name="category"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="text-base">
+									Categoría
+								</FormLabel>
+								<FormControl>
+									<Select
+										value={field.value}
+										// eslint-disable-next-line react/jsx-handler-names
+										onValueChange={field.onChange}
+									>
+										<SelectTrigger className="w-full text-base">
+											<SelectValue placeholder="Selecciona la categoría" />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												<SelectLabel>
+													Categoría
+												</SelectLabel>
+												{Categories.map((category) => (
+													<SelectItem
+														key={category.value}
+														className="text-base"
+														value={category.value}
+													>
+														{category.label}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
+								</FormControl>
+								<FormDescription className="text-base">
+									Elije una categoría para el producto
+								</FormDescription>
+								<FormMessage className="text-base" />
+							</FormItem>
+						)}
 					/>
-					<InputForm
-						required
-						classNameError="text-red-500 text-sm"
-						classNameInput="font-normal h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-						classNameLabel="flex flex-col gap-2 leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-						control={control}
-						error={errors.image}
-						label="Imagen"
+					<FormField
+						control={form.control}
 						name="image"
-						placeholder="https://example.com/image.jpg"
-						type="url"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="text-base">
+									URL de la imagen
+								</FormLabel>
+								<FormControl>
+									<Input
+										required
+										className="text-base md:text-base"
+										placeholder="https://example.com/image.webp"
+										type="url"
+										{...field}
+									/>
+								</FormControl>
+								<FormDescription className="text-base">
+									Ingresa la URL de la imagen del producto
+								</FormDescription>
+								<FormMessage className="text-base" />
+							</FormItem>
+						)}
 					/>
-					<fieldset className="flex flex-col gap-4">
+					<fieldset className="flex gap-4">
 						<legend className="sr-only mb-1 block text-xl font-medium">
 							Calificación del producto
 						</legend>
-						<InputForm
-							required
-							classNameError="text-red-500 text-sm"
-							classNameInput="font-normal h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-							classNameLabel="flex flex-col gap-2 leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-							control={control}
-							error={errors.rating?.rate}
-							label="Calificación entre 0 y 5"
+						<FormField
+							control={form.control}
 							name="rating.rate"
-							placeholder="5"
-							type="number"
+							render={({ field }) => (
+								<FormItem className="w-full">
+									<FormLabel className="text-base">
+										Calificación
+									</FormLabel>
+									<FormControl>
+										<Input
+											required
+											className="text-base md:text-base"
+											placeholder="5"
+											type="number"
+											{...field}
+										/>
+									</FormControl>
+									<FormDescription className="text-base">
+										Calificación entre 0 y 5
+									</FormDescription>
+									<FormMessage className="text-base" />
+								</FormItem>
+							)}
 						/>
-						<InputForm
-							required
-							classNameError="text-red-500 text-sm"
-							classNameInput="font-normal h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-							classNameLabel="flex flex-col gap-2 leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-							control={control}
-							error={errors.rating?.count}
-							label="Conteo de calificaciones"
+						<FormField
+							control={form.control}
 							name="rating.count"
-							placeholder="100"
-							type="number"
+							render={({ field }) => (
+								<FormItem className="w-full">
+									<FormLabel className="text-base">
+										Cantidad de votos
+									</FormLabel>
+									<FormControl>
+										<Input
+											required
+											className="text-base md:text-base"
+											placeholder="100"
+											type="number"
+											{...field}
+										/>
+									</FormControl>
+									<FormDescription className="text-base">
+										Cantidad de votos recibidos
+									</FormDescription>
+									<FormMessage className="text-base" />
+								</FormItem>
+							)}
 						/>
 					</fieldset>
-				</div>
-				<div className="flex w-full flex-col items-center justify-end gap-3 md:flex-row">
-					<Button
-						className="w-full text-base md:w-fit"
-						type="button"
-						variant="destructive"
-						onClick={handleCancel}
-					>
-						<XIcon />
-						Cancelar
-					</Button>
-					<Button
-						className="w-full text-base md:w-fit"
-						type="submit"
-					>
-						<PlusIcon />
-						Agregar producto
-					</Button>
-				</div>
-			</form>
+					<div className="flex w-full flex-col items-center justify-end gap-3 md:flex-row">
+						<Button
+							className="w-full text-base md:w-fit"
+							type="button"
+							variant="destructive"
+							onClick={handleCancel}
+						>
+							<XIcon />
+							Cancelar
+						</Button>
+						<Button
+							className="text-base"
+							type="submit"
+						>
+							<PlusIcon />
+							{SUBMIT_TEXT}
+						</Button>
+					</div>
+				</form>
+			</Form>
 			<ConfirmDialog
 				isDialogOpen={isConfirmDialogOpen}
 				pendingData={pendingData}
