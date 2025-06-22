@@ -113,9 +113,9 @@
 		]
 	},
 	"jscpd": {
-		"threshold": 15,
+		"threshold": 3,
 		"reporters": [
-			"consoleFull"
+			"silent"
 		],
 		"ignore": [
 			"**/node_modules/**",
@@ -127,7 +127,9 @@
 			"**/playwright-reports/**",
 			"**/test-results/**",
 			"**/lighthouse-report/**",
-			"**/tsconfig.*.json"
+			"**/tsconfig.*.json",
+			"**/components/ui/**",
+			"**/*.svg"
 		],
 		"absolute": true
 	}
