@@ -5,6 +5,7 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import type { Product } from '@modules/products/domain/Product';
 import { appRoutes } from '@routes/appRouters';
 import { useFavoritesActions } from '@sections/favorites/hooks/useFavoritesActions';
+import { SquarePenIcon } from '@ui/square-pen';
 import { type JSX, useState } from 'react';
 import { Link } from 'react-router';
 
@@ -101,15 +102,16 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 							size={22}
 						/>
 					</Link>
-					{/* <button
+					<Link
 						className="h-6 w-6"
 						title="Editar producto"
+						to={appRoutes.products.buildUrl.update(id)}
 					>
 						<SquarePenIcon
 							className="flex items-center justify-center text-yellow-700"
 							size={22}
 						/>
-					</button> */}
+					</Link>
 					{/* <button
 						className="h-6 w-6"
 						title="Borrar producto"
