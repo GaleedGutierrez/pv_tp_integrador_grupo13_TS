@@ -8,6 +8,7 @@ import type { JSX } from 'react';
 import { BrowserRouter, Route } from 'react-router';
 
 import { CreateProduct } from './views/CreateProduct';
+import { UpdateProduct } from './views/UpdateProduct';
 
 /**
  * Main application router.
@@ -38,10 +39,10 @@ function AppRouter(): JSX.Element {
 						element={<CreateProduct />}
 						path={appRoutes.products.routes.create}
 					/>
-					{/* <Route
-					element={<UpdateProduct />}
-					path={AppRoutes.products.updateProduct}
-				/> */}
+					<Route
+						element={<UpdateProduct />}
+						path={appRoutes.products.routes.update}
+					/>
 				</Route>
 			</RoutesWithNotFound>
 		</BrowserRouter>

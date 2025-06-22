@@ -54,7 +54,7 @@ export const ProductsDetails = (): JSX.Element => {
 		PRODUCT_DETAILS;
 
 	return (
-		<div className="px-4 py-10 lg:grid lg:grid-cols-2 lg:gap-10">
+		<section className="px-4 py-10 lg:grid lg:grid-cols-2 lg:gap-10">
 			<div className="rounded-sm rounded-xl bg-gray-100 p-7">
 				<img
 					alt={title}
@@ -77,6 +77,6 @@ export const ProductsDetails = (): JSX.Element => {
 					<p>{description}</p>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };

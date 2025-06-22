@@ -2,7 +2,7 @@ export const ProductRoutes = {
 	list: '/productos',
 	details: '/productos/:id',
 	create: '/productos/nuevo',
-	edit: '/productos/:id/edit',
+	update: '/productos/:id/edit',
 } as const;
 export type TypeProductRoutes =
 	(typeof ProductRoutes)[keyof typeof ProductRoutes];
