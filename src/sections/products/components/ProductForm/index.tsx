@@ -2,6 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductCategory } from '@modules/products/domain/ProductCategory';
 import { Button } from '@ui/button';
 import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@ui/card';
+import {
 	Form,
 	FormControl,
 	FormDescription,
@@ -37,7 +45,6 @@ import { ConfirmDialog } from './components/ConfirmDialog';
 interface Properties {
 	modeForm: 'edit' | 'create';
 	initialData?: ProductFormData;
-	productId?: string;
 }
 
 const Categories = Object.values(ProductCategory).map((category) => ({
@@ -48,12 +55,10 @@ const Categories = Object.values(ProductCategory).map((category) => ({
 export const ProductForm = ({
 	modeForm,
 	initialData,
-	// productId,
 }: Properties): JSX.Element => {
 	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 	const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
 	const [pendingData, setPendingData] = useState<ProductFormData>();
-
 	const form = useForm<ProductFormData>({
 		resolver: zodResolver(ProductFormSchema),
 		mode: 'onBlur',
@@ -126,223 +131,249 @@ export const ProductForm = ({
 	};
 
 	return (
-		<section className="mt-8 flex w-full flex-col items-center justify-center gap-5 px-4">
-			<h1>{TITLE}</h1>
-			<Form {...form}>
-				<form
-					className="grid w-full max-w-2xl gap-6 rounded-xl border bg-card p-6 text-card-foreground shadow-sm"
-					onSubmit={form.handleSubmit(handleFormSubmit)}
-				>
-					<FormField
-						control={form.control}
-						name="title"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="text-base">
-									Título
-								</FormLabel>
-								<FormControl>
-									<Input
-										required
-										className="text-base md:text-base"
-										placeholder="Remera"
-										type="text"
-										{...field}
-									/>
-								</FormControl>
-								<FormDescription className="text-base">
-									Ingresa el título del producto
-								</FormDescription>
-								<FormMessage className="text-base" />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="price"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="text-base">
-									Precio
-								</FormLabel>
-								<FormControl>
-									<Input
-										required
-										className="text-base md:text-base"
-										placeholder="99.99"
-										type="number"
-										{...field}
-									/>
-								</FormControl>
-								<FormDescription className="text-base">
-									Ingresa el precio del producto
-								</FormDescription>
-								<FormMessage className="text-base" />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="description"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="text-base">
-									Descripción
-								</FormLabel>
-								<FormControl>
-									<Textarea
-										required
-										className="text-base md:text-base"
-										placeholder="Remera de algodón 100% con estampado exclusivo."
-										{...field}
-									/>
-								</FormControl>
-								<FormDescription className="text-base">
-									Agrega una descripción del producto
-								</FormDescription>
-								<FormMessage className="text-base" />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="category"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="text-base">
-									Categoría
-								</FormLabel>
-								<FormControl>
-									<Select
-										value={field.value}
-										// eslint-disable-next-line react/jsx-handler-names
-										onValueChange={field.onChange}
-									>
-										<SelectTrigger className="w-full text-base">
-											<SelectValue placeholder="Selecciona la categoría" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectGroup>
-												<SelectLabel>
-													Categoría
-												</SelectLabel>
-												{Categories.map((category) => (
-													<SelectItem
-														key={category.value}
-														className="text-base"
-														value={category.value}
-													>
-														{category.label}
-													</SelectItem>
-												))}
-											</SelectGroup>
-										</SelectContent>
-									</Select>
-								</FormControl>
-								<FormDescription className="text-base">
-									Elije una categoría para el producto
-								</FormDescription>
-								<FormMessage className="text-base" />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="image"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="text-base">
-									URL de la imagen
-								</FormLabel>
-								<FormControl>
-									<Input
-										required
-										className="text-base md:text-base"
-										placeholder="https://example.com/image.webp"
-										type="url"
-										{...field}
-									/>
-								</FormControl>
-								<FormDescription className="text-base">
-									Ingresa la URL de la imagen del producto
-								</FormDescription>
-								<FormMessage className="text-base" />
-							</FormItem>
-						)}
-					/>
-					<fieldset className="flex gap-4">
-						<legend className="sr-only mb-1 block text-xl font-medium">
-							Calificación del producto
-						</legend>
-						<FormField
-							control={form.control}
-							name="rating.rate"
-							render={({ field }) => (
-								<FormItem className="w-full">
-									<FormLabel className="text-base">
-										Calificación
-									</FormLabel>
-									<FormControl>
-										<Input
-											required
-											className="text-base md:text-base"
-											placeholder="5"
-											type="number"
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription className="text-base">
-										Calificación entre 0 y 5
-									</FormDescription>
-									<FormMessage className="text-base" />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="rating.count"
-							render={({ field }) => (
-								<FormItem className="w-full">
-									<FormLabel className="text-base">
-										Cantidad de votos
-									</FormLabel>
-									<FormControl>
-										<Input
-											required
-											className="text-base md:text-base"
-											placeholder="100"
-											type="number"
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription className="text-base">
-										Cantidad de votos recibidos
-									</FormDescription>
-									<FormMessage className="text-base" />
-								</FormItem>
-							)}
-						/>
-					</fieldset>
-					<div className="flex w-full flex-col items-center justify-end gap-3 md:flex-row">
-						<Button
-							className="w-full text-base md:w-fit"
-							type="button"
-							variant="destructive"
-							onClick={handleCancel}
+		<section className="flex w-full flex-col items-center justify-center gap-5 px-4">
+			<Card className="w-full max-w-3xl">
+				<CardHeader>
+					<CardTitle>
+						<h2 className="text-lg">{TITLE}</h2>
+					</CardTitle>
+					<CardDescription>
+						<p>
+							{modeForm === 'create'
+								? 'Completa el formulario para agregar un nuevo producto.'
+								: 'Edita los campos necesarios para actualizar el producto.'}
+						</p>
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<Form {...form}>
+						<form
+							className="grid gap-5"
+							id="product-form"
+							onSubmit={form.handleSubmit(handleFormSubmit)}
 						>
-							<XIcon />
-							Cancelar
-						</Button>
-						<Button
-							className="text-base"
-							type="submit"
-						>
-							<PlusIcon />
-							{SUBMIT_TEXT}
-						</Button>
-					</div>
-				</form>
-			</Form>
+							<FormField
+								control={form.control}
+								name="title"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="text-base">
+											Título
+										</FormLabel>
+										<FormControl>
+											<Input
+												required
+												className="text-base md:text-base"
+												placeholder="Remera"
+												type="text"
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription className="text-base">
+											Ingresa el título del producto
+										</FormDescription>
+										<FormMessage className="text-base" />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="price"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="text-base">
+											Precio
+										</FormLabel>
+										<FormControl>
+											<Input
+												required
+												className="text-base md:text-base"
+												placeholder="99.99"
+												type="number"
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription className="text-base">
+											Ingresa el precio del producto
+										</FormDescription>
+										<FormMessage className="text-base" />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="description"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="text-base">
+											Descripción
+										</FormLabel>
+										<FormControl>
+											<Textarea
+												required
+												className="text-base md:text-base"
+												placeholder="Remera de algodón 100% con estampado exclusivo."
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription className="text-base">
+											Agrega una descripción del producto
+										</FormDescription>
+										<FormMessage className="text-base" />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="category"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="text-base">
+											Categoría
+										</FormLabel>
+										<FormControl>
+											<Select
+												value={field.value}
+												// eslint-disable-next-line react/jsx-handler-names
+												onValueChange={field.onChange}
+											>
+												<SelectTrigger className="w-full text-base">
+													<SelectValue placeholder="Selecciona la categoría" />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectGroup>
+														<SelectLabel>
+															Categoría
+														</SelectLabel>
+														{Categories.map(
+															(category) => (
+																<SelectItem
+																	key={
+																		category.value
+																	}
+																	className="text-base"
+																	value={
+																		category.value
+																	}
+																>
+																	{
+																		category.label
+																	}
+																</SelectItem>
+															),
+														)}
+													</SelectGroup>
+												</SelectContent>
+											</Select>
+										</FormControl>
+										<FormDescription className="text-base">
+											Elije una categoría para el producto
+										</FormDescription>
+										<FormMessage className="text-base" />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="image"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="text-base">
+											URL de la imagen
+										</FormLabel>
+										<FormControl>
+											<Input
+												required
+												className="text-base md:text-base"
+												placeholder="https://example.com/image.webp"
+												type="url"
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription className="text-base">
+											Ingresa la URL de la imagen del
+											producto
+										</FormDescription>
+										<FormMessage className="text-base" />
+									</FormItem>
+								)}
+							/>
+							<fieldset className="flex gap-4">
+								<legend className="sr-only mb-1 block text-xl font-medium">
+									Calificación del producto
+								</legend>
+								<FormField
+									control={form.control}
+									name="rating.rate"
+									render={({ field }) => (
+										<FormItem className="w-full">
+											<FormLabel className="text-base">
+												Calificación
+											</FormLabel>
+											<FormControl>
+												<Input
+													required
+													className="text-base md:text-base"
+													placeholder="5"
+													type="number"
+													{...field}
+												/>
+											</FormControl>
+											<FormDescription className="text-base">
+												Calificación entre 0 y 5
+											</FormDescription>
+											<FormMessage className="text-base" />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="rating.count"
+									render={({ field }) => (
+										<FormItem className="w-full">
+											<FormLabel className="text-base">
+												Cantidad de votos
+											</FormLabel>
+											<FormControl>
+												<Input
+													required
+													className="text-base md:text-base"
+													placeholder="100"
+													type="number"
+													{...field}
+												/>
+											</FormControl>
+											<FormDescription className="text-base">
+												Cantidad de votos recibidos
+											</FormDescription>
+											<FormMessage className="text-base" />
+										</FormItem>
+									)}
+								/>
+							</fieldset>
+						</form>
+					</Form>
+				</CardContent>
+				<CardFooter className="flex w-full flex-col items-center justify-end gap-3 md:flex-row">
+					<Button
+						className="w-full text-base md:w-fit"
+						type="button"
+						variant="destructive"
+						onClick={handleCancel}
+					>
+						<XIcon />
+						Cancelar
+					</Button>
+					<Button
+						className="text-base"
+						form="product-form"
+						type="submit"
+					>
+						<PlusIcon />
+						{SUBMIT_TEXT}
+					</Button>
+				</CardFooter>
+			</Card>
 			<ConfirmDialog
 				isDialogOpen={isConfirmDialogOpen}
 				pendingData={pendingData}
