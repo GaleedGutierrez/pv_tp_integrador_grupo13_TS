@@ -6,7 +6,7 @@ import type { JSX } from 'react';
  * @returns The rendered CreateProduct component.
  * */
 export const CreateProduct = (): JSX.Element => (
-	<section className="mb-8">
+	<section className="my-8">
 		<CreateProductForm />
 	</section>
 );
