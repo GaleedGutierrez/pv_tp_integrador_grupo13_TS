@@ -1,9 +1,9 @@
+import { AllProductsGetter } from '@modules/products/application/AllProductsGetter';
+import { ProductCreator } from '@modules/products/application/ProductCreator';
+import { ProductUpdater } from '@modules/products/application/ProductUpdater';
+import { ApiProductsRepository } from '@modules/products/infrastructure/ApiProductsRepository';
 import type { JSX, ReactNode } from 'react';
 import { useMemo } from 'react';
-
-import { AllProductsGetter } from '@/modules/products/application/AllProductsGetter';
-import { ProductCreator } from '@/modules/products/application/ProductCreator';
-import { ApiProductsRepository } from '@/modules/products/infrastructure/ApiProductsRepository';
 
 import { GlobalContext } from './global.context';
 
@@ -21,9 +21,18 @@ const GlobalProvider = ({ children }: Properties): JSX.Element => {
 		() => new ProductCreator(productRepository),
 		[productRepository],
 	);
+	const updateProduct = useMemo(
+		() => new ProductUpdater(productRepository),
+		[productRepository],
+	);
 	const CONTEXT_VALUE = useMemo(
-		() => ({ productRepository, getAllProducts, addNewProduct }),
-		[productRepository, getAllProducts, addNewProduct],
+		() => ({
+			productRepository,
+			getAllProducts,
+			addNewProduct,
+			updateProduct,
+		}),
+		[productRepository, getAllProducts, addNewProduct, updateProduct],
 	);
 
 	return (
