@@ -32,7 +32,7 @@ export const CancelDialog = ({
 				<AlertDialogTitle>
 					¿Estás seguro que querés cancelar la creación del producto?
 				</AlertDialogTitle>
-				<AlertDialogDescription>
+				<AlertDialogDescription className="text-base">
 					Si cancelás, se perderán todos los datos ingresados hasta el
 					momento.
 				</AlertDialogDescription>
