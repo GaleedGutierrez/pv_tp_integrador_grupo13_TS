@@ -1,59 +1,8 @@
-import * as z from 'zod';
-
 import {
 	ProductCategory,
 	type TypeProductCategory,
-} from '@/modules/products/domain/ProductCategory';
-
-export const RatingSchema = z.object({
-	rate: z
-		.string()
-		.min(1, { message: 'La calificación es requerida' })
-		.refine(
-			(value) => {
-				const NUMBER_VALUE = Number(value);
-
-				return (
-					!Number.isNaN(NUMBER_VALUE) &&
-					NUMBER_VALUE >= 0 &&
-					NUMBER_VALUE <= 5
-				);
-			},
-			{
-				message: 'La calificación debe ser un número entre 0 y 5',
-			},
-		)
-		.refine(
-			(value) => {
-				const NUMBER_VALUE = Number(value);
-
-				return Number.isInteger(NUMBER_VALUE * 10); // Permite decimales hasta 1 lugar
-			},
-			{
-				message: 'La calificación puede tener máximo 1 decimal',
-			},
-		),
-
-	count: z
-		.string()
-		.min(1, { message: 'El conteo es requerido' })
-		.refine(
-			(value) => {
-				const NUMBER_VALUE = Number(value);
-
-				return (
-					!Number.isNaN(NUMBER_VALUE) &&
-					NUMBER_VALUE >= 0 &&
-					Number.isInteger(NUMBER_VALUE)
-				);
-			},
-			{
-				message:
-					'El conteo debe ser un número entero mayor o igual a 0',
-			},
-		),
-});
-export type Rating = z.infer<typeof RatingSchema>;
+} from '@modules/products/domain/ProductCategory';
+import * as z from 'zod';
 
 export const ProductFormSchema = z.object({
 	title: z.string().min(1, {
@@ -105,7 +54,5 @@ export const ProductFormSchema = z.object({
 			message: 'La URL de la imagen debe ser válida',
 		})
 		.trim(),
-
-	rating: RatingSchema,
 });
 export type ProductFormData = z.infer<typeof ProductFormSchema>;
