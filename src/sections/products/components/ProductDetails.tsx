@@ -1,7 +1,11 @@
 import StarIcon from '@assets/icons/star-yellow.svg?react';
 import { useAppSelector } from '@hooks/useAppSelector';
+import { Button } from '@ui/button';
+import { SquarePenIcon } from '@ui/square-pen';
 import type { JSX } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
+
+import { appRoutes } from '@/routes/appRouters';
 
 /**
  * Renders star rating with CSS-based half stars using Tailwind
@@ -54,11 +58,11 @@ export const ProductDetails = (): JSX.Element => {
 		PRODUCT_DETAILS;
 
 	return (
-		<div className="px-4 py-10 lg:grid lg:grid-cols-2 lg:gap-10">
-			<div className="rounded-sm rounded-xl bg-gray-100 p-7">
+		<div className="px-4 py-10 md:grid md:grid-cols-2 md:gap-10 lg:m-auto lg:max-w-5xl">
+			<div className="flex items-center justify-center rounded-sm rounded-xl bg-gray-100 p-7">
 				<img
 					alt={title}
-					className="lg:max-m-0 max-h-36 justify-self-center mix-blend-multiply lg:max-h-none"
+					className="md:max-m-0 max-h-36 justify-self-center mix-blend-multiply md:max-h-none"
 					src={image}
 				/>
 			</div>
@@ -77,6 +81,23 @@ export const ProductDetails = (): JSX.Element => {
 						Categoría: {category}
 					</p>
 					<p>{description}</p>
+				</div>
+				<div className="mt-6 border-t border-gray-300 pt-6">
+					<Button
+						asChild
+						className="w-full text-base"
+					>
+						<Link
+							title="Editar producto"
+							to={appRoutes.products.buildUrl.update(id)}
+						>
+							<SquarePenIcon
+								className="flex items-center justify-center text-white"
+								size={22}
+							/>
+							Editar
+						</Link>
+					</Button>
 				</div>
 			</div>
 		</div>
