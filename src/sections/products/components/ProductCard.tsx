@@ -85,10 +85,12 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 			<h1 className="line-clamp-1 font-primary text-lg font-bold lg:text-xl">
 				{title}
 			</h1>
-			<div className="flex items-center gap-1">
-				{renderStars(rating.rate)}
-				<p className="text-sm">{rating.rate}/5</p>
-			</div>
+			{rating && (
+				<div className="flex items-center gap-1">
+					{renderStars(rating.rate)}
+					<p className="text-sm">{rating.rate}/5</p>
+				</div>
+			)}
 			<div className="flex items-center justify-between gap-2">
 				<p className="text-lg font-bold lg:text-xl">{price}</p>
 				<div className="flex items-center">
