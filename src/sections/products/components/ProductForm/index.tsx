@@ -50,8 +50,9 @@ import { CancelDialog } from './components/CancelDialog';
 import { ConfirmDialog } from './components/ConfirmDialog';
 
 interface Properties {
-	modeForm: 'edit' | 'create';
+	modeForm: 'update' | 'create';
 	initialData?: ProductFormData;
+	productId?: number;
 }
 
 const Categories = Object.values(ProductCategory).map((category) => ({
@@ -62,9 +63,13 @@ const Categories = Object.values(ProductCategory).map((category) => ({
 export const ProductForm = ({
 	modeForm,
 	initialData,
+	productId,
 }: Properties): JSX.Element => {
-	const { addNewProduct } = useGlobalContext();
-	const { addNewProduct: addNewProductStore } = useProductActions();
+	const { addNewProduct, updateProduct } = useGlobalContext();
+	const {
+		addNewProduct: addNewProductStore,
+		updateProduct: updateProductStore,
+	} = useProductActions();
 	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 	const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
 	const [pendingData, setPendingData] = useState<ProductFormData>();
@@ -121,10 +126,29 @@ export const ProductForm = ({
 				});
 		}
 
-		// if (modeForm === 'edit') {
-		// 	// Logic to edit an existing product
-		// 	console.log('Editing product:', pendingData);
-		// }
+		if (modeForm === 'update' && productId) {
+			const PRODUCT: Omit<Product, 'rating'> = {
+				...pendingData,
+				id: productId,
+				category: pendingData.category as TypeProductCategory,
+			};
+
+			updateProduct
+				?.update(PRODUCT)
+				.then((resolve) => {
+					if (!resolve) {
+						throw new Error('No se pudo actualizar el producto');
+					}
+
+					const UPDATED_PRODUCT: Omit<Product, 'rating'> =
+						productToPlainObject(resolve);
+
+					updateProductStore(UPDATED_PRODUCT);
+				})
+				.catch((error) => {
+					console.error('Error al actualizar el producto:', error);
+				});
+		}
 
 		setIsConfirmDialogOpen(false);
 		setPendingData(undefined);
@@ -356,6 +380,7 @@ export const ProductForm = ({
 			</Card>
 			<ConfirmDialog
 				isDialogOpen={isConfirmDialogOpen}
+				mode={modeForm}
 				pendingData={pendingData}
 				onConfirm={handleConfirm}
 				onDialogCancel={handleDialogCancel}
