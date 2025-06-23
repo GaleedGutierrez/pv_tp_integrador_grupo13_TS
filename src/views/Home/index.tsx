@@ -9,7 +9,7 @@ import { CarouselProducts } from './components/CarouselProducts';
  * @returns The rendered component with routes and a not found page.
  * */
 export const Home = (): JSX.Element => {
-	const { products } = useAppSelector((state) => state.products);
+	const { items: products } = useAppSelector((state) => state.products);
 	const womenProducts = products.filter(
 		(product) => product.category === "women's clothing",
 	);
