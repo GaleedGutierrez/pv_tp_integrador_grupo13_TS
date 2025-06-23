@@ -1,15 +1,16 @@
 /* eslint-disable security/detect-object-injection */
 import { keysLocalStorage } from '@constants/keysLocalStorage';
+import { AllProductsGetter } from '@modules/products/application/AllProductsGetter';
+import { productToPlainObject } from '@modules/products/application/ProductToPlainObject';
 import type { Product } from '@modules/products/domain/Product';
+import { ApiProductsRepository } from '@modules/products/infrastructure/ApiProductsRepository';
 import {
 	createAsyncThunk,
 	createSlice,
+	current,
 	type PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from '@store/store';
-
-import { AllProductsGetter } from '@/modules/products/application/AllProductsGetter';
-import { ApiProductsRepository } from '@/modules/products/infrastructure/ApiProductsRepository';
 
 const productRepository = new ApiProductsRepository();
 const getAllProducts = new AllProductsGetter(productRepository);
@@ -19,51 +20,51 @@ const DEFAULT_STATE: Product[] = [];
 export const loadInitialProducts = createAsyncThunk(
 	'products/loadInitial',
 	async (): Promise<Product[]> => {
-		const PERSISTED_STATE = localStorage.getItem(
-			keysLocalStorage.redux.globalState,
-		);
-
-		if (PERSISTED_STATE) {
-			try {
-				const PARSED_STATE = JSON.parse(
-					PERSISTED_STATE,
-				) as Partial<RootState>;
-
-				if (
-					PARSED_STATE.products &&
-					Array.isArray(PARSED_STATE.products) &&
-					PARSED_STATE.products.length > 0
-				) {
-					return PARSED_STATE.products;
-				}
-			} catch (error) {
-				console.error('Error parsing persisted state:', error);
-			}
-		}
-
-		// If no valid persisted state, fetch from API
 		const PRODUCTS = await getAllProducts.get();
 
 		if (!PRODUCTS) {
 			throw new Error('Failed to load products from API');
 		}
 
-		// Map products to transform plain objects to Product type
-		// Redux don't support class instances in state
 		return PRODUCTS.map(
-			(product: Product): Product => ({
-				id: product.id,
-				title: product.title,
-				price: product.price,
-				description: product.description,
-				category: product.category,
-				image: product.image,
-				rating: {
-					rate: product.rating.rate,
-					count: product.rating.count,
-				},
-			}),
+			(product: Product): Product => productToPlainObject(product),
 		);
+	},
+	{
+		// ✅ Condition to check if products are already loaded
+		condition: (_argument, { getState }) => {
+			const STATE = getState() as RootState;
+
+			// If products are already loaded, skip the action
+			if (STATE.products.items.length > 0) {
+				return false;
+			}
+
+			// Check localStorage for persisted state
+			const PERSISTED_STATE = localStorage.getItem(
+				keysLocalStorage.redux.globalState,
+			);
+
+			if (PERSISTED_STATE) {
+				try {
+					const PARSED_STATE = JSON.parse(
+						PERSISTED_STATE,
+					) as Partial<RootState>;
+
+					if (
+						PARSED_STATE.products?.items &&
+						Array.isArray(PARSED_STATE.products.items) &&
+						PARSED_STATE.products.items.length > 0
+					) {
+						return false;
+					}
+				} catch (error) {
+					console.error('Error parsing localStorage:', error);
+				}
+			}
+
+			return true;
+		},
 	},
 );
 
@@ -78,8 +79,11 @@ const getInitialState = (): Product[] => {
 				PERSISTED_STATE,
 			) as Partial<RootState>;
 
-			if (PARSED_STATE.products && Array.isArray(PARSED_STATE.products)) {
-				return PARSED_STATE.products;
+			if (
+				PARSED_STATE.products?.items &&
+				Array.isArray(PARSED_STATE.products.items)
+			) {
+				return PARSED_STATE.products.items;
 			}
 		} catch (error) {
 			console.error('Error parsing persisted state:', error);
@@ -90,13 +94,13 @@ const getInitialState = (): Product[] => {
 };
 
 interface ProductsState {
-	products: Product[];
+	items: Product[];
 	loading: boolean;
 	error: string | undefined;
 }
 
 const initialState: ProductsState = {
-	products: getInitialState(),
+	items: getInitialState(),
 	loading: false,
 	error: undefined,
 };
@@ -105,21 +109,32 @@ const productsSlice = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-		addProduct: (state, action: PayloadAction<Product>) => {
-			state.products.push(action.payload);
+		addProduct: (state, action: PayloadAction<Omit<Product, 'rating'>>) => {
+			const CURRENT_PRODUCTS = current(state.items);
+			const LAST_PRODUCT = CURRENT_PRODUCTS.findLast(
+				(product) => product.id,
+			);
+			const NEW_PRODUCT_ID = LAST_PRODUCT ? LAST_PRODUCT.id + 1 : 1;
+			const { id: _ignored, ...payloadWithoutId } = action.payload;
+			const NEW_PRODUCT = {
+				id: NEW_PRODUCT_ID,
+				...payloadWithoutId,
+			};
+
+			state.items = [...state.items, NEW_PRODUCT];
 		},
 		deleteProductById: (state, action: PayloadAction<number>) => {
-			state.products = state.products.filter(
+			state.items = state.items.filter(
 				(product) => product.id !== action.payload,
 			);
 		},
 		updateProduct: (state, action: PayloadAction<Product>) => {
-			const index = state.products.findIndex(
+			const index = state.items.findIndex(
 				(product) => product.id === action.payload.id,
 			);
 
 			if (index !== -1) {
-				state.products[index] = action.payload;
+				state.items[index] = action.payload;
 			}
 		},
 	},
@@ -131,7 +146,7 @@ const productsSlice = createSlice({
 			})
 			.addCase(loadInitialProducts.fulfilled, (state, action) => {
 				state.loading = false;
-				state.products = action.payload;
+				state.items = action.payload;
 			})
 			.addCase(loadInitialProducts.rejected, (state, action) => {
 				state.loading = false;
