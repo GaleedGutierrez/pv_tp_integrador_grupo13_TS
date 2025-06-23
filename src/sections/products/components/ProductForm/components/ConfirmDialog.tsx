@@ -36,7 +36,7 @@ export const ConfirmDialog = ({
 		<AlertDialogContent>
 			<AlertDialogHeader>
 				<AlertDialogTitle>Creación de nuevo producto</AlertDialogTitle>
-				<AlertDialogDescription>
+				<AlertDialogDescription className="text-base">
 					Revisa los datos antes de confirmar
 				</AlertDialogDescription>
 			</AlertDialogHeader>
@@ -60,10 +60,6 @@ export const ConfirmDialog = ({
 					</p>
 					<p>
 						<strong>Descripción:</strong> {pendingData.description}
-					</p>
-					<p>
-						<strong>Calificación:</strong> {pendingData.rating.rate}
-						/5 ({pendingData.rating.count} reseñas)
 					</p>
 				</div>
 			)}
