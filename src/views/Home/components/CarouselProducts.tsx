@@ -11,12 +11,17 @@ interface Properties {
 	classNameContainer?: string;
 }
 
+/** @returns If there are not products return undefined */
 export const CarouselProducts = ({
 	product,
 	title,
 	classNameContainer,
-}: Properties): JSX.Element => {
+}: Properties): JSX.Element | undefined => {
 	const { loading: IS_LOADING } = useAppSelector((state) => state.products);
+
+	if (product.length === 0 && !IS_LOADING) {
+		return;
+	}
 
 	return (
 		<div className={classNameContainer}>
