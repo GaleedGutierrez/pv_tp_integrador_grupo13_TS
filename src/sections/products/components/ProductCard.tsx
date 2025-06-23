@@ -102,12 +102,12 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 						to={appRoutes.products.buildUrl.details(id)}
 					>
 						<SquareArrowUpIcon
-							className="text-green-700"
+							className="flex items-center justify-center text-green-700"
 							size={22}
 						/>
 					</Link>
 					<Link
-						className="h-6 w-6"
+						className="flex h-6 w-6 items-center justify-center"
 						title="Editar producto"
 						to={appRoutes.products.buildUrl.update(id)}
 					>
@@ -117,7 +117,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 						/>
 					</Link>
 					<button
-						className="h-6 w-6"
+						className="flex h-6 w-6 items-center justify-center"
 						title="Borrar producto"
 						onClick={() => {
 							deleteProduct(id);
