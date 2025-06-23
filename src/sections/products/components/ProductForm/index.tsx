@@ -1,5 +1,11 @@
+import { useGlobalContext } from '@context/global.context';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ProductCategory } from '@modules/products/domain/ProductCategory';
+import { productToPlainObject } from '@modules/products/application/ProductToPlainObject';
+import type { Product } from '@modules/products/domain/Product';
+import {
+	ProductCategory,
+	type TypeProductCategory,
+} from '@modules/products/domain/ProductCategory';
 import { Button } from '@ui/button';
 import {
 	Card,
@@ -35,6 +41,7 @@ import { type JSX, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
+import { useProductActions } from '../../hooks/useProductActions';
 import {
 	type ProductFormData,
 	ProductFormSchema,
@@ -56,6 +63,8 @@ export const ProductForm = ({
 	modeForm,
 	initialData,
 }: Properties): JSX.Element => {
+	const { addNewProduct } = useGlobalContext();
+	const { addNewProduct: addNewProductStore } = useProductActions();
 	const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 	const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
 	const [pendingData, setPendingData] = useState<ProductFormData>();
@@ -68,10 +77,6 @@ export const ProductForm = ({
 			price: initialData?.price ?? '',
 			category: initialData?.category ?? '',
 			image: initialData?.image ?? '',
-			rating: {
-				rate: initialData?.rating.rate ?? '',
-				count: initialData?.rating.count ?? '',
-			},
 		},
 	});
 
@@ -92,6 +97,34 @@ export const ProductForm = ({
 		if (!pendingData) {
 			return;
 		}
+
+		if (modeForm === 'create') {
+			const PRODUCT: Omit<Product, 'id' | 'rating'> = {
+				...pendingData,
+				category: pendingData.category as TypeProductCategory,
+			};
+
+			addNewProduct
+				?.create(PRODUCT)
+				.then((resolve) => {
+					if (!resolve) {
+						throw new Error('No se pudo crear el producto');
+					}
+
+					const NEW_PRODUCT: Omit<Product, 'rating'> =
+						productToPlainObject(resolve);
+
+					addNewProductStore(NEW_PRODUCT);
+				})
+				.catch((error) => {
+					console.error('Error al crear el producto:', error);
+				});
+		}
+
+		// if (modeForm === 'edit') {
+		// 	// Logic to edit an existing product
+		// 	console.log('Editing product:', pendingData);
+		// }
 
 		setIsConfirmDialogOpen(false);
 		setPendingData(undefined);
@@ -298,59 +331,6 @@ export const ProductForm = ({
 									</FormItem>
 								)}
 							/>
-							<fieldset className="flex gap-4">
-								<legend className="sr-only mb-1 block text-xl font-medium">
-									Calificación del producto
-								</legend>
-								<FormField
-									control={form.control}
-									name="rating.rate"
-									render={({ field }) => (
-										<FormItem className="w-full">
-											<FormLabel className="text-base">
-												Calificación
-											</FormLabel>
-											<FormControl>
-												<Input
-													required
-													className="text-base md:text-base"
-													placeholder="5"
-													type="number"
-													{...field}
-												/>
-											</FormControl>
-											<FormDescription className="text-base">
-												Calificación entre 0 y 5
-											</FormDescription>
-											<FormMessage className="text-base" />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="rating.count"
-									render={({ field }) => (
-										<FormItem className="w-full">
-											<FormLabel className="text-base">
-												Cantidad de votos
-											</FormLabel>
-											<FormControl>
-												<Input
-													required
-													className="text-base md:text-base"
-													placeholder="100"
-													type="number"
-													{...field}
-												/>
-											</FormControl>
-											<FormDescription className="text-base">
-												Cantidad de votos recibidos
-											</FormDescription>
-											<FormMessage className="text-base" />
-										</FormItem>
-									)}
-								/>
-							</fieldset>
 						</form>
 					</Form>
 				</CardContent>
