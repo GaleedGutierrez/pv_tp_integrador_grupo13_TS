@@ -63,11 +63,13 @@ export const ProductsDetails = (): JSX.Element => {
 				/>
 			</div>
 			<div>
-				<h1 className="mt-5">{title}</h1>
-				<div className="my-3 flex items-center gap-1">
-					{renderStars(rating.rate)}
-					<p>{rating.rate}/5</p>
-				</div>
+				<h1 className="mt-5 mb-3">{title}</h1>
+				{rating && (
+					<div className="mb-3 flex items-center gap-1">
+						{renderStars(rating.rate)}
+						<p>{rating.rate}/5</p>
+					</div>
+				)}
 				<p className="text-2xl font-bold lg:text-3xl">{price}</p>
 				<div className="mt-5">
 					<p className="text-sm font-thin">ID: {id}</p>
