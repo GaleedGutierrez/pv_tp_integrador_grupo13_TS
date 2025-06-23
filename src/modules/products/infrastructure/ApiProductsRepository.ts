@@ -10,27 +10,10 @@ import type { ProductRepository } from '../domain/ProductRepository';
 /**
  * ApiProduct - Represents a student in the system.
  */
-export interface ApiProduct {
-	/** Unique identifier for the product */
-	id: number;
-	/** Display name of the product */
-	title: string;
+export type ApiProduct = Omit<Product, 'price'> & {
 	/** Price as a string (e.g., "$19.99") */
 	price: number;
-	/** Detailed description of the product */
-	description: string;
-	/** Product category from predefined options */
-	category: (typeof ProductCategory)[keyof typeof ProductCategory];
-	/** URL or path to the product image */
-	image: string;
-	/** Optional rating information */
-	rating: {
-		/** Average rating score */
-		rate: number;
-		/** Number of ratings received */
-		count: number;
-	};
-}
+};
 
 /**
  * Implementation of ProductRepository using the Fake Store API
@@ -66,10 +49,12 @@ export class ApiProductsRepository implements ProductRepository {
 						description: product.description,
 						category: product.category,
 						image: product.image,
-						rating: {
-							rate: product.rating.rate,
-							count: product.rating.count,
-						},
+						rating: product.rating
+							? {
+									rate: product.rating.rate,
+									count: product.rating.count,
+								}
+							: undefined,
 					}),
 			);
 		} catch (error) {
@@ -102,10 +87,12 @@ export class ApiProductsRepository implements ProductRepository {
 				description: DATA.description,
 				category: DATA.category,
 				image: DATA.image,
-				rating: {
-					rate: DATA.rating.rate,
-					count: DATA.rating.count,
-				},
+				rating: DATA.rating
+					? {
+							rate: DATA.rating.rate,
+							count: DATA.rating.count,
+						}
+					: undefined,
 			});
 		} catch (error) {
 			if (error instanceof Error) {
@@ -124,11 +111,13 @@ export class ApiProductsRepository implements ProductRepository {
 	 * @throws TypeError If the request fails or the response is not valid
 	 * @returns A promise that resolves with the saved product or undefined if not found.
 	 */
-	public async save(product: Omit<Product, 'id'>): Promise<Product | void> {
+	public async save(
+		product: Omit<Product, 'id' | 'rating'>,
+	): Promise<Omit<Product, 'rating'> | void> {
 		const ENDPOINT = `${this.#URL_BASE}/products`;
 
 		try {
-			const DATA = await fetchData<ApiProduct>(ENDPOINT, {
+			const DATA = await fetchData<Omit<ApiProduct, 'rating'>>(ENDPOINT, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -147,10 +136,6 @@ export class ApiProductsRepository implements ProductRepository {
 				description: DATA.description,
 				category: DATA.category,
 				image: DATA.image,
-				rating: {
-					rate: DATA.rating.rate,
-					count: DATA.rating.count,
-				},
 			});
 		} catch (error) {
 			if (error instanceof Error) {
@@ -193,10 +178,12 @@ export class ApiProductsRepository implements ProductRepository {
 				description: DATA.description,
 				category: DATA.category,
 				image: DATA.image,
-				rating: {
-					rate: DATA.rating.rate,
-					count: DATA.rating.count,
-				},
+				rating: DATA.rating
+					? {
+							rate: DATA.rating.rate,
+							count: DATA.rating.count,
+						}
+					: undefined,
 			});
 		} catch (error) {
 			if (error instanceof Error) {
@@ -289,10 +276,12 @@ export class ApiProductsRepository implements ProductRepository {
 						description: product.description,
 						category: product.category,
 						image: product.image,
-						rating: {
-							rate: product.rating.rate,
-							count: product.rating.count,
-						},
+						rating: product.rating
+							? {
+									rate: product.rating.rate,
+									count: product.rating.count,
+								}
+							: undefined,
 					}),
 			);
 		} catch (error) {
