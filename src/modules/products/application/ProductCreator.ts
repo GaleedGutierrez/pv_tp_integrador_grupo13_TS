@@ -7,7 +7,9 @@ export class ProductCreator {
 		this.#repository = repository;
 	}
 
-	public async create(product: Omit<Product, 'id'>): Promise<void | Product> {
+	public async create(
+		product: Omit<Product, 'id' | 'rating'>,
+	): Promise<void | Omit<Product, 'rating'>> {
 		try {
 			const PRODUCTS = await this.#repository.save(product);
 
