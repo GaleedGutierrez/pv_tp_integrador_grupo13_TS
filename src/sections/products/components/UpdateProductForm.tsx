@@ -8,7 +8,7 @@ import { useParams } from 'react-router';
 import { ProductForm } from './ProductForm';
 
 export const UpdateProductForm = (): JSX.Element => {
-	const { id } = useParams();
+	const { id } = useParams<{ id: string }>();
 	const FOUND_PRODUCT = useAppSelector((state) =>
 		state.products.items.find((product) => product.id === Number(id)),
 	);
