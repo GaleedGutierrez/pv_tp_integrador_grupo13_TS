@@ -9,6 +9,7 @@ import { DeleteIcon } from '@ui/delete';
 import { SquarePenIcon } from '@ui/square-pen';
 import { type JSX, useState } from 'react';
 import { Link } from 'react-router';
+import { toast } from 'sonner';
 
 import { useProductActions } from '../hooks/useProductActions';
 
@@ -121,6 +122,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 						onClick={() => {
 							deleteProduct(id);
 							deleteFavoriteById(id);
+							toast.success('Producto eliminado correctamente');
 						}}
 					>
 						<DeleteIcon
@@ -136,7 +138,12 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 							? 'Quitar de favoritos'
 							: 'Agregar a favoritos'
 					}
-					onClick={() => handleFavoriteToggle(product)}
+					onClick={() => {
+						handleFavoriteToggle(product);
+						toast.success(
+							`Producto ${isFavorite ? 'quitado de favoritos' : 'agregado a favoritos'}`,
+						);
+					}}
 				>
 					<HeartIcon
 						className="text-rose-400"
