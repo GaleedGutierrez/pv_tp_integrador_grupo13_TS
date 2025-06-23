@@ -128,13 +128,16 @@ const productsSlice = createSlice({
 				(product) => product.id !== action.payload,
 			);
 		},
-		updateProduct: (state, action: PayloadAction<Product>) => {
-			const index = state.items.findIndex(
+		updateProduct: (
+			state,
+			action: PayloadAction<Omit<Product, 'rating'>>,
+		) => {
+			const INDEX_FOUND_PRODUCT = state.items.findIndex(
 				(product) => product.id === action.payload.id,
 			);
 
-			if (index !== -1) {
-				state.items[index] = action.payload;
+			if (INDEX_FOUND_PRODUCT !== -1) {
+				state.items[INDEX_FOUND_PRODUCT] = action.payload;
 			}
 		},
 	},
