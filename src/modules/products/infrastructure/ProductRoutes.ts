@@ -10,5 +10,5 @@ export type TypeProductRoutes =
 // Separate URL builders for navigation
 export const buildUrl = {
 	details: (id: number) => `/productos/${id}`,
-	update: (id: number) => `/productos/${id}/edit`,
+	update: (id: number) => `/productos/${id}/editar`,
 } as const;
