@@ -5,11 +5,12 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import type { Product } from '@modules/products/domain/Product';
 import { appRoutes } from '@routes/appRouters';
 import { useFavoritesActions } from '@sections/favorites/hooks/useFavoritesActions';
+import { DeleteIcon } from '@ui/delete';
 import { SquarePenIcon } from '@ui/square-pen';
 import { type JSX, useState } from 'react';
 import { Link } from 'react-router';
 
-// import { useProductActions } from '../hooks/useProductActions';
+import { useProductActions } from '../hooks/useProductActions';
 
 interface Properties {
 	/** The product object containing details to display. */
@@ -55,9 +56,9 @@ const renderStars = (rating: number): JSX.Element[] => {
  * @returns The rendered ProductCard component.
  * */
 export const ProductCard = ({ product }: Properties): JSX.Element => {
-	const { id, title, price, image, rating } = product;
-	// const { deleteProduct } = useProductActions();
+	const { deleteProduct } = useProductActions();
 	const { addToFavorite, deleteFavoriteById } = useFavoritesActions();
+	const { id, title, price, image, rating } = product;
 	const FAVORITES_PRODUCTS = useAppSelector((state) => state.favorites);
 	const [isFavorite, setIsFavorite] = useState(
 		FAVORITES_PRODUCTS.some((product) => product.id === id),
@@ -114,16 +115,19 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 							size={22}
 						/>
 					</Link>
-					{/* <button
+					<button
 						className="h-6 w-6"
 						title="Borrar producto"
-						onClick={() => deleteProduct(id)}
+						onClick={() => {
+							deleteProduct(id);
+							deleteFavoriteById(id);
+						}}
 					>
 						<DeleteIcon
 							className="flex items-center justify-center text-red-700"
 							size={22}
 						/>
-					</button> */}
+					</button>
 				</div>
 				<button
 					className="absolute inset-y-2 end-2 h-6 w-6"
