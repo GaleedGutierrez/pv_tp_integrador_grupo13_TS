@@ -6,6 +6,7 @@ import {
 	ProductCategory,
 	type TypeProductCategory,
 } from '@modules/products/domain/ProductCategory';
+import { appRoutes } from '@routes/appRouters';
 import { Button } from '@ui/button';
 import {
 	Card,
@@ -177,7 +178,7 @@ export const ProductForm = ({
 	const handleCancelConfirm = async (): Promise<void> => {
 		setIsCancelDialogOpen(false);
 		form.reset();
-		await navigate('/');
+		await navigate(appRoutes.home.index);
 	};
 
 	const handleCancelDialogCancel = (): void => {
