@@ -11,7 +11,9 @@ export interface ProductRepository {
 	/** Searches for a product by ID */
 	searchById: (id: number) => Promise<void | Product>;
 	/** Creates a new product */
-	save: (product: Omit<Product, 'id'>) => Promise<void | Product>;
+	save: (
+		product: Omit<Product, 'id' | 'rating'>,
+	) => Promise<void | Omit<Product, 'rating'>>;
 	/** Updates an existing product */
 	update: (product: Product) => Promise<void | Product>;
 	/** Deletes a product by ID */
