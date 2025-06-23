@@ -27,7 +27,7 @@ export class Product {
 	/** URL or path to the product image */
 	public image: string;
 	/** Represents the rating information for a product. */
-	public rating: Rating;
+	public rating?: Rating;
 
 	/**
 	 * Creates a new Product instance.
