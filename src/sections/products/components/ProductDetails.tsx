@@ -1,11 +1,17 @@
 import StarIcon from '@assets/icons/star-yellow.svg?react';
 import { useAppSelector } from '@hooks/useAppSelector';
+import type { Product } from '@modules/products/domain/Product';
+import { appRoutes } from '@routes/appRouters';
+import { useFavoritesActions } from '@sections/favorites/hooks/useFavoritesActions';
 import { Button } from '@ui/button';
+import { DeleteIcon } from '@ui/delete';
+import { HeartIcon } from '@ui/heart';
 import { SquarePenIcon } from '@ui/square-pen';
-import type { JSX } from 'react';
-import { Link, useParams } from 'react-router';
+import { type JSX, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router';
+import { toast } from 'sonner';
 
-import { appRoutes } from '@/routes/appRouters';
+import { useProductActions } from '../hooks/useProductActions';
 
 /**
  * Renders star rating with CSS-based half stars using Tailwind
@@ -43,10 +49,27 @@ const renderStars = (rating: number): JSX.Element[] => {
 
 export const ProductDetails = (): JSX.Element => {
 	const PARAMS = useParams<{ id: string }>();
+	const navigate = useNavigate();
+	const { deleteProduct } = useProductActions();
+	const { addToFavorite, deleteFavoriteById } = useFavoritesActions();
 	const { items: products } = useAppSelector((state) => state.products);
+	const FAVORITES_PRODUCTS = useAppSelector((state) => state.favorites);
+	const [isFavorite, setIsFavorite] = useState(
+		FAVORITES_PRODUCTS.some((product) => product.id === Number(PARAMS.id)),
+	);
 	const PRODUCT_DETAILS = products.find(
 		(product) => product.id === Number(PARAMS.id),
 	);
+
+	const handleFavoriteToggle = (product: Product): void => {
+		if (isFavorite) {
+			setIsFavorite(false);
+			deleteFavoriteById(product.id);
+		} else {
+			setIsFavorite(true);
+			addToFavorite(product);
+		}
+	};
 
 	if (!PRODUCT_DETAILS) {
 		return (
@@ -59,12 +82,32 @@ export const ProductDetails = (): JSX.Element => {
 
 	return (
 		<div className="px-4 py-10 md:grid md:grid-cols-2 md:gap-10 lg:m-auto lg:max-w-5xl">
-			<div className="flex items-center justify-center rounded-sm rounded-xl bg-gray-100 p-7">
+			<div className="relative flex items-center justify-center rounded-sm rounded-xl bg-gray-100 p-7">
 				<img
 					alt={title}
 					className="md:max-m-0 max-h-36 justify-self-center mix-blend-multiply md:max-h-none"
 					src={image}
 				/>
+				<button
+					className="absolute inset-y-2 end-2 h-6 w-6"
+					title={
+						isFavorite
+							? 'Quitar de favoritos'
+							: 'Agregar a favoritos'
+					}
+					onClick={() => {
+						handleFavoriteToggle(PRODUCT_DETAILS);
+						toast.success(
+							`Producto ${isFavorite ? 'quitado de favoritos' : 'agregado a favoritos'}`,
+						);
+					}}
+				>
+					<HeartIcon
+						className="text-rose-400"
+						fill={isFavorite ? 'currentColor' : 'none'}
+						size={22}
+					/>
+				</button>
 			</div>
 			<div>
 				<h1 className="mt-5 mb-3">{title}</h1>
@@ -82,10 +125,26 @@ export const ProductDetails = (): JSX.Element => {
 					</p>
 					<p>{description}</p>
 				</div>
-				<div className="mt-6 border-t border-gray-300 pt-6">
+				<div className="mt-6 grid gap-3 border-t border-gray-300 pt-6 md:grid-cols-2">
+					<Button
+						className="w-full text-base"
+						variant="destructive"
+						onClick={async () => {
+							deleteProduct(id);
+							deleteFavoriteById(id);
+							toast.success('Producto eliminado correctamente');
+							await navigate(appRoutes.home.index);
+						}}
+					>
+						<DeleteIcon
+							className="flex items-center justify-center text-white"
+							size={22}
+						/>
+						Eliminar
+					</Button>
 					<Button
 						asChild
-						className="w-full text-base"
+						className="col-span-1 w-full text-base"
 					>
 						<Link
 							title="Editar producto"
