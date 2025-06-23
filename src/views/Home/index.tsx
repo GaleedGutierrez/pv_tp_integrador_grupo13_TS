@@ -10,16 +10,16 @@ import { CarouselProducts } from './components/CarouselProducts';
  * */
 export const Home = (): JSX.Element => {
 	const { items: products } = useAppSelector((state) => state.products);
-	const womenProducts = products.filter(
+	const WOMEN_PRODUCTS = products.filter(
 		(product) => product.category === "women's clothing",
 	);
-	const menProducts = products.filter(
+	const MEN_PRODUCTS = products.filter(
 		(product) => product.category === "men's clothing",
 	);
-	const jewelryProducts = products.filter(
+	const JEWELRY_PRODUCTS = products.filter(
 		(product) => product.category === 'jewelery',
 	);
-	const electronicsProducts = products.filter(
+	const ELECTRONICS_PRODUCTS = products.filter(
 		(product) => product.category === 'electronics',
 	);
 
@@ -28,22 +28,22 @@ export const Home = (): JSX.Element => {
 			<Hero />
 			<section className="py-12 lg:py-18">
 				<CarouselProducts
-					product={womenProducts}
+					product={WOMEN_PRODUCTS}
 					title="Ropa de mujer"
 				/>
 				<CarouselProducts
 					classNameContainer="mt-12 lg:mt-18"
-					product={menProducts}
+					product={MEN_PRODUCTS}
 					title="Ropa de hombre"
 				/>
 				<CarouselProducts
 					classNameContainer="mt-12 lg:mt-18"
-					product={jewelryProducts}
+					product={JEWELRY_PRODUCTS}
 					title="Joyería"
 				/>
 				<CarouselProducts
 					classNameContainer="mt-12 lg:mt-18"
-					product={electronicsProducts}
+					product={ELECTRONICS_PRODUCTS}
 					title="Electrónica"
 				/>
 			</section>
