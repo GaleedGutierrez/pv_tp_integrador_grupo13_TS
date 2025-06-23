@@ -40,6 +40,7 @@ import { XIcon } from '@ui/x';
 import { type JSX, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 
 import { useProductActions } from '../../hooks/useProductActions';
 import {
@@ -120,6 +121,7 @@ export const ProductForm = ({
 						productToPlainObject(resolve);
 
 					addNewProductStore(NEW_PRODUCT);
+					toast.success('Producto creado correctamente');
 				})
 				.catch((error) => {
 					console.error('Error al crear el producto:', error);
@@ -144,6 +146,7 @@ export const ProductForm = ({
 						productToPlainObject(resolve);
 
 					updateProductStore(UPDATED_PRODUCT);
+					toast.success('Producto actualizado correctamente');
 				})
 				.catch((error) => {
 					console.error('Error al actualizar el producto:', error);
