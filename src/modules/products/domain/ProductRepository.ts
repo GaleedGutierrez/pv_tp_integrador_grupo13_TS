@@ -15,7 +15,9 @@ export interface ProductRepository {
 		product: Omit<Product, 'id' | 'rating'>,
 	) => Promise<void | Omit<Product, 'rating'>>;
 	/** Updates an existing product */
-	update: (product: Product) => Promise<void | Product>;
+	update: (
+		product: Omit<Product, 'rating'>,
+	) => Promise<void | Omit<Product, 'rating'>>;
 	/** Deletes a product by ID */
 	delete: (id: number) => Promise<void>;
 	/** Retrieves all product categories */

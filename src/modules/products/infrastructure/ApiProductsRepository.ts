@@ -154,7 +154,9 @@ export class ApiProductsRepository implements ProductRepository {
 	 * @throws TypeError If the request fails or the response is not valid
 	 * @returns A promise that resolves with the updated product or undefined if not found
 	 */
-	public async update(product: Product): Promise<Product | void> {
+	public async update(
+		product: Omit<Product, 'rating'>,
+	): Promise<Omit<Product, 'rating'> | void> {
 		const { id } = product;
 		const ENDPOINT = `${this.#URL_BASE}/products/${id}`;
 

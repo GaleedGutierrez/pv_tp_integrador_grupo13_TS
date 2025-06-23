@@ -1,13 +1,15 @@
 import type { Product } from '../domain/Product';
 import type { ProductRepository } from '../domain/ProductRepository';
 
-export class ProductGetter {
+export class ProductUpdater {
 	readonly #repository: ProductRepository;
 	public constructor(repository: ProductRepository) {
 		this.#repository = repository;
 	}
 
-	public async update(product: Product): Promise<void | Product> {
+	public async update(
+		product: Omit<Product, 'rating'>,
+	): Promise<void | Omit<Product, 'rating'>> {
 		try {
 			const PRODUCTS = await this.#repository.update(product);
 
