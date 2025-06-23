@@ -2,11 +2,16 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 
 import type { Product } from '@/modules/products/domain/Product';
 
-import { addProduct, deleteProductById } from '../slice/productSlice';
+import {
+	addProduct,
+	deleteProductById,
+	updateProduct as updateProductSlice,
+} from '../slice/productSlice';
 
 interface ReturnProductActions {
 	deleteProduct: (id: number) => void;
 	addNewProduct: (product: Omit<Product, 'rating'>) => void;
+	updateProduct: (product: Omit<Product, 'rating'>) => void;
 }
 
 export const useProductActions = (): ReturnProductActions => {
@@ -16,9 +21,13 @@ export const useProductActions = (): ReturnProductActions => {
 		dispatch(addProduct(product));
 	};
 
+	const updateProduct = (product: Omit<Product, 'rating'>): void => {
+		dispatch(updateProductSlice(product));
+	};
+
 	const deleteProduct = (id: number): void => {
 		dispatch(deleteProductById(id));
 	};
 
-	return { deleteProduct, addNewProduct };
+	return { deleteProduct, addNewProduct, updateProduct };
 };
