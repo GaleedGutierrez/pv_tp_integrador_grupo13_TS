@@ -1,6 +1,5 @@
 import { useAppDispatch } from '@hooks/useAppDispatch';
-
-import type { Product } from '@/modules/products/domain/Product';
+import type { Product } from '@modules/products/domain/Product';
 
 import {
 	addProduct,
