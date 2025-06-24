@@ -11,7 +11,7 @@ import {
 import { Button } from '@ui/button';
 import type { JSX } from 'react';
 
-import type { ProductFormData } from '@/sections/products/validation/ProductFormElement.schema';
+import type { ProductFormData } from '@/sections/products/validations/ProductFormElement.schema';
 
 interface Properties {
 	isDialogOpen: boolean;

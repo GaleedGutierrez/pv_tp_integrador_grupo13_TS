@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
 import favoritesReducer from '@sections/favorites/slice/favoritesSlice';
+
 import productsReducer, {
 	loadInitialProducts,
-} from '@sections/products/slice/productSlice';
+} from '@/sections/products/slices/productSlice';
 
 import type { Dependencies } from './dependencies';
 import { createDependencies } from './dependencies';

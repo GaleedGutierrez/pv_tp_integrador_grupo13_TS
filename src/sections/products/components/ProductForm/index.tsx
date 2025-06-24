@@ -47,7 +47,7 @@ import { useProductActions } from '../../hooks/useProductActions';
 import {
 	type ProductFormData,
 	ProductFormSchema,
-} from '../../validation/ProductFormElement.schema';
+} from '../../validations/ProductFormElement.schema';
 import { CancelDialog } from './components/CancelDialog';
 import { ConfirmDialog } from './components/ConfirmDialog';
 

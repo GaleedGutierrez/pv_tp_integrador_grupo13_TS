@@ -5,7 +5,7 @@ import {
 	addProduct,
 	deleteProductById,
 	updateProduct as updateProductSlice,
-} from '../slice/productSlice';
+} from '../slices/productSlice';
 
 interface ReturnProductActions {
 	deleteProduct: (id: number) => void;
