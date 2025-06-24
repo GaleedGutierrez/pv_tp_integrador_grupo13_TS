@@ -2,6 +2,9 @@ import { AllProductsGetter } from '@modules/products/application/AllProductsGett
 import { ProductCreator } from '@modules/products/application/ProductCreator';
 import { ProductUpdater } from '@modules/products/application/ProductUpdater';
 import { ApiProductsRepository } from '@modules/products/infrastructure/ApiProductsRepository';
+import { UserRegister } from '@modules/users/application/UserRegister';
+import { UserSearcherByEmail } from '@modules/users/application/UserSearcherByEmail';
+import { ApiUserRepository } from '@modules/users/infrastructure/ApiUserRepository';
 import type { JSX, ReactNode } from 'react';
 import { useMemo } from 'react';
 
@@ -13,6 +16,8 @@ interface Properties {
 
 const GlobalProvider = ({ children }: Properties): JSX.Element => {
 	const productRepository = useMemo(() => new ApiProductsRepository(), []);
+	const userRepository = useMemo(() => new ApiUserRepository(), []);
+
 	const getAllProducts = useMemo(
 		() => new AllProductsGetter(productRepository),
 		[productRepository],
@@ -25,14 +30,34 @@ const GlobalProvider = ({ children }: Properties): JSX.Element => {
 		() => new ProductUpdater(productRepository),
 		[productRepository],
 	);
+	const userRegister = useMemo(
+		() => new UserRegister(userRepository),
+		[userRepository],
+	);
+	const userSearcherByEmail = useMemo(
+		() => new UserSearcherByEmail(userRepository),
+		[userRepository],
+	);
+
 	const CONTEXT_VALUE = useMemo(
 		() => ({
 			productRepository,
+			userRepository,
 			getAllProducts,
 			addNewProduct,
 			updateProduct,
+			userRegister,
+			userSearcherByEmail,
 		}),
-		[productRepository, getAllProducts, addNewProduct, updateProduct],
+		[
+			productRepository,
+			userRepository,
+			getAllProducts,
+			addNewProduct,
+			updateProduct,
+			userRegister,
+			userSearcherByEmail,
+		],
 	);
 
 	return (

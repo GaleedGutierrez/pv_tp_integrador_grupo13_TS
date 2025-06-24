@@ -2,6 +2,9 @@ import type { AllProductsGetter } from '@modules/products/application/AllProduct
 import type { ProductCreator } from '@modules/products/application/ProductCreator';
 import type { ProductUpdater } from '@modules/products/application/ProductUpdater';
 import type { ApiProductsRepository } from '@modules/products/infrastructure/ApiProductsRepository';
+import type { UserRegister } from '@modules/users/application/UserRegister';
+import type { UserSearcherByEmail } from '@modules/users/application/UserSearcherByEmail';
+import type { ApiUserRepository } from '@modules/users/infrastructure/ApiUserRepository';
 import { createContext, useContext } from 'react';
 
 interface GlobalContext {
@@ -9,6 +12,9 @@ interface GlobalContext {
 	getAllProducts: AllProductsGetter | undefined;
 	addNewProduct: ProductCreator | undefined;
 	updateProduct: ProductUpdater | undefined;
+	userRepository: ApiUserRepository | undefined;
+	userRegister: UserRegister | undefined;
+	userSearcherByEmail: UserSearcherByEmail | undefined;
 }
 
 export const GlobalContext = createContext<GlobalContext>({
@@ -16,12 +22,23 @@ export const GlobalContext = createContext<GlobalContext>({
 	getAllProducts: undefined,
 	addNewProduct: undefined,
 	updateProduct: undefined,
+	userRepository: undefined,
+	userRegister: undefined,
+	userSearcherByEmail: undefined,
 });
 
 export const useGlobalContext = (): GlobalContext => {
 	const CONTEXT = useContext(GlobalContext);
 
-	if (!CONTEXT.productRepository) {
+	if (
+		!CONTEXT.productRepository ||
+		!CONTEXT.getAllProducts ||
+		!CONTEXT.addNewProduct ||
+		!CONTEXT.updateProduct ||
+		!CONTEXT.userRepository ||
+		!CONTEXT.userRegister ||
+		!CONTEXT.userSearcherByEmail
+	) {
 		throw new Error(
 			'GlobalContext must be used within a GlobalContextProvider',
 		);
