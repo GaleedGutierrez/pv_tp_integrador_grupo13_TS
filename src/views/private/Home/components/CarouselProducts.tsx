@@ -27,7 +27,7 @@ export const CarouselProducts = ({
 		<div className={classNameContainer}>
 			<h2 className="text-center">{title}</h2>
 			<div className="overflow-x-scroll">
-				<div className="carousel carousel-center mt-8 gap-5 p-4 lg:mt-14 lg:gap-6">
+				<div className="carousel carousel-center mt-8 gap-5 p-4 lg:mt-14 lg:gap-6 xl:w-full xl:justify-center">
 					{IS_LOADING &&
 						Array.from({ length: 10 }).map((_, index) => (
 							// eslint-disable-next-line react/no-array-index-key
