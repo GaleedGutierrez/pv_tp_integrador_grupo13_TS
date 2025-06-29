@@ -178,7 +178,7 @@ export const ProductForm = ({
 	const handleCancelConfirm = async (): Promise<void> => {
 		setIsCancelDialogOpen(false);
 		form.reset();
-		await navigate(appRoutes.home.index);
+		await navigate(appRoutes.home);
 	};
 
 	const handleCancelDialogCancel = (): void => {
@@ -192,14 +192,14 @@ export const ProductForm = ({
 	};
 
 	return (
-		<section className="flex w-full flex-col items-center justify-center gap-5 px-4">
+		<div className="flex w-full flex-col items-center justify-center gap-5 px-4">
 			<Card className="w-full max-w-3xl">
 				<CardHeader>
 					<CardTitle>
 						<h2 className="text-lg">{TITLE}</h2>
 					</CardTitle>
 					<CardDescription>
-						<p>
+						<p className="text-base">
 							{modeForm === 'create'
 								? 'Completa el formulario para agregar un nuevo producto.'
 								: 'Edita los campos necesarios para actualizar el producto.'}
@@ -396,6 +396,6 @@ export const ProductForm = ({
 				onDialogCancel={handleCancelDialogCancel}
 				onDialogOpenChange={handleCancelDialogOpenChange}
 			/>
-		</section>
+		</div>
 	);
 };
