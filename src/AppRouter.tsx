@@ -1,14 +1,9 @@
+import { PrivateGuard } from '@guard/PrivateGuard';
 import { appRoutes } from '@routes/appRouters';
-import { Favorites } from '@views/Favorites';
-import { Home } from '@views/Home/index';
-import { Layout } from '@views/Layout';
-import { RoutesWithNotFound } from '@views/NotFoundPage';
-import { ProductsDetails } from '@views/ProductsDetails';
+import { PrivateRouter } from '@views/private/PrivateRouter';
+import { PublicRouter } from '@views/public/PublicRouter';
 import type { JSX } from 'react';
-import { BrowserRouter, Route } from 'react-router';
-
-import { CreateProduct } from './views/CreateProduct';
-import { UpdateProduct } from './views/UpdateProduct';
+import { BrowserRouter, Route, Routes } from 'react-router';
 
 /**
  * Main application router.
@@ -18,33 +13,16 @@ import { UpdateProduct } from './views/UpdateProduct';
 function AppRouter(): JSX.Element {
 	return (
 		<BrowserRouter>
-			<RoutesWithNotFound>
-				<Route
-					element={<Layout />}
-					path={appRoutes.home.index}
-				>
+			<Routes>
+				<Route element={<PublicRouter />} />
+
+				<Route element={<PrivateGuard />}>
 					<Route
-						element={<Home />}
-						path={appRoutes.home.index}
-					/>
-					<Route
-						element={<Favorites />}
-						path={appRoutes.favorites.list}
-					/>
-					<Route
-						element={<ProductsDetails />}
-						path={appRoutes.products.routes.details}
-					/>
-					<Route
-						element={<CreateProduct />}
-						path={appRoutes.products.routes.create}
-					/>
-					<Route
-						element={<UpdateProduct />}
-						path={appRoutes.products.routes.update}
+						element={<PrivateRouter />}
+						path={`${appRoutes.private.home}/*`}
 					/>
 				</Route>
-			</RoutesWithNotFound>
+			</Routes>
 		</BrowserRouter>
 	);
 }
