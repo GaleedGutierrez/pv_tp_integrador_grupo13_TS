@@ -1,23 +1,14 @@
+import { useAppSelector } from '@hooks/useAppSelector';
+import type { Product } from '@modules/products/domain/Product';
+import { ProductCardSkeleton } from '@sections/products/components/ProductCardSkeleton';
+import { ProductsList } from '@sections/products/components/ProductsList';
+import { getRandomIntInclusive } from '@utils/getRandomIntInclusive';
 import { type JSX, useCallback, useEffect, useRef, useState } from 'react';
-
-import { useAppSelector } from '@/hooks/useAppSelector';
-import type { Product } from '@/modules/products/domain/Product';
-import { ProductCardSkeleton } from '@/sections/products/components/ProductCardSkeleton';
-import { ProductsList } from '@/sections/products/components/ProductsList';
 
 interface Properties {
 	products: Product[];
 	title: string;
 	classNameContainer?: string;
-}
-
-function getRandomIntInclusive(min: number, max: number): number {
-	const MIN_CEILED = Math.ceil(min);
-	const MAX_FLOORED = Math.floor(max);
-
-	return Math.floor(
-		Math.random() * (MAX_FLOORED - MIN_CEILED + 1) + MIN_CEILED,
-	); // The maximum is inclusive and the minimum is inclusive
 }
 
 /** @returns If there are not products return undefined */
@@ -61,7 +52,6 @@ export const CarouselProducts = ({
 		setShouldCenterCarousel(SHOULD_CENTER);
 	}, []);
 
-	// ✅ Effect para configurar observers y listeners
 	useEffect(() => {
 		const CAROUSEL_CONTAINER = document.querySelector(
 			`#${CAROUSEL_CONTAINER_ID.current}`,
