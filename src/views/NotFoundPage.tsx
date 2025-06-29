@@ -15,7 +15,7 @@ interface Properties {
 const NotFoundPage = (): JSX.Element => (
 	<>
 		<Header />
-		<main>
+		<main className="flex h-dvh flex-col items-center justify-center gap-4">
 			<h1 className="text-center">Ups! Página no encontrada</h1>
 			<h2 className="text-center">Error 404</h2>
 		</main>
