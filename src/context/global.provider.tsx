@@ -8,6 +8,10 @@ import { ApiUserRepository } from '@modules/users/infrastructure/ApiUserReposito
 import type { JSX, ReactNode } from 'react';
 import { useMemo } from 'react';
 
+import { keysLocalStorage } from '@/constants/keysLocalStorage';
+import { UserAuthenticator } from '@/modules/users/application/UserAuthenticator';
+import { UserSessionManager } from '@/modules/users/application/UserSessionManager';
+
 import { GlobalContext } from './global.context';
 
 interface Properties {
@@ -38,6 +42,14 @@ const GlobalProvider = ({ children }: Properties): JSX.Element => {
 		() => new UserSearcherByEmail(userRepository),
 		[userRepository],
 	);
+	const userAuthenticator = useMemo(
+		() => new UserAuthenticator(userRepository),
+		[userRepository],
+	);
+	const userSessionManager = useMemo(
+		() => new UserSessionManager(keysLocalStorage.sessionUser),
+		[],
+	);
 
 	const CONTEXT_VALUE = useMemo(
 		() => ({
@@ -48,6 +60,8 @@ const GlobalProvider = ({ children }: Properties): JSX.Element => {
 			updateProduct,
 			userRegister,
 			userSearcherByEmail,
+			userAuthenticator,
+			userSessionManager,
 		}),
 		[
 			productRepository,
@@ -57,6 +71,8 @@ const GlobalProvider = ({ children }: Properties): JSX.Element => {
 			updateProduct,
 			userRegister,
 			userSearcherByEmail,
+			userAuthenticator,
+			userSessionManager,
 		],
 	);
 

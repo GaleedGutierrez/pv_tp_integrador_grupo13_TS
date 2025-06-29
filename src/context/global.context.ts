@@ -7,6 +7,9 @@ import type { UserSearcherByEmail } from '@modules/users/application/UserSearche
 import type { ApiUserRepository } from '@modules/users/infrastructure/ApiUserRepository';
 import { createContext, useContext } from 'react';
 
+import type { UserAuthenticator } from '@/modules/users/application/UserAuthenticator';
+import type { UserSessionManager } from '@/modules/users/application/UserSessionManager';
+
 interface GlobalContext {
 	productRepository: ApiProductsRepository | undefined;
 	getAllProducts: AllProductsGetter | undefined;
@@ -15,6 +18,8 @@ interface GlobalContext {
 	userRepository: ApiUserRepository | undefined;
 	userRegister: UserRegister | undefined;
 	userSearcherByEmail: UserSearcherByEmail | undefined;
+	userAuthenticator: UserAuthenticator | undefined;
+	userSessionManager: UserSessionManager | undefined;
 }
 
 export const GlobalContext = createContext<GlobalContext>({
@@ -25,6 +30,8 @@ export const GlobalContext = createContext<GlobalContext>({
 	userRepository: undefined,
 	userRegister: undefined,
 	userSearcherByEmail: undefined,
+	userAuthenticator: undefined,
+	userSessionManager: undefined,
 });
 
 export const useGlobalContext = (): GlobalContext => {
@@ -37,7 +44,9 @@ export const useGlobalContext = (): GlobalContext => {
 		!CONTEXT.updateProduct ||
 		!CONTEXT.userRepository ||
 		!CONTEXT.userRegister ||
-		!CONTEXT.userSearcherByEmail
+		!CONTEXT.userSearcherByEmail ||
+		!CONTEXT.userAuthenticator ||
+		!CONTEXT.userSessionManager
 	) {
 		throw new Error(
 			'GlobalContext must be used within a GlobalContextProvider',
