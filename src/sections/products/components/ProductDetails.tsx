@@ -133,7 +133,7 @@ export const ProductDetails = (): JSX.Element => {
 							deleteProduct(id);
 							deleteFavoriteById(id);
 							toast.success('Producto eliminado correctamente');
-							await navigate(appRoutes.home.index);
+							await navigate(appRoutes.home);
 						}}
 					>
 						<DeleteIcon
