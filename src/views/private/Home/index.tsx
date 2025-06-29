@@ -28,22 +28,22 @@ export const Home = (): JSX.Element => {
 			<Hero />
 			<section className="py-12 lg:py-18">
 				<CarouselProducts
-					product={WOMEN_PRODUCTS}
+					products={WOMEN_PRODUCTS}
 					title="Ropa de mujer"
 				/>
 				<CarouselProducts
 					classNameContainer="mt-12 lg:mt-18"
-					product={MEN_PRODUCTS}
+					products={MEN_PRODUCTS}
 					title="Ropa de hombre"
 				/>
 				<CarouselProducts
 					classNameContainer="mt-12 lg:mt-18"
-					product={JEWELRY_PRODUCTS}
+					products={JEWELRY_PRODUCTS}
 					title="Joyería"
 				/>
 				<CarouselProducts
 					classNameContainer="mt-12 lg:mt-18"
-					product={ELECTRONICS_PRODUCTS}
+					products={ELECTRONICS_PRODUCTS}
 					title="Electrónica"
 				/>
 			</section>
