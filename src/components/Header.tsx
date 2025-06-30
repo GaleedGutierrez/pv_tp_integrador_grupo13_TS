@@ -1,8 +1,7 @@
-import { MenuIcon, type MenuIconHandle } from '@ui/menu';
 import type { JSX } from 'react';
-import { useRef, useState } from 'react';
 import { Link } from 'react-router';
 
+import { useAuthContext } from '@/context/auth.context';
 import { appRoutes } from '@/routes/appRouters';
 
 import { Navbar } from './Navbar';
@@ -12,26 +11,28 @@ import { Navbar } from './Navbar';
  * @returns The rendered header component with the navigation bar.
  */
 export const Header = (): JSX.Element => {
-	const menuIconReference = useRef<MenuIconHandle | null>(null);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+	const { auth } = useAuthContext();
+	const { user } = auth;
+	// const menuIconReference = useRef<MenuIconHandle | null>(null);
+	// const [isMenuOpen, setIsMenuOpen] = useState(false);
+	//
 	/**
 	 * This function checks if the menu is currently open or closed.
 	 */
-	const handleMenuToggle = (): void => {
-		if (isMenuOpen) {
-			menuIconReference.current?.stopAnimation();
-		} else {
-			menuIconReference.current?.startAnimation();
-		}
+	// const handleMenuToggle = (): void => {
+	// 	if (isMenuOpen) {
+	// 		menuIconReference.current?.stopAnimation();
+	// 	} else {
+	// 		menuIconReference.current?.startAnimation();
+	// 	}
 
-		setIsMenuOpen(!isMenuOpen);
-	};
+	// 	setIsMenuOpen(!isMenuOpen);
+	// };
 
 	return (
 		<header className="sticky inset-0 z-1 flex items-center justify-between gap-4 border-b border-gray-200 bg-white p-5 lg:justify-between lg:gap-10">
 			<div className="flex items-center gap-4 lg:justify-between lg:gap-10">
-				<button
+				{/* <button
 					aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
 					className="h-7 w-7 lg:hidden"
 					onClick={handleMenuToggle}
@@ -40,7 +41,7 @@ export const Header = (): JSX.Element => {
 						ref={menuIconReference}
 						className="h-7 w-7"
 					/>
-				</button>
+				</button> */}
 				<Link
 					className="font-heading text-2xl"
 					to={appRoutes.private.home}
@@ -48,7 +49,15 @@ export const Header = (): JSX.Element => {
 					Shop.co
 				</Link>
 			</div>
-			<Navbar isMenuOpen={isMenuOpen} />
+			{user && (
+				<p className="hidden text-center lg:block">
+					Bienvenido{' '}
+					{user.name && user.lastname
+						? `${user.name} ${user.lastname}`
+						: user.email}
+				</p>
+			)}
+			<Navbar />
 			{/* <div className="flex items-center gap-3">
 				<SearchIcon className="md:hidden" />
 				<CartIcon />
