@@ -133,7 +133,7 @@ export const ProductDetails = (): JSX.Element => {
 							deleteProduct(id);
 							deleteFavoriteById(id);
 							toast.success('Producto eliminado correctamente.');
-							await navigate(appRoutes.home);
+							await navigate(appRoutes.private.home);
 						}}
 					>
 						<DeleteIcon
@@ -148,7 +148,7 @@ export const ProductDetails = (): JSX.Element => {
 					>
 						<Link
 							title="Editar producto"
-							to={appRoutes.products.buildUrl.update(id)}
+							to={appRoutes.private.products.buildUrl.update(id)}
 						>
 							<SquarePenIcon
 								className="flex items-center justify-center text-white"
