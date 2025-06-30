@@ -7,7 +7,9 @@ export interface UserRepository {
 	/** Creates a new user */
 	register: (user: Omit<User, 'id'>) => void | User;
 	/** Searches for a user by ID */
-	searchByEmail: (email: string) => void | User;
+	findByEmail: (email: string) => void | User;
+	/** Searches for a user by ID */
+	findById: (id: string) => void | User;
 	// Si hay tiempo agrego esto
 	// /** Updates an existing user */
 	// update: (user: User) => void | User;
