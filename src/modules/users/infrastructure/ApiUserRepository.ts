@@ -33,10 +33,18 @@ export class ApiUserRepository implements UserRepository {
 				);
 			}
 
-			return new User({
+			const NEW_USER = new User({
 				id: globalThis.crypto.randomUUID(),
 				...user,
 			});
+
+			USERS_LOCALE_STORAGE.push(NEW_USER);
+			localStorage.setItem(
+				keysLocalStorage.users,
+				JSON.stringify(USERS_LOCALE_STORAGE),
+			);
+
+			return NEW_USER;
 		} catch (error) {
 			const MY_ERROR =
 				error instanceof Error
@@ -55,7 +63,7 @@ export class ApiUserRepository implements UserRepository {
 	 * @returns A promise that resolves with the user found.
 	 * This method is temporally implemented using localStorage until the API is available.
 	 */
-	public searchByEmail(email: string): void | User {
+	public findByEmail(email: string): void | User {
 		const USERS_LOCALE_STORAGE = JSON.parse(
 			localStorage.getItem(keysLocalStorage.users) ?? '[]',
 		) as User[];
@@ -74,6 +82,37 @@ export class ApiUserRepository implements UserRepository {
 				error instanceof Error
 					? error
 					: new Error('Failed to search user by email.');
+
+			throw MY_ERROR;
+		}
+	}
+
+	/** Search a user by id.
+	 * Sends a GET request to search a user by id in the [name of the API].
+	 * @param id - The user id to search for.
+	 * @throws Error If the request fails or the response is not valid
+	 * @returns A promise that resolves with the user found.
+	 * This method is temporally implemented using localStorage until the API is available.
+	 */
+	public findById(id: string): void | User {
+		const USERS_LOCALE_STORAGE = JSON.parse(
+			localStorage.getItem(keysLocalStorage.users) ?? '[]',
+		) as User[];
+		const FOUND_USER = USERS_LOCALE_STORAGE.find(
+			(existingUser) => existingUser.id === id,
+		);
+
+		try {
+			if (!FOUND_USER) {
+				throw new Error(`User with ID ${id} not found.`);
+			}
+
+			return FOUND_USER;
+		} catch (error) {
+			const MY_ERROR =
+				error instanceof Error
+					? error
+					: new Error('Failed to search user by ID.');
 
 			throw MY_ERROR;
 		}
