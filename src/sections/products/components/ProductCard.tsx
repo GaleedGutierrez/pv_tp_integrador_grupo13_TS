@@ -122,7 +122,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 						onClick={() => {
 							deleteProduct(id);
 							deleteFavoriteById(id);
-							toast.success('Producto eliminado correctamente');
+							toast.success('Producto eliminado correctamente.');
 						}}
 					>
 						<DeleteIcon
@@ -141,7 +141,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 					onClick={() => {
 						handleFavoriteToggle(product);
 						toast.success(
-							`Producto ${isFavorite ? 'quitado de favoritos' : 'agregado a favoritos'}`,
+							`Producto ${isFavorite ? 'quitado de favoritos.' : 'agregado a favoritos.'}`,
 						);
 					}}
 				>
