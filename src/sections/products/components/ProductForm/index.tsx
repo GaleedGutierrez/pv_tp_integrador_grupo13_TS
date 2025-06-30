@@ -373,7 +373,7 @@ export const ProductForm = ({
 						Cancelar
 					</Button>
 					<Button
-						className="text-base"
+						className="w-full text-base md:w-fit"
 						form="product-form"
 						type="submit"
 					>
