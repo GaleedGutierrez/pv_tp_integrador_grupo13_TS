@@ -33,13 +33,14 @@ const NotFoundPage = (): JSX.Element => (
 export const RoutesWithNotFound = ({ children }: Properties): JSX.Element => (
 	<Routes>
 		{children}
-		<Route
-			element={<Navigate to="/404" />}
-			path="*"
-		/>
+
 		<Route
 			element={<NotFoundPage />}
 			path="/404"
+		/>
+		<Route
+			element={<Navigate to="/404" />}
+			path="*"
 		/>
 	</Routes>
 );
