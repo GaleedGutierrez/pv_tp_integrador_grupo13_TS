@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
 		// ✅ Target y Module para JavaScript limpio
-		"target": "es2022",
-		"module": "es2022",
+		"target": "es2023",
+		"module": "es2023",
 		"moduleResolution": "node",
 
 		// ✅ JSX Configuration para código limpio
