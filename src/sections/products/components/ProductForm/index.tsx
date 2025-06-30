@@ -122,7 +122,7 @@ export const ProductForm = ({
 						productToPlainObject(resolve);
 
 					addNewProductStore(NEW_PRODUCT);
-					toast.success('Producto creado correctamente');
+					toast.success('Producto creado correctamente.');
 				})
 				.catch((error) => {
 					console.error('Error al crear el producto:', error);
@@ -147,7 +147,7 @@ export const ProductForm = ({
 						productToPlainObject(resolve);
 
 					updateProductStore(UPDATED_PRODUCT);
-					toast.success('Producto actualizado correctamente');
+					toast.success('Producto actualizado correctamente.');
 				})
 				.catch((error) => {
 					console.error('Error al actualizar el producto:', error);
