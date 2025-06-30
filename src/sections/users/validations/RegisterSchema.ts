@@ -2,6 +2,18 @@ import * as z from 'zod';
 
 export const RegisterSchema = z
 	.object({
+		name: z
+			.string()
+			.min(2, {
+				message: 'El nombre debe tener al menos 2 caracteres.',
+			})
+			.optional(),
+		lastname: z
+			.string()
+			.min(2, {
+				message: 'El apellido debe tener al menos 2 caracteres.',
+			})
+			.optional(),
 		email: z.string().email({
 			message: 'Verifica el correo electrónico ingresado.',
 		}),
@@ -9,11 +21,11 @@ export const RegisterSchema = z
 			.string()
 			.min(2, {
 				message:
-					'El nombre de usuario debe tener al menos 2 caracteres',
+					'El nombre de usuario debe tener al menos 2 caracteres.',
 			})
 			.optional(),
 		password: z.string().min(6, {
-			message: 'La contraseña debe tener al menos 6 caracteres',
+			message: 'La contraseña debe tener al menos 6 caracteres.',
 		}),
 		confirmPassword: z.string(),
 	})
@@ -26,7 +38,7 @@ export const RegisterSchema = z
 			return data.password === data.confirmPassword;
 		},
 		{
-			message: 'Las contraseñas no coinciden',
+			message: 'Las contraseñas no coinciden.',
 			path: ['confirmPassword'],
 		},
 	);
