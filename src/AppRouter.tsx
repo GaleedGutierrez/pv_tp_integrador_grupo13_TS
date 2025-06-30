@@ -1,12 +1,9 @@
-import { PrivateGuard } from '@guard/PrivateGuard';
-import { appRoutes } from '@routes/appRouters';
-import { Layout } from '@views/Layout';
-import { RoutesWithNotFound } from '@views/NotFoundPage';
-import { PrivateRouter } from '@views/private/PrivateRouter';
-import { Login } from '@views/public/Login';
-import { Register } from '@views/public/Register';
-import type { JSX } from 'react';
-import { BrowserRouter, Route } from 'react-router';
+import { useAuthContext } from '@context/auth.context';
+import { PrivateApp } from '@views/private/PrivateApp';
+import { PublicApp } from '@views/public/PublicApp';
+import { LoaderIcon } from 'lucide-react';
+import { type JSX } from 'react';
+import { BrowserRouter } from 'react-router';
 
 /**
  * Main application router.
@@ -14,27 +11,24 @@ import { BrowserRouter, Route } from 'react-router';
  * It defines the routes and their corresponding components.
  */
 function AppRouter(): JSX.Element {
+	const { auth } = useAuthContext();
+	const { isLoggedIn, isLoading } = auth;
+
+	if (isLoading) {
+		return (
+			<section className="my-8 flex flex-col items-center justify-center gap-4">
+				<h1>Cargando...</h1>
+				<LoaderIcon
+					className="animate-spin"
+					size={80}
+				/>
+			</section>
+		);
+	}
+
 	return (
 		<BrowserRouter>
-			<RoutesWithNotFound>
-				<Route element={<Layout />}>
-					<Route
-						element={<Login />}
-						path={appRoutes.login}
-					/>
-					<Route
-						element={<Register />}
-						path={appRoutes.register}
-					/>
-
-					<Route element={<PrivateGuard />}>
-						<Route
-							element={<PrivateRouter />}
-							path={`${appRoutes.private.home}/*`}
-						/>
-					</Route>
-				</Route>
-			</RoutesWithNotFound>
+			{isLoggedIn ? <PrivateApp /> : <PublicApp />}
 		</BrowserRouter>
 	);
 }
