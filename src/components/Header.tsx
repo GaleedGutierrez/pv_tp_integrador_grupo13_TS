@@ -43,7 +43,7 @@ export const Header = (): JSX.Element => {
 				</button>
 				<Link
 					className="font-heading text-2xl"
-					to={appRoutes.home}
+					to={appRoutes.private.home}
 				>
 					Shop.co
 				</Link>
