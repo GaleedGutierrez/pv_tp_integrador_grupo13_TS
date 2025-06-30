@@ -98,7 +98,7 @@ export const ProductDetails = (): JSX.Element => {
 					onClick={() => {
 						handleFavoriteToggle(PRODUCT_DETAILS);
 						toast.success(
-							`Producto ${isFavorite ? 'quitado de favoritos' : 'agregado a favoritos'}`,
+							`Producto ${isFavorite ? 'quitado de favoritos.' : 'agregado a favoritos.'}`,
 						);
 					}}
 				>
@@ -132,7 +132,7 @@ export const ProductDetails = (): JSX.Element => {
 						onClick={async () => {
 							deleteProduct(id);
 							deleteFavoriteById(id);
-							toast.success('Producto eliminado correctamente');
+							toast.success('Producto eliminado correctamente.');
 							await navigate(appRoutes.home);
 						}}
 					>
