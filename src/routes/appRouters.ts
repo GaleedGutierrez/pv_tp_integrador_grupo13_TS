@@ -7,9 +7,17 @@ import {
 import { UsersRoutes } from '@modules/users/infrastructure/UsersRoutes';
 
 export const appRoutes = {
-	home: HomeRoutes,
-	products: { routes: ProductRoutes, buildUrl: ProductRoutesBuildUrl },
-	favorites: FavoriteRoutes,
-	register: UsersRoutes.register,
-	login: UsersRoutes.login,
+	root: '/',
+	public: {
+		register: UsersRoutes.register,
+		login: UsersRoutes.login,
+	},
+	private: {
+		home: HomeRoutes,
+		products: { routes: ProductRoutes, buildUrl: ProductRoutesBuildUrl },
+		favorites: FavoriteRoutes,
+	},
 } as const;
+
+export type PublicRoutes =
+	(typeof appRoutes.public)[keyof typeof appRoutes.public];
