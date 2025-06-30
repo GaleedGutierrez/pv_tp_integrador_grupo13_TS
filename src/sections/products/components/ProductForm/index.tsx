@@ -178,7 +178,7 @@ export const ProductForm = ({
 	const handleCancelConfirm = async (): Promise<void> => {
 		setIsCancelDialogOpen(false);
 		form.reset();
-		await navigate(appRoutes.home);
+		await navigate(appRoutes.private.home);
 	};
 
 	const handleCancelDialogCancel = (): void => {
