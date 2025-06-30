@@ -15,6 +15,13 @@ export const Layout = (): JSX.Element => (
 			<Outlet />
 		</main>
 		<Footer />
-		<Toaster />
+		<Toaster
+			toastOptions={{
+				classNames: {
+					title: '!text-base',
+					actionButton: '!text-base',
+				},
+			}}
+		/>
 	</div>
 );
