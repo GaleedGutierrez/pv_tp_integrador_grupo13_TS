@@ -1,14 +1,10 @@
-interface Name {
-	firstname: string;
-	lastname: string;
-}
-
 interface UserInterface {
 	id: `${string}-${string}-${string}-${string}-${string}`;
 	email: string;
 	password: string;
 	username?: string;
-	name?: Name;
+	name?: string;
+	lastname?: string;
 	phone?: string;
 }
 
@@ -22,10 +18,8 @@ export class User {
 	/** Username is a unique identifier for the user, optional. */
 	public username?: string;
 	/** Name of the user, optional. */
-	public name?: {
-		firstname: string;
-		lastname: string;
-	};
+	public name?: string;
+	public lastname?: string;
 	/** Phone number of the user, optional. */
 	public phone?: string;
 
@@ -34,13 +28,15 @@ export class User {
 	 * @param parameters - The parameters to initialize the user.
 	 */
 	public constructor(parameters: UserInterface) {
-		const { id, email, password, username, name, phone } = parameters;
+		const { id, email, password, username, name, phone, lastname } =
+			parameters;
 
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.username = username;
 		this.name = name;
+		this.lastname = lastname;
 		this.phone = phone;
 	}
 }
