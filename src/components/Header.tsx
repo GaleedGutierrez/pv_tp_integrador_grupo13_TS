@@ -51,7 +51,7 @@ export const Header = (): JSX.Element => {
 			</div>
 			{user && (
 				<p className="hidden text-center lg:block">
-					Bienvenido{' '}
+					Bienvenido,{' '}
 					{user.name && user.lastname
 						? `${user.name} ${user.lastname}`
 						: user.email}

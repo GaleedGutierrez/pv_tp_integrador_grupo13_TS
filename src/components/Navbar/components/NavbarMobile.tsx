@@ -198,7 +198,7 @@ export const NavbarMobile = (): JSX.Element => {
 						</nav>
 						{isLoggedIn && (
 							<div className="mt-8 text-center">
-								Bienvenido{' '}
+								Bienvenido,{' '}
 								{user?.name && user.lastname
 									? `${user.name} ${user.lastname}`
 									: user?.email}
