@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import AppRouter from './AppRouter.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
+import AuthProvider from './context/auth.provider.tsx';
 import GlobalProvider from './context/global.provider.tsx';
 import { store } from './store/store.ts';
 import { loadFonts } from './utils/loadFonts.ts';
@@ -19,9 +20,11 @@ if (ROOT) {
 		<StrictMode>
 			<Provider store={store}>
 				<GlobalProvider>
-					<ErrorBoundary>
-						<AppRouter />
-					</ErrorBoundary>
+					<AuthProvider>
+						<ErrorBoundary>
+							<AppRouter />
+						</ErrorBoundary>
+					</AuthProvider>
 				</GlobalProvider>
 			</Provider>
 		</StrictMode>,
