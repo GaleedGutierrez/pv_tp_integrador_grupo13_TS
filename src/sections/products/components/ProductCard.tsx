@@ -99,7 +99,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 					<Link
 						className="flex h-6 w-6 items-center justify-center"
 						title="Ver producto"
-						to={appRoutes.products.buildUrl.details(id)}
+						to={appRoutes.private.products.buildUrl.details(id)}
 					>
 						<SquareArrowUpIcon
 							className="flex items-center justify-center text-green-700"
@@ -109,7 +109,7 @@ export const ProductCard = ({ product }: Properties): JSX.Element => {
 					<Link
 						className="flex h-6 w-6 items-center justify-center"
 						title="Editar producto"
-						to={appRoutes.products.buildUrl.update(id)}
+						to={appRoutes.private.products.buildUrl.update(id)}
 					>
 						<SquarePenIcon
 							className="flex items-center justify-center text-yellow-700"
