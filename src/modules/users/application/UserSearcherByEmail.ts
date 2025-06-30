@@ -9,7 +9,7 @@ export class UserSearcherByEmail {
 
 	public searchByEmail(email: string): void | User {
 		try {
-			const FOUND_USER = this.#repository.searchByEmail(email);
+			const FOUND_USER = this.#repository.findByEmail(email);
 
 			if (!FOUND_USER) {
 				throw new Error(`User with email ${email} not found.`);
