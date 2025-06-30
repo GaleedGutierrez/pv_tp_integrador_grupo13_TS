@@ -11,10 +11,13 @@ import type { UserAuthenticator } from '@/modules/users/application/UserAuthenti
 import type { UserSessionManager } from '@/modules/users/application/UserSessionManager';
 
 interface GlobalContext {
+	// Products
 	productRepository: ApiProductsRepository | undefined;
 	getAllProducts: AllProductsGetter | undefined;
 	addNewProduct: ProductCreator | undefined;
 	updateProduct: ProductUpdater | undefined;
+
+	// Users
 	userRepository: ApiUserRepository | undefined;
 	userRegister: UserRegister | undefined;
 	userSearcherByEmail: UserSearcherByEmail | undefined;

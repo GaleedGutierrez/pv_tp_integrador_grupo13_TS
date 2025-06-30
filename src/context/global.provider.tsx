@@ -1,16 +1,15 @@
+import { keysLocalStorage } from '@constants/keysLocalStorage';
 import { AllProductsGetter } from '@modules/products/application/AllProductsGetter';
 import { ProductCreator } from '@modules/products/application/ProductCreator';
 import { ProductUpdater } from '@modules/products/application/ProductUpdater';
 import { ApiProductsRepository } from '@modules/products/infrastructure/ApiProductsRepository';
+import { UserAuthenticator } from '@modules/users/application/UserAuthenticator';
 import { UserRegister } from '@modules/users/application/UserRegister';
 import { UserSearcherByEmail } from '@modules/users/application/UserSearcherByEmail';
+import { UserSessionManager } from '@modules/users/application/UserSessionManager';
 import { ApiUserRepository } from '@modules/users/infrastructure/ApiUserRepository';
 import type { JSX, ReactNode } from 'react';
 import { useMemo } from 'react';
-
-import { keysLocalStorage } from '@/constants/keysLocalStorage';
-import { UserAuthenticator } from '@/modules/users/application/UserAuthenticator';
-import { UserSessionManager } from '@/modules/users/application/UserSessionManager';
 
 import { GlobalContext } from './global.context';
 
