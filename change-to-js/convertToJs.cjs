@@ -2,7 +2,7 @@
 /* eslint-disable unicorn/no-process-exit */
 /* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable no-console */
-/* eslint-disable unicorn/prefer-module */
+
 const { execSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
