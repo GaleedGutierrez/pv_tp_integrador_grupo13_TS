@@ -1,9 +1,12 @@
 import { PrivateGuard } from '@guard/PrivateGuard';
 import { appRoutes } from '@routes/appRouters';
+import { Layout } from '@views/Layout';
+import { RoutesWithNotFound } from '@views/NotFoundPage';
 import { PrivateRouter } from '@views/private/PrivateRouter';
-import { PublicRouter } from '@views/public/PublicRouter';
+import { Login } from '@views/public/Login';
+import { Register } from '@views/public/Register';
 import type { JSX } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route } from 'react-router';
 
 /**
  * Main application router.
@@ -13,16 +16,25 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 function AppRouter(): JSX.Element {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route element={<PublicRouter />} />
-
-				<Route element={<PrivateGuard />}>
+			<RoutesWithNotFound>
+				<Route element={<Layout />}>
 					<Route
-						element={<PrivateRouter />}
-						path={`${appRoutes.private.home}/*`}
+						element={<Login />}
+						path={appRoutes.login}
 					/>
+					<Route
+						element={<Register />}
+						path={appRoutes.register}
+					/>
+
+					<Route element={<PrivateGuard />}>
+						<Route
+							element={<PrivateRouter />}
+							path={`${appRoutes.private.home}/*`}
+						/>
+					</Route>
 				</Route>
-			</Routes>
+			</RoutesWithNotFound>
 		</BrowserRouter>
 	);
 }
