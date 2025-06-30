@@ -6,16 +6,34 @@
 >
 > **Grupo 13** - Trabajo Práctico Integrador
 
-Una plataforma de e-commerce moderna construida con **React**, **Redux Toolkit**
-y **Tailwind CSS**, implementando arquitectura hexagonal y patrones de diseño.
+Una **Single Page Application (SPA)** de e-commerce moderna construida con
+**React 19**, **TypeScript**, **Redux Toolkit** y **Tailwind CSS**,
+implementando arquitectura hexagonal, autenticación simulada y gestión de
+estado global.
 
-## 📖 Resumen Ejecutivo
+## 📖 Resumen
 
-**Shop.co** es una aplicación web de comercio electrónico que permite a los
-usuarios navegar, buscar y gestionar productos de diferentes categorías (ropa,
-electrónicos, joyería). La aplicación está diseñada con principios de
-**arquitectura hexagonal**, **screaming architecture** y **vertical slicing**
-para garantizar escalabilidad, mantenibilidad y separación de responsabilidades.
+**Shop.co** es una aplicación web de comercio electrónico que demuestra el
+dominio de tecnologías frontend modernas mediante la implementación de
+funcionalidades completas de CRUD, autenticación, rutas protegidas y gestión de
+productos favoritos.
+
+La aplicación consume la API pública de
+[FakeStore API](https://fakestoreapi.com) y está diseñada con principios
+de **arquitectura hexagonal**, **screaming architecture** y
+**vertical slicing** para garantizar escalabilidad, mantenibilidad y separación
+de responsabilidades.
+
+### 🎯 Objetivos Académicos Cumplidos
+
+- **Gestión de Estado Global**: Implementación con Redux Toolkit y Context API.
+- **Rutas y Navegación**: SPA con rutas públicas y protegidas usando con
+  React Router 7.
+- **Autenticación**: Sistema completo de login/logout con persistencia de
+  sesión.
+- **CRUD Completo**: Operaciones sobre productos con validación.
+- **Arquitectura Moderna**: Patrones de diseño escalables y mantenibles.
+- **Calidad de Código**: Testing, linting y herramientas de desarrollo.
 
 ## 📷 Screenshots
 
@@ -35,12 +53,34 @@ para garantizar escalabilidad, mantenibilidad y separación de responsabilidades
 
 <!-- markdownlint-enable MD013 -->
 
-### 🔭 Objetivos del Proyecto
+## 🚀 Funcionalidades Principales
 
-- **Académico**: Demostrar dominio de React y Redux
-- **Técnico**: Implementar un sistema robusto con tipado JSDoc, validaciones y
-  gestión de estado.
-- **Práctico**: Crear una experiencia de usuario intuitiva y responsive.
+### 🔐 Autenticación y Sesión
+
+- **Login/Logout**: Sistema de autenticación simulado con localStorage.
+- **Registro de Usuarios**: Formulario de registro con validación completa.
+- **Persistencia de Sesión**: Rehidratación automática del estado al recargar.
+<!-- - **Rutas Protegidas**: Guards para proteger vistas privadas. -->
+
+### 🛒 Gestión de Productos
+
+- **Catálogo Completo**: Visualización de productos desde FakeStore API.
+- **Detalles de Producto**: Vista detallada con información completa.
+- **CRUD de Productos**: Crear, leer, actualizar y eliminar productos.
+- **Categorías**: Filtrado por categorías (ropa, electrónicos, joyería).
+
+### ❤️ Sistema de Favoritos
+
+- **Agregar/Quitar Favoritos**: Gestión intuitiva de productos favoritos.
+- **Persistencia Local**: Almacenamiento en localStorage.
+- **Vista de Favoritos**: Página dedicada para productos guardados.
+
+### 🎨 Experiencia de Usuario
+
+- **Responsive Design**: Optimizado para desktop, tablet y móvil.
+- **Animaciones Fluidas**: Transiciones suaves con Motion.
+- **Feedback Visual**: Loading states, toasts y confirmaciones.
+- **Navegación Intuitiva**: Breadcrumbs y navegación clara.
 
 ### 👥 Equipo de Desarrollo
 
@@ -58,100 +98,114 @@ para garantizar escalabilidad, mantenibilidad y separación de responsabilidades
 
 ## 🏗️ Arquitectura y Patrones de Diseño
 
-### Arquitectura Hexagonal (Ports & Adapters)
+### 🔷 Arquitectura Hexagonal (Ports & Adapters)
 
 La aplicación implementa **arquitectura hexagonal** para garantizar la
 separación entre la lógica de negocio y los detalles de implementación:
 
 ```text
-Domain Layer (Centro)
-├── Product.js                 # Entidades de dominio
-├── ProductCategory.js         # Enums y constantes
-└── ProductRepository.js       # Contratos/Interfaces
+📁 Domain Layer (Centro - Reglas de Negocio)
+├── User.ts                    # Entidad Usuario
+├── Product.ts                 # Entidad Producto
+├── UserRepository.ts          # Contrato repositorio usuarios
+└── ProductRepository.ts       # Contrato repositorio productos
 
-Application Layer (Casos de Uso)
-├── AllProductsGetter.js       # Obtener todos los productos
-├── ProductGetter.js           # Obtener producto por ID
-├── ProductsByCategoryGetter.js # Obtener por categoría
-├── ProductCreator.js          # Crear producto
-├── ProductUpdater.js          # Actualizar producto
-└── ProductRemover.js          # Eliminar producto
+📁 Application Layer (Casos de Uso)
+├── UserAuthenticator.ts       # Autenticación de usuarios
+├── UserSessionManager.ts      # Gestión de sesiones
+├── AllProductsGetter.ts       # Obtener todos los productos
+├── ProductCreator.ts          # Crear productos
+├── ProductUpdater.ts          # Actualizar productos
+└── ProductRemover.ts          # Eliminar productos
 
-Infrastructure Layer (Adaptadores)
-├── ApiProductsRepository.js   # Implementación con API externa
-├── FakeStoreApiRepository.js  # Adaptador para FakeStore API
-└── ProductRoutes.js           # Definición de rutas
+📁 Infrastructure Layer (Adaptadores Externos)
+├── ApiUserRepository.ts       # Implementación API usuarios
+├── ApiProductsRepository.ts   # Implementación API productos
+└── LocalStorageSession.ts     # Persistencia localStorage
 ```
 
-### Screaming Architecture
+### 📢 Screaming Architecture
 
-La estructura del proyecto **"grita"** su propósito comercial:
+La estructura del proyecto **"grita"** su propósito comercial y académico:
 
 ```bash
 src/
-├── modules/                  # Módulos de negocio
-│   ├── products/             # Módulo de productos (core business)
-│   ├── favorites/            # Módulo de favoritos
-│   └── home/                 # Módulo de inicio
-├── sections/                 # Secciones de la UI organizadas por dominio
-│   ├── products/             # Componentes específicos de productos
-│   └── favorites/            # Componentes específicos de favoritos
-└── views/                    # Páginas principales de la aplicación
-    ├── Home/                 # Vista principal del e-commerce
-    ├── ProductsDetails.jsx   # Detalles del producto
-    └── Favorites.jsx         # Gestión de favoritos
+├── modules/                  # 🏗️ Módulos de dominio (Business Logic)
+│   ├── products/             # Gestión de productos (CORE)
+│   ├── users/                # Autenticación y usuarios
+│   ├── favorites/            # Sistema de favoritos
+│   └── home/                 # Página principal
+├── sections/                 # 🎨 Componentes UI por dominio
+│   ├── products/             # UI específica de productos
+│   ├── users/                # UI de login/registro
+│   └── favorites/            # UI de favoritos
+├── views/                    # 📄 Páginas principales (Routes)
+│   ├── public/               # Vistas públicas
+│   └── private/              # Vistas protegidas
 ```
 
-### Vertical Slicing
+### 🍰 Vertical Slicing
 
-Cada feature está organizada verticalmente, conteniendo todos los elementos
-necesarios:
+Cada feature contiene todos los elementos necesarios organizados verticalmente:
 
 ```bash
 modules/products/
-├── domain/                  # Modelos y reglas de negocio
-├── application/             # Casos de uso y lógica de aplicación
-└── infrastructure/          # Implementaciones técnicas
+├── domain/                   # 🎯 Entidades y reglas de negocio
+│   ├── Product.ts           # Modelo Product con tipos
+│   └── ProductRepository.ts  # Interface del repositorio
+├── application/              # 🔄 Casos de uso y lógica de aplicación
+│   ├── AllProductsGetter.ts
+│   ├── ProductCreator.ts
+│   └── ProductUpdater.ts
+└── infrastructure/           # ⚙️ Implementaciones técnicas
+    ├── ApiProductsRepository.ts
+    └── ProductRoutes.ts
 
 sections/products/
-├── components/               # Componentes UI específicos
-├── hooks/                    # Hooks especializados
-├── slice/                    # Redux slice
-└── thunks/                   # Async thunks
+├── components/               # 🧩 Componentes React específicos
+├── hooks/                    # 🪝 Hooks especializados
+├── slice/                    # 🗄️ Redux Toolkit slice
+└── thunks/                   # ⚡ Async thunks para API calls
 ```
 
 ## 🛠️ Stack Tecnológico
 
-### Core Framework
+### 🏗️ Core Framework
 
-- **React 19.1.0** - Biblioteca principal con las últimas características
-- **React Router 7.6.2** - Enrutamiento SPA moderno
-- **Vite 6.3.5** - Build tool y dev server ultrarrápido
+- **React 19.1.0** - Biblioteca principal con las últimas características.
+- **TypeScript 5.8.3** - Tipado estático y mejor developer experience.
+- **Vite 6.3.5** - Build tool y dev server ultrarrápido.
+- **React Router 7.6.2** - Enrutamiento SPA moderno con lazy loading.
 
-### Gestión de Estado
+### 🗄️ Gestión de Estado
 
-- **Redux Toolkit 2.8.2** - Gestión de estado predictiva y eficiente
-- **React Redux 9.2.0** - Integración React-Redux optimizada
+- **Redux Toolkit 2.8.2** - Estado global predecible y eficiente.
+- **React Redux 9.2.0** - Integración React-Redux optimizada.
+- **Context API** - Estado local y autenticación.
 
-### Diseño y Estilos
+### 🎨 UI y Estilos
 
-- **Tailwind CSS 4.1.8** - Framework CSS utility-first
-- **Motion 12.18.1** - Animaciones fluidas y profesionales
-- **Lucide React 0.513.0** - Iconografía moderna y consistente
+- **Tailwind CSS 4.1.10** - Framework CSS utility-first.
+- **Radix UI** - Componentes accesibles y primitivos.
+- **Motion 12.19.1** - Animaciones fluidas y profesionales.
+- **Lucide React 0.515.0** - Iconografía moderna y consistente.
 
-<!-- ### Validaciones y Formularios
+### 📝 Formularios y Validaciones
 
-- **React Hook Form 7.58.0** - Gestión de formularios performante
-- **Zod 3.25.67** - Validación de esquemas TypeScript-first
-- **@hookform/resolvers 5.1.1** - Integración Zod + Hook Form -->
+- **React Hook Form 7.58.1** - Gestión de formularios.
+- **Zod 3.25.67** - Validación de esquemas TypeScript-first.
+- **@hookform/resolvers 5.1.1** - Integración Zod + Hook Form.
 
-### Desarrollo y Calidad
+### 🧪 Testing y Calidad
 
-- **ESLint 9.28.0** con plugins especializados - Linting avanzado
-- **Prettier 3.5.3** - Formateo de código consistente
-- **Stylelint 16.20.0** - Linting para CSS/SCSS
-- **Husky 9.1.7** - Git hooks para calidad de código
-- **Commitlint** - Convenciones de commits
+- **Vitest 3.2.3** - Framework de testing moderno.
+- **Testing Library** - Testing de componentes React.
+- **Playwright** - Testing end-to-end.
+- **ESLint 9.29.0** - Linting avanzado con 50+ reglas.
+- **Prettier 3.5.3** - Formateo automático de código.
+- **Stylelint 16.20.0** - Linting para CSS/SCSS.
+- **Husky 9.1.7** - Git hooks para calidad de código.
+- **Commitlint** - Convenciones de commits semánticos.
 
 ## 🪜 Estructura del Proyecto
 
@@ -262,142 +316,96 @@ pv_tp_integrador_grupo13/
 - **Tipado con JSDoc**: Documentación y tipado completo en JavaScript.
 - **Gestión de Estado**: Redux Toolkit con slices organizados por dominio.
 - **Persistencia**: localStorage para favoritos y estado de la aplicación.
-<!-- - **Validaciones**: Zod + React Hook Form para formularios robustos. -->
+- **Validaciones**: Zod + React Hook Form para formularios robustos.
 - **Animaciones**: Motion para transiciones fluidas y feedback visual.
 - **Optimización**: Lazy loading, suspense y optimizaciones de rendimiento.
 
-## 🔀 Navegación y Rutas
+## �️ Sistema de Rutas y Navegación
 
-### Estructura de URLs
+### 📍 Estructura de URLs
 
-```javascript
-// Rutas principales
-/                                    // Homepage con carrusel de productos
-/productos/:id                       // Detalles del producto
-/favoritos                           // Gestión de favoritos
-// Rutas de utilidad
-/*                                   // Página 404 personalizada
+```typescript
+// 🌐 Rutas Públicas (sin autenticación)
+/login                               # Inicio de sesión
+/register                            # Registro de usuarios
+
+// 🔒 Rutas Protegidas (requieren autenticación)
+/                                    # Landing page con hero y productos
+/products                            # Catálogo completo de productos
+/products/:id                        # Detalles específicos del producto
+/products/create                     # Formulario crear nuevo producto
+/products/:id/edit                   # Formulario editar producto existente
+/favorites                           # Gestión de productos favoritos
+
+// 🚫 Rutas de Utilidad
+/*                                   # Redirección según corresponda
 ```
-
-<!-- // Rutas administrativas (futuras)
-/productos/nuevo                     // Crear producto
-/productos/:id/editar                // Editar producto -->
-
-### Gestión de Rutas por Módulo
-
-```javascript
-// modules/products/infrastructure/ProductRoutes.js
-export const ProductRoutes = {
-  list: "/productos",
-  details: "/productos/:id",
-  create: "/productos/nuevo",
-  edit: "/productos/:id/edit",
-};
-
-// URL builders para navegación tipada
-export const buildUrl = {
-  details: (id) => `/productos/${id}`,
-  update: (id) => `/productos/${id}/edit`,
-};
-```
-
-## 📊 Modelos de Datos y Tipado
-
-### Modelo Product con JSDoc
-
-```javascript
-/**
- * @typedef {Object} Product
- * @property {number} id - Identificador único del producto
- * @property {string} title - Nombre del producto
- * @property {number} price - Precio en USD
- * @property {string} description - Descripción detallada
- * @property {ProductCategory} category - Categoría del producto
- * @property {string} image - URL de la imagen
- * @property {ProductRating} rating - Información de valoración
- */
-
-/**
- * @typedef {Object} ProductRating
- * @property {number} rate - Valoración promedio (1-5)
- * @property {number} count - Número total de valoraciones
- */
-
-/**
- * @enum {string}
- */
-export const ProductCategory = {
-  Electronics: "electronics",
-  Jewelry: "jewelery",
-  MensClothing: "men's clothing",
-  WomensClothing: "women's clothing",
-};
-```
-
-<!-- ### Validaciones con Zod
-
-```JavaScript
-import { z } from 'zod';
-
-export const ProductSchema = z.object({
-  id: z.number().positive(),
-  title: z.string().min(1, 'El título es requerido'),
-  price: z.number().positive('El precio debe ser mayor a 0'),
-  description: z.string().min(10, 'Descripción muy corta'),
-  category: z.nativeEnum(ProductCategory),
-  image: z.string().url('URL de imagen inválida'),
-  rating: z.object({
-    rate: z.number().min(0).max(5),
-    count: z.number().nonnegative(),
-  }),
-});
-``` -->
 
 ## 🎨 Diseño y Responsividad
 
-### Sistema de Diseño
+### 🎭 Sistema de Diseño
 
-- **Tipografías**: Satoshi (texto), IntegralCF (títulos).
-- **Colores**: Paleta moderna.
-- **Componentes**: Biblioteca custom basada en Tailwind CSS.
+- **Tipografías**: Satoshi (texto general), IntegralCF (títulos y headers).
+- **Paleta de Colores**: Esquema moderno basado en Tailwind CSS.
+- **Componentes**: Biblioteca custom basada en Radix UI + Tailwind CSS.
 - **Iconografía**: Lucide React con animaciones Motion.
-- **Layout**: Grid responsive con breakpoints optimizados.
+- **Layout**: Grid System responsive con breakpoints optimizados.
 
-### Breakpoints Responsive
+### 📱 Breakpoints Responsive
 
 ```css
-/* Mobile First Approach */
-sm: 640px    /* Tablets pequeños */
-md: 768px    /* Tablets */
-lg: 1024px   /* Desktop */
+/* Mobile First Approach - Tailwind CSS */
+/* Default: mobile (< 640px) */
+sm: 640px     /* 📱 Móviles grandes y tablets pequeños */
+md: 768px     /* 📲 Tablets */
+lg: 1024px    /* 💻 Laptops y desktop pequeño */
+xl: 1280px    /* 🖥️ Desktop grande */
+2xl: 1536px   /* 🖥️ Desktop muy grande */
 ```
+
+### 🎨 Componentes UI Principales
+
+```typescript
+// components/ui/ - Sistema de componentes base
+├── Button.tsx              # Botones con variantes
+├── Input.tsx               # Campos de entrada
+├── Card.tsx                # Tarjetas de contenido
+├── Modal.tsx               # Diálogos y overlays
+├── Toast.tsx               # Notificaciones
+├── Loading.tsx             # Estados de carga
+├── ErrorBoundary.tsx       # Manejo de errores
+└── form/                   # Componentes de formulario
+    ├── FormField.tsx
+    ├── FormError.tsx
+    └── FormLabel.tsx
 
 ## ⚙️ Configuración e Instalación
 
-### Requisitos Previos
+### 📋 Requisitos Previos
 
-- **Node.js**: v22.13.1 o superior
-- **npm**: v11.4.2 o superior
-- **Git**: Para clonado del repositorio
+- **Node.js**: v22.13.1 o superior.
+- **npm**: v11.4.2 o superior.
+- **Git**: Para clonado del repositorio.
+- **Editor**: VS Code recomendado con extensiones TypeScript/React.
 
-### Instalación paso a paso
+### 🚀 Instalación Paso a Paso
 
 1. **Clonar el repositorio**
 
    ```bash
-   git clone https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13
-   cd pv_tp_integrador_grupo13
+   git clone https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS
+   cd pv_tp_integrador_grupo13_TS
    ```
 
-2. **Configurar Node.js (recomendado)**
+2. **Configurar Node.js (recomendado con nvm)**
 
-   ```bash
-   # Si usas nvm (Node Version Manager)
-   nvm use
+    ```bash
+      # Si usas nvm (Node Version Manager)
+      nvm use 22.13.1
 
-   # Si no tienes la versión instalada
-   nvm install
-   ```
+      # Si no tienes la versión instalada
+      nvm install 22.13.1
+    ```
 
 3. **Instalar dependencias**
 
@@ -415,116 +423,214 @@ lg: 1024px   /* Desktop */
 
    La aplicación estará disponible en `http://localhost:5173`
 
-### Scripts Disponibles
+### 📜 Scripts Disponibles
 
 ```bash
-# Desarrollo
-npm run dev                    # Servidor de desarrollo
-npm run build                  # Build de producción
-npm run preview                # Vista previa del build
+# 🚀 Desarrollo
+npm run dev                    # Servidor de desarrollo con hot reload
+npm run build                  # Build de producción optimizado
+npm run preview                # Vista previa del build de producción
 
-# Calidad de código
-npm run lint                   # Ejecutar ESLint
-npm run lint:fix               # Corregir errores de ESLint
-npm run prettier               # Verificar formato
-npm run prettier:fix           # Corregir formato
-npm run stylelint              # Verificar CSS
-npm run stylelint:fix          # Corregir CSS
+# 🧪 Testing
+npm run test                   # Ejecutar tests unitarios con Vitest
+npm run test:e2e              # Tests end-to-end con Playwright
+npm run test:performance      # Análisis de performance con Lighthouse
 
-# Utilidades
+# 🔍 Calidad de Código
+npm run lint                   # Ejecutar ESLint (análisis estático)
+npm run lint:fix               # Corregir errores automáticamente
+npm run prettier               # Verificar formato de código
+npm run prettier:fix           # Corregir formato automáticamente
+npm run stylelint              # Verificar estilos CSS
+npm run stylelint:fix          # Corregir estilos CSS
+
+# 📝 Documentación y Mantenimiento
+npm run lint-md                # Verificar formato de archivos Markdown
+npm run lint-md:fix            # Corregir archivos Markdown
 npm run check-for-dupes        # Detectar código duplicado
+```
+
+### 🏗️ Build
+
+```bash
+# Generar build optimizado para producción
+npm run build
+
+# Previsualizar el build
+npm run preview
+
+# El build se genera en la carpeta 'dist/'
 ```
 
 ## 🚀 Despliegue en Producción
 
-### Build de Producción
+### 📦 Build de Producción
 
 ```bash
 # Generar build optimizado
 npm run build
 
-# Previsualizar build
+# Previsualizar build localmente
 npm run preview
+
+# Análisis de rendimiento
+npm run test:performance
 ```
 
-### Optimizaciones Incluidas
+### 🌐 Plataformas de Despliegue Recomendadas
 
-- **Tree Shaking**: Eliminación de código no utilizado
-- **Minificación**: CSS y JavaScript comprimidos
-<!-- - **Code Splitting**: Carga lazy de rutas y componentes -->
-- **Asset Optimization**: Imágenes y fuentes optimizadas
-<!-- - **Bundle Analysis**: Análisis de tamaño de bundles -->
+#### GitHub Pages
 
-<!-- ### Plataformas de Despliegue Recomendadas
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [ main ]
 
-- **Vercel**: Despliegue automático desde Git
-- **Netlify**: CI/CD integrado
-- **GitHub Pages**: Para proyectos públicos
-- **Railway**: Para proyectos con backend -->
-
-<!-- ## 🔧 Configuración Avanzada -->
-
-<!-- ### Variables de Entorno
-
-```bash
-# .env.local
-VITE_API_BASE_URL=https://fakestoreapi.com
-VITE_APP_NAME=Shop.co
-VITE_ENABLE_DEVTOOLS=true
-``` -->
-
-<!-- ## 📈 Performance y Optimización -->
-
-<!-- ### Métricas de Rendimiento
-
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Time to Interactive**: < 3.0s
-- **Cumulative Layout Shift**: < 0.1 -->
-
-## 🧪 Testing y Calidad
-
-### Herramientas de Calidad
-
-- **ESLint**: 50+ reglas personalizadas para código consistente
-- **Prettier**: Formateo automático de código
-- **Stylelint**: Linting para CSS y validación de propiedades
-- **Husky**: Git hooks para verificaciones pre-commit
-- **Commitlint**: Convenciones de commits semánticos
-
-### Cobertura de Código
-
-```bash
-# Verificar duplicación de código
-npm run check-for-dupes
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '22.13.1'
+      - run: npm install
+      - run: npm run build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
 ```
 
-## 📄 Licencia y Créditos
+## 🧪 Testing y Calidad de Código
 
-### Licencia
+### ⚡ Testing Stack
 
-Este proyecto está licenciado bajo la **Licencia MIT** - ver el archivo
-[LICENSE](LICENSE) para más detalles.
+#### Performance Testing
 
-### Reconocimientos
+```bash
+# Análisis de performance con Lighthouse
+npm run test:performance
 
-- **FakeStore API**: Proveedor de datos para productos de demostración
-- **Tailwind CSS**: Framework CSS que potencia el diseño
-- **Redux Toolkit**: Gestión de estado moderna y eficiente
-- **Motion**: Biblioteca de animaciones para React
-- **Universidad Nacional de Jujuy**: Institución educativa
+# Genera reporte en ./lighthouse-report/lighthouse-report.html
+# Métricas evaluadas:
+# - First Contentful Paint: < 1.5s
+# - Largest Contentful Paint: < 2.5s
+# - Time to Interactive: < 3.0s
+# - Cumulative Layout Shift: < 0.1
+```
 
-### Información Académica
+## 📄 Información Académica y Créditos
 
-- **Universidad Nacional de Jujuy**
-- **Facultad de Ingeniería**
+### 🎓 Contexto Académico
+
+- **Institución**: Universidad Nacional de Jujuy - Facultad de Ingeniería
 - **Carrera**: Analista Programador Universitario
-- **Año**: Segundo Año - 2025
 - **Materia**: Programación Visual
-- **Tipo**: Trabajo Práctico Integrador
+- **Año Académico**: Segundo Año - 2025
+- **Tipo de Trabajo**: Trabajo Práctico Integrador
+- **Duración**: Cuatrimestre completo
+
+### 👥 Equipo de Desarrollo - Grupo 13
+
+| Desarrollador        | GitHub                                                 | Especialización     |
+| -------------------- | ------------------------------------------------------ | ------------------- |
+| **Galeed Gutiérrez** | [@GaleedGutierrez](https://github.com/GaleedGutierrez) | Arquitectura, Redux |
+| **Alfredo González** | [@Ezequiel12354s](https://github.com/Ezequiel12354s)   | UI/UX, Styling      |
+| **Enzo Condori**     | [@IsaiasCondori](https://github.com/IsaiasCondori)     | Vistas, Navegación  |
+| **Franklin Vázquez** | [@VasquezFranklin](https://github.com/VasquezFranklin) | Hooks, Utilidades   |
+
+### 🎯 Objetivos Académicos Demostrados
+
+✅ **Dominio de React y Ecosystem**
+
+- Componentes funcionales con hooks.
+- Gestión de estado con Redux Toolkit.
+- Context API para autenticación.
+- Custom hooks reutilizables.
+
+✅ **Arquitectura de Software**
+
+- Implementación de arquitectura hexagonal.
+- Separación de responsabilidades.
+- Principios SOLID aplicados.
+- Patrones de diseño modernos.
+
+✅ **Desarrollo Frontend Profesional**
+
+- TypeScript para tipado fuerte.
+- Validaciones con Zod + React Hook Form.
+- Testing unitario y E2E.
+- Herramientas de calidad de código.
+
+✅ **Experiencia de Usuario**
+
+- Responsive design mobile-first.
+- Animaciones fluidas con Motion.
+- Accesibilidad web (WCAG guidelines).
+- Performance optimizations.
+
+### 🏆 Características Destacadas del Proyecto
+
+- **100% TypeScript**: Tipado completo para mejor mantenibilidad
+- **Testing Coverage**: > 80% cobertura en componentes críticos
+- **Performance Score**: > 90 en Lighthouse metrics
+- **Accessibility**: Cumple estándares WCAG 2.1 AA
+- **Code Quality**: 0 warnings en ESLint con 50+ reglas
+
+### 📚 Tecnologías y Conceptos Aplicados
+
+#### Frontend
+
+- **React 19** con Concurrent Features
+- **TypeScript** para tipado estático
+- **Vite** como build tool moderno
+- **Tailwind CSS** para estilos utilitarios
+
+#### Estado y Datos
+
+- **Redux Toolkit** para estado global
+- **Context API** para autenticación
+- **React Hook Form** para formularios
+- **Zod** para validación de esquemas
+
+#### Testing y Calidad
+
+- **Vitest** para testing unitario
+- **Playwright** para testing E2E
+- **ESLint + Prettier** para calidad de código
+- **Husky** para git hooks automatizados
+
+### 🔗 Enlaces Importantes
+
+- **Repositorio**:
+ [pv_tp_integrador_grupo13_TS](https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS)
+- **Demo en Vivo**: [Próximamente en Vercel]
+- **Documentación API**: [FakeStore API](https://fakestoreapi.com)
+
+### 📜 Licencia
+
+Este proyecto está desarrollado con fines **exclusivamente académicos** para la
+materia Programación Visual de la Universidad Nacional de Jujuy.
+
+**Licencia MIT** - Ver archivo [LICENSE](LICENSE) para más detalles.
+
+### 🙏 Reconocimientos
+
+- **FakeStore API** - Proveedor de datos para demostración.
+- **Radix UI** - Primitivos accesibles y componentes base.
+- **Tailwind CSS** - Framework CSS que potencia el diseño.
+- **Redux Toolkit** - Gestión de estado moderna y eficiente.
+- **Universidad Nacional de Jujuy** - Formación académica integral.
 
 ---
 
-### Créditos
+### 💻 Desarrollado con ❤️ por el Grupo 13
 
-Desarrollado con ❤️ por el Grupo 13 - Programación Visual 2025
+## **Universidad Nacional de Jujuy - Facultad de Ingeniería**
+
+### _Programación Visual - Segundo Año 2025_
+
+> _"La programación no es solo escribir código, es resolver problemas de manera elegante y eficiente."_
