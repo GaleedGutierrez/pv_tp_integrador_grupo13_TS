@@ -571,6 +571,49 @@ npm run test:performance
 
 ### 📚 Tecnologías y Conceptos Aplicados
 
+<!-- markdownlint-disable MD013 -->
+
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=FFFFFF)
+![JavaScript](https://img.shields.io/badge/JavaScript-222222?style=for-the-badge&logo=JavaScript&logoColor=F7DF1E)
+![React](https://img.shields.io/badge/React-222222?style=for-the-badge&logo=React&logoColor=61DAFB)
+![Redux](https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=FFFFFF)
+![Context-API](https://img.shields.io/badge/Context--Api-000000?style=for-the-badge&logo=react)
+![React Router](https://img.shields.io/badge/React%20Router-CA4245?style=for-the-badge&logo=React+Router&logoColor=FFFFFF)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-EC5990?style=for-the-badge&logo=React+Hook+Form&logoColor=FFFFFF)
+![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcn%2Fui&logoColor=FFFFFF)
+![Lucide](https://img.shields.io/badge/Lucide-F56565?style=for-the-badge&logo=Lucide&logoColor=FFFFFF)
+![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=for-the-badge&logo=radix-ui&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-663399?style=for-the-badge&logo=CSS&logoColor=FFFFFF)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![Playwright](https://img.shields.io/badge/-playwright-%232EAD33?style=for-the-badge&logo=playwright&logoColor=white)
+![Vitest](https://img.shields.io/badge/-Vitest-252529?style=for-the-badge&logo=vitest&logoColor=FCC72B)
+![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
+![Lighthouse](https://img.shields.io/badge/Lighthouse-F44B21?style=for-the-badge&logo=Lighthouse&logoColor=FFFFFF)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=FFFFFF)
+![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=FFFFFF)
+![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=Markdown&logoColor=FFFFFF)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=FFFFFF)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![GitHub Copilot](https://img.shields.io/badge/github_copilot-8957E5?style=for-the-badge&logo=github-copilot&logoColor=white)
+![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-FE5196?style=for-the-badge&logo=Conventional+Commits&logoColor=FFFFFF)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=FFFFFF)
+![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)
+![stylelint](https://img.shields.io/badge/stylelint-263238?style=for-the-badge&logo=stylelint&logoColor=FFFFFF)
+![commitlint](https://img.shields.io/badge/commitlint-000000?style=for-the-badge&logo=commitlint&logoColor=FFFFFF)
+![pre-commit](https://img.shields.io/badge/pre-commit-222222?style=for-the-badge&logo=pre-commit&logoColor=FAB040)
+![EditorConfig](https://img.shields.io/badge/EditorConfig-222222?style=for-the-badge&logo=EditorConfig&logoColor=FEFEFE)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white)
+![Windows 11](https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=JSON&logoColor=FFFFFF)
+
+<!-- markdownlint-enable MD013 -->
+
 #### Frontend
 
 - **React 19** con Concurrent Features
@@ -594,11 +637,9 @@ npm run test:performance
 
 ### 🔗 Enlaces Importantes
 
-<!-- markdownlint-disable MD013 -->
-
 - **Repositorio**:
-[pv_tp_integrador_grupo13_TS](https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS)
-<!-- markdownlint-enable MD013 -->
+  [pv_tp_integrador_grupo13_TS](https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS)<!-- markdownlint-disable MD013 -->
+
 - **Demo en Vivo**: [Próximamente en Vercel]
 - **Documentación API**: [FakeStore API](https://fakestoreapi.com)
 
