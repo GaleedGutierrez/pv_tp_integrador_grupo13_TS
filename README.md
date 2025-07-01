@@ -8,8 +8,8 @@
 
 Una **Single Page Application (SPA)** de e-commerce moderna construida con
 **React 19**, **TypeScript**, **Redux Toolkit** y **Tailwind CSS**,
-implementando arquitectura hexagonal, autenticación simulada y gestión de
-estado global.
+implementando arquitectura hexagonal, autenticación simulada y gestión de estado
+global.
 
 ## 📖 Resumen
 
@@ -19,16 +19,15 @@ funcionalidades completas de CRUD, autenticación, rutas protegidas y gestión d
 productos favoritos.
 
 La aplicación consume la API pública de
-[FakeStore API](https://fakestoreapi.com) y está diseñada con principios
-de **arquitectura hexagonal**, **screaming architecture** y
-**vertical slicing** para garantizar escalabilidad, mantenibilidad y separación
-de responsabilidades.
+[FakeStore API](https://fakestoreapi.com) y está diseñada con principios de
+**arquitectura hexagonal**, **screaming architecture** y **vertical slicing**
+para garantizar escalabilidad, mantenibilidad y separación de responsabilidades.
 
 ### 🎯 Objetivos Académicos Cumplidos
 
 - **Gestión de Estado Global**: Implementación con Redux Toolkit y Context API.
-- **Rutas y Navegación**: SPA con rutas públicas y protegidas usando con
-  React Router 7.
+- **Rutas y Navegación**: SPA con rutas públicas y protegidas usando con React
+  Router 7.
 - **Autenticación**: Sistema completo de login/logout con persistencia de
   sesión.
 - **CRUD Completo**: Operaciones sobre productos con validación.
@@ -81,20 +80,6 @@ de responsabilidades.
 - **Animaciones Fluidas**: Transiciones suaves con Motion.
 - **Feedback Visual**: Loading states, toasts y confirmaciones.
 - **Navegación Intuitiva**: Breadcrumbs y navegación clara.
-
-### 👥 Equipo de Desarrollo
-
-| Desarrollador        | GitHub                       | Responsabilidades   |
-| -------------------- | ---------------------------- | ------------------- |
-| **Galeed Gutiérrez** | [@GaleedGutierrez][galeed]   | Arquitectura, Redux |
-| **Alfredo González** | [@Ezequiel12354s][alfredo]   | UI, Styling         |
-| **Enzo Condori**     | [@IsaiasCondori][enzo]       | Vistas, Navegación  |
-| **Franklin Vázquez** | [@VasquezFranklin][franklin] | Hooks, Utilidades   |
-
-[galeed]: https://github.com/GaleedGutierrez
-[alfredo]: https://github.com/Ezequiel12354s
-[enzo]: https://github.com/IsaiasCondori
-[franklin]: https://github.com/VasquezFranklin
 
 ## 🏗️ Arquitectura y Patrones de Diseño
 
@@ -365,7 +350,7 @@ xl: 1280px    /* 🖥️ Desktop grande */
 
 ### 🎨 Componentes UI Principales
 
-```typescript
+````typescript
 // components/ui/ - Sistema de componentes base
 ├── Button.tsx              # Botones con variantes
 ├── Input.tsx               # Campos de entrada
@@ -392,36 +377,35 @@ xl: 1280px    /* 🖥️ Desktop grande */
 
 1. **Clonar el repositorio**
 
-   ```bash
-   git clone https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS
-   cd pv_tp_integrador_grupo13_TS
-   ```
+    ```bash
+    git clone https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS
+    cd pv_tp_integrador_grupo13_TS
+    ```
 
 2. **Configurar Node.js (recomendado con nvm)**
 
     ```bash
       # Si usas nvm (Node Version Manager)
       nvm use 22.13.1
-
       # Si no tienes la versión instalada
       nvm install 22.13.1
     ```
 
 3. **Instalar dependencias**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 4. **Ejecutar en modo desarrollo**
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
 5. **Abrir en el navegador**
 
-   La aplicación estará disponible en `http://localhost:5173`
+    La aplicación estará disponible en `http://localhost:5173`
 
 ### 📜 Scripts Disponibles
 
@@ -448,7 +432,7 @@ npm run stylelint:fix          # Corregir estilos CSS
 npm run lint-md                # Verificar formato de archivos Markdown
 npm run lint-md:fix            # Corregir archivos Markdown
 npm run check-for-dupes        # Detectar código duplicado
-```
+````
 
 ### 🏗️ Build
 
@@ -486,7 +470,7 @@ npm run test:performance
 name: Deploy to GitHub Pages
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -495,7 +479,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '22.13.1'
+          node-version: "22.13.1"
       - run: npm install
       - run: npm run build
       - uses: peaceiris/actions-gh-pages@v3
@@ -535,12 +519,17 @@ npm run test:performance
 
 ### 👥 Equipo de Desarrollo - Grupo 13
 
-| Desarrollador        | GitHub                                                 | Especialización     |
-| -------------------- | ------------------------------------------------------ | ------------------- |
-| **Galeed Gutiérrez** | [@GaleedGutierrez](https://github.com/GaleedGutierrez) | Arquitectura, Redux |
-| **Alfredo González** | [@Ezequiel12354s](https://github.com/Ezequiel12354s)   | UI/UX, Styling      |
-| **Enzo Condori**     | [@IsaiasCondori](https://github.com/IsaiasCondori)     | Vistas, Navegación  |
-| **Franklin Vázquez** | [@VasquezFranklin](https://github.com/VasquezFranklin) | Hooks, Utilidades   |
+| Desarrollador        | GitHub                       | Responsabilidades   |
+| -------------------- | ---------------------------- | ------------------- |
+| **Galeed Gutiérrez** | [@GaleedGutierrez][galeed]   | Arquitectura, Redux |
+| **Alfredo González** | [@Ezequiel12354s][alfredo]   | UI, Styling         |
+| **Enzo Condori**     | [@IsaiasCondori][enzo]       | Vistas, Navegación  |
+| **Franklin Vázquez** | [@VasquezFranklin][franklin] | Hooks, Utilidades   |
+
+[galeed]: https://github.com/GaleedGutierrez
+[alfredo]: https://github.com/Ezequiel12354s
+[enzo]: https://github.com/IsaiasCondori
+[franklin]: https://github.com/VasquezFranklin
 
 ### 🎯 Objetivos Académicos Demostrados
 
@@ -562,7 +551,7 @@ npm run test:performance
 
 - TypeScript para tipado fuerte.
 - Validaciones con Zod + React Hook Form.
-- Testing unitario y E2E.
+- Testing unitario y end-to-end.
 - Herramientas de calidad de código.
 
 ✅ **Experiencia de Usuario**
@@ -599,14 +588,17 @@ npm run test:performance
 #### Testing y Calidad
 
 - **Vitest** para testing unitario
-- **Playwright** para testing E2E
+- **Playwright** para testing end-to-end
 - **ESLint + Prettier** para calidad de código
-- **Husky** para git hooks automatizados
+- **Husky** para Git hooks automatizados
 
 ### 🔗 Enlaces Importantes
 
+<!-- markdownlint-disable MD013 -->
+
 - **Repositorio**:
- [pv_tp_integrador_grupo13_TS](https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS)
+[pv_tp_integrador_grupo13_TS](https://github.com/GaleedGutierrez/pv_tp_integrador_grupo13_TS)
+<!-- markdownlint-enable MD013 -->
 - **Demo en Vivo**: [Próximamente en Vercel]
 - **Documentación API**: [FakeStore API](https://fakestoreapi.com)
 
@@ -633,4 +625,5 @@ materia Programación Visual de la Universidad Nacional de Jujuy.
 
 ### _Programación Visual - Segundo Año 2025_
 
-> _"La programación no es solo escribir código, es resolver problemas de manera elegante y eficiente."_
+> _"La programación no es solo escribir código, es resolver problemas de manera
+> elegante y eficiente."_
