@@ -4,9 +4,10 @@ import GucciLogo from '@assets/logos/gucci.svg?react';
 import PradaLogo from '@assets/logos/prada.svg?react';
 import VersaceLogo from '@assets/logos/versace.svg?react';
 import ZaraLogo from '@assets/logos/zara.svg?react';
-import heroLarge from '@public/images/hero-large.webp';
-import heroSmall from '@public/images/hero-small.webp';
 import type { JSX } from 'react';
+
+import heroLarge from '/images/hero-large.webp';
+import heroSmall from '/images/hero-small.webp';
 
 import { Button } from './Button';
 
