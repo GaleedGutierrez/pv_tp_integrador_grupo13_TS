@@ -4,6 +4,8 @@ import GucciLogo from '@assets/logos/gucci.svg?react';
 import PradaLogo from '@assets/logos/prada.svg?react';
 import VersaceLogo from '@assets/logos/versace.svg?react';
 import ZaraLogo from '@assets/logos/zara.svg?react';
+import heroLarge from '@public/images/hero-large.webp';
+import heroSmall from '@public/images/hero-small.webp';
 import type { JSX } from 'react';
 
 import { Button } from './Button';
@@ -55,12 +57,12 @@ export const Hero = (): JSX.Element => (
 				<picture>
 					<source
 						media="(min-width: 768px)"
-						srcSet="/images/hero-large.webp"
+						srcSet={heroLarge}
 					/>
 					<img
 						alt="Una pareja con ropa cool"
 						className="h-(--vw-114) w-full object-cover object-top lg:h-(--vw-46)"
-						src="/images/hero-small.webp"
+						src={heroSmall}
 					/>
 				</picture>
 				<StarIcon className="absolute inset-x-1/32 inset-y-1/3 w-11 lg:w-14" />
