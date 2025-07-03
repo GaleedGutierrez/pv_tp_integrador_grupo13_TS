@@ -1,5 +1,6 @@
 import { useGlobalContext } from '@context/global.context';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { appRoutes } from '@routes/appRouters';
 import { Button } from '@ui/button';
 import {
 	Card,
@@ -20,6 +21,7 @@ import {
 import { Input } from '@ui/input';
 import type { JSX } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import type { RegisterSchemaData } from '../validations/RegisterSchema';
@@ -27,6 +29,7 @@ import { RegisterSchema } from '../validations/RegisterSchema';
 
 export const RegisterForm = (): JSX.Element => {
 	const { userRegister } = useGlobalContext();
+	const navigate = useNavigate();
 	const form = useForm<RegisterSchemaData>({
 		resolver: zodResolver(RegisterSchema),
 		mode: 'onSubmit',
@@ -45,6 +48,10 @@ export const RegisterForm = (): JSX.Element => {
 			userRegister?.register(data);
 			toast.success('Registro exitoso, ahora podes iniciar sesión.');
 			form.reset();
+
+			void navigate(appRoutes.public.login, {
+				replace: true,
+			});
 		} catch {
 			form.setError('email', {
 				message: 'Este correo electrónico ya ha sido registrado.',
