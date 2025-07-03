@@ -1,10 +1,6 @@
-import type { User } from '../domain/User';
+import type { SessionData } from 'react-router';
 
-export interface SessionData {
-	user: User;
-	timestamp: number;
-	expiresAt: number;
-}
+import type { User } from '../domain/User';
 
 export class UserSessionManager {
 	readonly #STORAGE_KEY: string;
