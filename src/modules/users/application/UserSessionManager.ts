@@ -1,6 +1,5 @@
-import type { SessionData } from 'react-router';
-
 import type { User } from '../domain/User';
+import type { SessionData } from '../domain/UserSession';
 
 export class UserSessionManager {
 	readonly #STORAGE_KEY: string;
