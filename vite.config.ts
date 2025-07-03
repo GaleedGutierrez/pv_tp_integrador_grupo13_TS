@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 import tailwindcss from '@tailwindcss/vite';
-import basicSsl from '@vitejs/plugin-basic-ssl';
+// import basicSsl from '@vitejs/plugin-basic-ssl';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
@@ -9,7 +9,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
-	base: '/pv_tp_integrador_grupo13_TS/',
+	// base: '/pv_tp_integrador_grupo13_TS/',
 	plugins: [
 		react(),
 		tsconfigPaths(),
@@ -26,7 +26,7 @@ export default defineConfig(() => ({
 			include: '**/*.svg?react',
 			exclude: '**/*.svg',
 		}),
-		basicSsl(),
+		// basicSsl(),
 	],
 	server: {
 		open: true,
