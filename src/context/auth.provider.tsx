@@ -22,7 +22,6 @@ const AuthProvider = ({ children }: Properties): JSX.Element => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [user, setUser] = useState<User>();
 	const [isLoading, setIsLoading] = useState(true);
-	const userReference = useRef<User | undefined>(undefined);
 	const isInitialized = useRef(false);
 	const { userSessionManager, userAuthenticator } = useGlobalContext();
 	/**
@@ -39,7 +38,6 @@ const AuthProvider = ({ children }: Properties): JSX.Element => {
 				return;
 			}
 
-			userReference.current = SESSION.user;
 			setUser(SESSION.user);
 			setIsLoggedIn(true);
 		} catch (error) {
