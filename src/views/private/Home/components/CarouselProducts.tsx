@@ -1,125 +1,66 @@
 import { useAppSelector } from '@hooks/useAppSelector';
 import type { Product } from '@modules/products/domain/Product';
+import { ProductCard } from '@sections/products/components/ProductCard';
 import { ProductCardSkeleton } from '@sections/products/components/ProductCardSkeleton';
-import { ProductsList } from '@sections/products/components/ProductsList';
-import { getRandomIntInclusive } from '@utils/getRandomIntInclusive';
-import { type JSX, useCallback, useEffect, useRef, useState } from 'react';
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '@ui/carousel';
+import { type JSX } from 'react';
 
 interface Properties {
 	products: Product[];
 	title: string;
-	classNameContainer?: string;
 }
 
 /** @returns If there are not products return undefined */
 export const CarouselProducts = ({
 	products,
 	title,
-	classNameContainer,
 }: Properties): JSX.Element | undefined => {
-	const { loading: IS_LOADING } = useAppSelector((state) => state.products);
-	const [shouldCenterCarousel, setShouldCenterCarousel] = useState(false);
-	const OVERFLOW_CONTAINER_ID = useRef(
-		`${title.replaceAll(' ', '_')}_${getRandomIntInclusive(0, 1000)}_OVERFLOW`,
-	);
-	const CAROUSEL_CONTAINER_ID = useRef(
-		`${title.replaceAll(' ', '_')}_${getRandomIntInclusive(0, 1000)}_CAROUSEL`,
-	);
+	const { isLoading } = useAppSelector((state) => state.products);
 
-	const checkShouldCenter = useCallback((): void => {
-		if (window.innerWidth < 900) {
-			setShouldCenterCarousel(false);
-
-			return;
-		}
-
-		const CAROUSEL_CONTAINER = document.querySelector(
-			`#${CAROUSEL_CONTAINER_ID.current}`,
-		);
-		const OVERFLOW_CONTAINER = document.querySelector(
-			`#${OVERFLOW_CONTAINER_ID.current}`,
-		);
-
-		if (!CAROUSEL_CONTAINER || !OVERFLOW_CONTAINER) {
-			return;
-		}
-
-		const CAROUSEL_CONTAINER_WIDTH = CAROUSEL_CONTAINER.scrollWidth;
-		const OVERFLOW_CONTAINER_WIDTH = OVERFLOW_CONTAINER.clientWidth;
-		const SHOULD_CENTER =
-			CAROUSEL_CONTAINER_WIDTH <= OVERFLOW_CONTAINER_WIDTH;
-
-		setShouldCenterCarousel(SHOULD_CENTER);
-	}, []);
-
-	useEffect(() => {
-		const CAROUSEL_CONTAINER = document.querySelector(
-			`#${CAROUSEL_CONTAINER_ID.current}`,
-		);
-		const OVERFLOW_CONTAINER = document.querySelector(
-			`#${OVERFLOW_CONTAINER_ID.current}`,
-		);
-
-		if (!CAROUSEL_CONTAINER || !OVERFLOW_CONTAINER) {
-			return;
-		}
-
-		const resizeObserver = new ResizeObserver(() => {
-			requestAnimationFrame(checkShouldCenter);
-		});
-
-		const mutationObserver = new MutationObserver(() => {
-			setTimeout(checkShouldCenter, 100);
-		});
-
-		const mediaQuery = globalThis.matchMedia('(min-width: 900px)');
-		const handleMediaChange = (): void => {
-			setTimeout(checkShouldCenter, 100);
-		};
-
-		setTimeout(checkShouldCenter, 200);
-
-		resizeObserver.observe(OVERFLOW_CONTAINER);
-		mutationObserver.observe(CAROUSEL_CONTAINER, {
-			childList: true,
-			subtree: true,
-		});
-		mediaQuery.addEventListener('change', handleMediaChange);
-
-		return (): void => {
-			resizeObserver.disconnect();
-			mutationObserver.disconnect();
-			mediaQuery.removeEventListener('change', handleMediaChange);
-		};
-	}, [checkShouldCenter]);
-
-	if (products.length === 0 && !IS_LOADING) {
+	if (products.length === 0 && !isLoading) {
 		return;
 	}
 
 	return (
-		<div className={classNameContainer}>
+		<div>
 			<h2 className="text-center">{title}</h2>
-			<div
-				className="overflow-x-scroll"
-				id={OVERFLOW_CONTAINER_ID.current}
-			>
-				<div
-					className={`carousel carousel-center mt-8 gap-5 p-4 lg:mt-14 lg:gap-6 ${shouldCenterCarousel ? 'w-full justify-center' : ''}`}
-					id={CAROUSEL_CONTAINER_ID.current}
+			<div className="preview flex h-[450px] w-full justify-center p-15 data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start">
+				<Carousel
+					className="w-full"
+					opts={{
+						align: 'start',
+					}}
 				>
-					{IS_LOADING &&
-						Array.from({ length: 10 }).map((_, index) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<ProductCardSkeleton key={index} />
-						))}
-					{!IS_LOADING && (
-						<ProductsList
-							className="carousel-item max-w-50"
-							products={products}
-						/>
-					)}
-				</div>
+					<CarouselContent>
+						{isLoading &&
+							Array.from({ length: 4 }).map((_, index) => (
+								<CarouselItem
+									// eslint-disable-next-line react/no-array-index-key
+									key={index}
+									className="md:basis-1/2 lg:basis-1/4"
+								>
+									<ProductCardSkeleton />
+								</CarouselItem>
+							))}
+						{!isLoading &&
+							products.map((product) => (
+								<CarouselItem
+									key={product.id}
+									className="md:basis-1/2 lg:basis-1/4"
+								>
+									<ProductCard product={product} />
+								</CarouselItem>
+							))}
+					</CarouselContent>
+					<CarouselPrevious />
+					<CarouselNext />
+				</Carousel>
 			</div>
 		</div>
 	);
