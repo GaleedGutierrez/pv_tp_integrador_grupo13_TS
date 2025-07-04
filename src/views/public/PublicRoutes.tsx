@@ -7,7 +7,7 @@ import { Layout } from '../Layout';
 import { Login } from './Login';
 import { Register } from './Register';
 
-export const PublicApp = (): JSX.Element => (
+export const PublicRoutes = (): JSX.Element => (
 	<Routes>
 		<Route element={<Layout />}>
 			<Route

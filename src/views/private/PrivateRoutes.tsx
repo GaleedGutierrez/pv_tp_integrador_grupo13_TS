@@ -10,7 +10,7 @@ import { Home } from './Home';
 import { ProductsDetails } from './ProductsDetails';
 import { UpdateProduct } from './UpdateProduct';
 
-export const PrivateApp = (): JSX.Element => (
+export const PrivateRoutes = (): JSX.Element => (
 	<Routes>
 		<Route element={<Layout />}>
 			<Route
