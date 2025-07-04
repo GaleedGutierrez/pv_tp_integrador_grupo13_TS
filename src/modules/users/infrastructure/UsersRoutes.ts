@@ -1,5 +1,5 @@
 export const UsersRoutes = {
-	register: '/registrar',
-	login: '/iniciar-sesion',
+	register: `${import.meta.env.BASE_URL}registrarse`,
+	login: `${import.meta.env.BASE_URL}iniciar-sesion`,
 } as const;
 export type TypeUsersRoutes = (typeof UsersRoutes)[keyof typeof UsersRoutes];
