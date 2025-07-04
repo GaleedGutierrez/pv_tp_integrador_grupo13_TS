@@ -2,7 +2,7 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import type { Product } from '@modules/products/domain/Product';
 import { extractNumericPrice } from '@utils/extractNumericPrice';
 import { LoaderIcon } from 'lucide-react';
-import type { JSX } from 'react';
+import { type JSX, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import { ProductForm } from './ProductForm';
@@ -12,6 +12,10 @@ export const UpdateProductForm = (): JSX.Element => {
 	const FOUND_PRODUCT = useAppSelector((state) =>
 		state.products.items.find((product) => product.id === Number(id)),
 	);
+
+	useEffect(() => {
+		globalThis.scrollTo({ top: 0, behavior: 'smooth' });
+	}, []);
 
 	if (!FOUND_PRODUCT) {
 		return (
