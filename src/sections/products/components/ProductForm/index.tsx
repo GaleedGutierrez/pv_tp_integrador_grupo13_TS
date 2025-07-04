@@ -123,6 +123,7 @@ export const ProductForm = ({
 
 					addNewProductStore(NEW_PRODUCT);
 					toast.success('Producto creado correctamente.');
+					globalThis.scrollTo({ top: 0, behavior: 'smooth' });
 					void navigate(
 						appRoutes.private.products.buildUrl.details(
 							NEW_PRODUCT.id,
@@ -153,6 +154,7 @@ export const ProductForm = ({
 
 					updateProductStore(UPDATED_PRODUCT);
 					toast.success('Producto actualizado correctamente.');
+					globalThis.scrollTo({ top: 0, behavior: 'smooth' });
 					void navigate(
 						appRoutes.private.products.buildUrl.details(productId),
 					);
