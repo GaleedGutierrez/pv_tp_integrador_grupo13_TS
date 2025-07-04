@@ -10,7 +10,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
-	// base: '/pv_tp_integrador_grupo13_TS/',
+	base: '/pv_tp_integrador_grupo13_TS/',
 	plugins: [
 		react(),
 		tsconfigPaths(),
