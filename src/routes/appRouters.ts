@@ -7,7 +7,7 @@ import {
 import { UsersRoutes } from '@modules/users/infrastructure/UsersRoutes';
 
 export const appRoutes = {
-	root: '/',
+	root: import.meta.env.BASE_URL,
 	public: {
 		register: UsersRoutes.register,
 		login: UsersRoutes.login,

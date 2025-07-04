@@ -1,2 +1,1 @@
-export const HomeRoutes = '/' as const;
-export type TypeHomeRoutes = (typeof HomeRoutes)[keyof typeof HomeRoutes];
+export const HomeRoutes = import.meta.env.BASE_URL;
