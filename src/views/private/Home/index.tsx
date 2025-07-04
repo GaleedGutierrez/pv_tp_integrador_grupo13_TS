@@ -26,23 +26,23 @@ export const Home = (): JSX.Element => {
 	return (
 		<>
 			<Hero />
-			<section className="py-12 lg:py-18">
+			<section
+				className="py-12 lg:py-18"
+				id="home-products"
+			>
 				<CarouselProducts
 					products={WOMEN_PRODUCTS}
 					title="Ropa de mujer"
 				/>
 				<CarouselProducts
-					classNameContainer="mt-12 lg:mt-18"
 					products={MEN_PRODUCTS}
 					title="Ropa de hombre"
 				/>
 				<CarouselProducts
-					classNameContainer="mt-12 lg:mt-18"
 					products={JEWELRY_PRODUCTS}
 					title="Joyería"
 				/>
 				<CarouselProducts
-					classNameContainer="mt-12 lg:mt-18"
 					products={ELECTRONICS_PRODUCTS}
 					title="Electrónica"
 				/>
