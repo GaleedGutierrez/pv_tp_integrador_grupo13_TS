@@ -20,7 +20,8 @@ jobs:
           node-version: lts/*
 
       - name: 📥 Install dependencies
-        run: npm ci
+        # run: npm ci
+        run: npm install
 
       - name: 🌐Install Playwright Browsers
         run: npx playwright install --with-deps

@@ -11,10 +11,11 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const isCI = Boolean(process.env.CI);
-const baseUrl = isCI
-	? 'http://127.0.0.1:4173/pv_tp_integrador_grupo13_TS/'
-	: 'http://127.0.0.1:5173/';
+// const isCI = Boolean(process.env.CI);
+// const baseUrl = isCI
+// 	? 'http://127.0.0.1:4173/pv_tp_integrador_grupo13_TS/'
+// 	: 'http://127.0.0.1:5173/';
+const baseUrl = 'http://127.0.0.1:5173/';
 
 export default defineConfig({
 	testDir: './tests/e2e',
@@ -77,7 +78,7 @@ export default defineConfig({
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
-		command: 'npm run preview',
+		command: 'npm run dev',
 		url: baseUrl,
 		reuseExistingServer: !process.env.CI,
 	},
