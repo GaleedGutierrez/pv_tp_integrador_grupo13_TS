@@ -9,8 +9,6 @@ import type { JSX } from 'react';
 import heroLarge from '/images/hero-large.webp';
 import heroSmall from '/images/hero-small.webp';
 
-import { Button } from './Button';
-
 /**
  * Hero Component.
  * @returns The rendered Hero component with a greeting message.
@@ -27,12 +25,12 @@ export const Hero = (): JSX.Element => (
 					cuidadosamente diseñadas para que puedas expresar tu
 					personalidad única y sentirte cómodo con tu propio estilo.
 				</p>
-				<Button
-					isPrimary
-					className="lg:max-w-52"
+				<a
+					className="align-center flex w-full justify-center rounded-full bg-gray-950 py-4 font-semibold text-white hover:bg-gray-800 focus:ring-gray-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:bg-gray-700 lg:max-w-52"
+					href="#home-products"
 				>
 					Compra ahora
-				</Button>
+				</a>
 				<div className="mt-5 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
 					<div>
 						<h3 className="font-primary text-2xl font-bold lg:text-4xl">
