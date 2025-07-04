@@ -95,13 +95,13 @@ const getInitialState = (): Product[] => {
 
 interface ProductsState {
 	items: Product[];
-	loading: boolean;
+	isLoading: boolean;
 	error: string | undefined;
 }
 
 const initialState: ProductsState = {
 	items: getInitialState(),
-	loading: false,
+	isLoading: false,
 	error: undefined,
 };
 
@@ -144,15 +144,15 @@ const productsSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(loadInitialProducts.pending, (state) => {
-				state.loading = true;
+				state.isLoading = true;
 				state.error = undefined;
 			})
 			.addCase(loadInitialProducts.fulfilled, (state, action) => {
-				state.loading = false;
+				state.isLoading = false;
 				state.items = action.payload;
 			})
 			.addCase(loadInitialProducts.rejected, (state, action) => {
-				state.loading = false;
+				state.isLoading = false;
 				state.error = action.error.message ?? 'Failed to load products';
 			});
 	},
