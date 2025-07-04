@@ -1,4 +1,4 @@
 npx lint-staged
 npm run check-for-dupes
+npm run test:e2e
 # npm run test
-# npm run test:e2e

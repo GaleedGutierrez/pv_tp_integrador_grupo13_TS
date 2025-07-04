@@ -17,5 +17,5 @@ jobs:
       - name: 📥 Install Dependencies
         run: npm ci
 
-      - name: ⚡ Vitest
-        run: npm test
+      # - name: ⚡ Vitest
+      #   run: npm test

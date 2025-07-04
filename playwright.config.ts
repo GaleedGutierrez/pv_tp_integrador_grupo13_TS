@@ -11,7 +11,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const baseUrl = 'http://127.0.0.1:5173/';
+const baseUrl = 'http://127.0.0.1:4173/';
 
 export default defineConfig({
 	testDir: './tests/e2e',
@@ -73,9 +73,9 @@ export default defineConfig({
 	],
 
 	/* Run your local dev server before starting the tests */
-	// webServer: {
-	// 	command: 'npm run preview',
-	// 	url: baseUrl,
-	// 	reuseExistingServer: !process.env.CI,
-	// },
+	webServer: {
+		command: 'npm run preview',
+		url: baseUrl,
+		reuseExistingServer: !process.env.CI,
+	},
 });
