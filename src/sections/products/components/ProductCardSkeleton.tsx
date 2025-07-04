@@ -14,7 +14,7 @@ export const ProductCardSkeleton = (): JSX.Element => (
 	>
 		<div className="relative">
 			{/* Product Image Skeleton */}
-			<div className="rounded-sm rounded-xl bg-gray-100 p-7">
+			<div className="flex items-center justify-center rounded-sm rounded-xl bg-gray-100 p-7">
 				<Skeleton
 					className="mx-auto"
 					height={144}
@@ -54,6 +54,12 @@ export const ProductCardSkeleton = (): JSX.Element => (
 				{/* Action buttons skeleton */}
 				<div className="flex items-center gap-1">
 					{/* View button */}
+					<Skeleton
+						className="rounded"
+						height={20}
+						width={20}
+					/>
+					{/* Update button */}
 					<Skeleton
 						className="rounded"
 						height={20}
