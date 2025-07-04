@@ -9,8 +9,8 @@ import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
-	base: '/pv_tp_integrador_grupo13_TS/',
+export default defineConfig(({ mode }) => ({
+	base: mode === 'production' ? '/pv_tp_integrador_grupo13_TS/' : '/',
 	plugins: [
 		react(),
 		tsconfigPaths(),

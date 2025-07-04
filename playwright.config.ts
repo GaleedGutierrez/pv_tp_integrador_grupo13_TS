@@ -11,7 +11,10 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const baseUrl = 'http://127.0.0.1:4173/';
+const isCI = Boolean(process.env.CI);
+const baseUrl = isCI
+	? 'http://127.0.0.1:4173/pv_tp_integrador_grupo13_TS/'
+	: 'http://127.0.0.1:5173/';
 
 export default defineConfig({
 	testDir: './tests/e2e',
