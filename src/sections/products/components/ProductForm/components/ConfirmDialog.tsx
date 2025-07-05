@@ -53,7 +53,7 @@ export const ConfirmDialog = ({
 						<div className="rounded-sm rounded-xl bg-gray-100 p-7">
 							<img
 								alt={pendingData.title}
-								className="max-m-36 max-h-36 justify-self-center mix-blend-multiply"
+								className="max-m-36 flex max-h-36 items-center justify-center justify-self-center mix-blend-multiply"
 								src={pendingData.image}
 							/>
 						</div>
